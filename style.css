@@ -1,0 +1,118 @@
+
+body {
+    background-color:White;
+    font: normal 100% helvetica, sans-serif;
+    font-size:15px;
+}
+
+h1 {
+    color:#D86E3F;
+    text-align:center;
+}
+
+ul li{
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
+.center {
+    margin:auto;
+    width:55%;
+}
+
+.center2 {
+    margin:auto;
+    width:65%;
+}
+
+.code {
+    background:#f3f3f3;
+    padding:4px
+}
+
+#navcontainer ul {
+    padding: .9em 0;
+    margin: 0;
+    list-style-type: none;
+    background-color: #66A3FF;
+    color: #FFF;
+    width: 100%;
+    font: normal 95% helvetica, sans-serif;
+    text-align: center;
+}
+
+#navlist li {
+    display: inline;
+}
+
+#navlist li a {
+    text-decoration: none;
+    background-color: #66A3FF;
+    color: #000;
+    padding: .2em .5em;
+    /*border-right: 1px solid #fff;*/
+}
+
+#navlist li a:hover {
+    background-color: #A61C17;
+    color: #fff;
+}
+
+.badges {
+    width: 100%;
+    text-align: center;
+}
+
+.lastmod{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    color: #747474;
+    font-size: 80%;
+}
+
+.badges img {
+    border: 0;
+    width: 88px;
+    height: 31px;
+}
+
+th {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+div.announcements
+{
+    float: left;
+    width: 45%;
+    border-right: dotted 1px #d3d7cf;
+    padding-right: 1em;
+}
+
+div.announcements .annpermalink
+{
+    text-decoration: none;
+    color: Black;
+    font-weight: bold;
+}
+
+table {
+      empty-cells:show;
+      width: 100%;
+}
+
+td {
+  padding: 10px;
+}
+
+.tbl-img {
+    margin: auto;
+    /*display: block;*/
+}
+
+th.c4 {width:45%}
+th.c3 {width:35%}
+th.c2 {width:25%}
+th.c1 {width:20%}

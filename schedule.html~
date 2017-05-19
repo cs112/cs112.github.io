@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-251</title>  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <script src="https://www.google.com/jsapi?key=ABQIAAAA1U3rYpQlCAuLTgI0cFOUERSs82lZQbtZpx6ljg1_iKbdwXmFpBTyM94nc62QCO05s8y1oZl4T0dFBg"
+    type="text/javascript"></script>
+  <script type="text/javascript" src="scripts/gcal.js"></script>
+  <script type="text/javascript" src="scripts/feed.js"></script>
+
+</head>
+
+
+<body>
+    <h1>15-251 Great Theoretical Ideas in Computer Science</h1>
+
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="index.html">Home</a></li>
+
+      <li><a href="schedule.html">Schedule</a></li>
+
+      <li><a href="policy.html">Policy</a></li>
+
+      <li><a href="staff.html">Staff</a></li>
+
+      <li><a href="https://piazza.com/class/i4o7a2cqc3s3tn">Piazza</a></li>
+
+    </ul>
+  </div>
+
+  <div class="center">
+
+    <h2>Calendar</h2>
+
+<table BORDER=0 CELLPADDING=4 CELLSPACING=2 WIDTH="700" >
+
+  <tr class=top HEIGHT="30"><b>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="37"><b>Week</b></td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="48"><b>Date</b></td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="25"><b>Day</b></td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="600"><b>Topic</b></td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="50"><b>Notes</b></td>
+  </tr>
+
+  <!--   WEEK 1      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">1</td>
+    <td ALIGN=CENTER WIDTH="48">Jan<br>13</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e4e4c48c-dc8a-4775-b1c8-a6dfb08303e5">Introduction</a>
+      <br> Lecture slides [<A HREF="slides/lec01.pdf" CLASS="black">PDF</A>]</td>
+      <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">
+          <a href="homework/hw1.pdf">Homework 1</a> <br>
+          <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework1/attachments/12">Solutions</a>
+      </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>15</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b7cd1f59-4acb-4f1d-9434-4a1489cd07f2">Deductive Systems and Propositional Logic</a>
+      <br> Lecture slides [<A HREF="slides/lec02.pdf" CLASS="black">PDF</A>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>16</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation01.pdf" CLASS="black">Recitation 01</a>
+      <br> <A HREF="recitation/recitation01-sols.pdf" CLASS="black">Solutions</A></td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 2      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">2</td>
+    <td ALIGN=CENTER WIDTH="48">Jan<br>20</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=c196dadb-385f-4f68-8c8a-ff11ed017839">Formalization of Proof</a>
+      <br> Lecture slides [<A HREF="slides/lec03.pdf" CLASS="black">PDF</A>]</td>
+  <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">
+      <a href="homework/hw2.pdf">Homework 2</a>
+      <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework2/attachments/17">Solutions</a>
+  </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>22</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f0c960c5-1c95-4664-b36e-21c8f82ebb45">Finite Automata</a>
+      <br> Lecture slides [<A HREF="slides/lec04.pdf" CLASS="black">PDF</A>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>23</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation02.pdf" CLASS="black">Recitation 02</a>
+      <br> <A HREF="recitation/recitation02-sols.pdf" CLASS="black">Solutions</A></td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 3      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">3</td>
+    <td ALIGN=CENTER WIDTH="48">Jan<br>27</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=197edacf-5853-4090-ae68-6e515fcf3699">Turing's Legacy</a>
+      <br> Lecture slides [<A HREF="slides/lec05.pdf" CLASS="black">PDF</A>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="notes/turing-1936.pdf">Turing's paper</a>
+    <br /><br /> <a href="homework/hw3.pdf">Homework 3</a>
+    <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework3/attachments/19" CLASS="black">Solutions</a>
+</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>29</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=705bba5a-dfad-4399-9591-8b70023597bc">Uncountability and Uncomputability</a>
+      <br> Lecture slides [<A HREF="slides/lec06.pdf" CLASS="black">PDF</A>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Jan<br>30</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation03.pdf" CLASS="black">Recitation 03</a>
+      <br> <A HREF="recitation/recitation03-sols.pdf" CLASS="black">Solutions</A></td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 4      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">4</td>
+    <td ALIGN=CENTER WIDTH="48">Feb<br>3</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=0fe8eaab-0ae4-4b86-a31c-5fb307c90b3f">Introduction to Computational Complexity I</a>
+      <br> Lecture slides [<a href="slides/lec07.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href ="homework/practice1_1.pdf">Midterm 1 practice</a>
+      <br /><br /> <a href="notes/godel-letter.pdf">G&ouml;del's letter to von Neumann</a>
+    </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>5</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5b60d733-965c-4a0f-8483-2b0232c95bdb">Introduction to Computational Complexity II</a>
+      <br> Lecture slides [<a href="slides/lec08.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>6</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation04.pdf" CLASS="black">Recitation 04</a>
+      <br> <A HREF="recitation/recitation04-sols.pdf" CLASS="black">Solutions</A></td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 5      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">5</td>
+    <td ALIGN=CENTER WIDTH="48">Feb<br>10</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5aeeb003-5198-44a2-9ea7-2bcb844e3528">Space Complexity and Circuit Complexity</a>
+      <br /> Lecture slides [<a href="slides/lec09.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">Midterm 1 on Feb 11, 18:30-21:30 <br> Covers weeks 1-3
+        <br /> <A HREF="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/midterm1/attachments/33">Midterm 1 Solutions</a>
+        <br /> <br /> <a href="homework/hw4.pdf">Homework 4</a>
+        <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/hw4/attachments/34" CLASS="black">Solutions</a>
+</td></tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>12</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=626f41a6-04ef-41c8-886d-4b35c98b8906">Graphs: The Basics</a>
+       <br /> Lecture slides [<a href = "slides/lec10.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>13</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+     <A HREF="recitation/recitation05.pdf" CLASS="black">Recitation 05</a>
+     <br> <A HREF="recitation/recitation05_sols.pdf" CLASS="black">Solutions</A>
+ </td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 6      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">6</td>
+    <td ALIGN=CENTER WIDTH="48">Feb<br>17</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f7765dd5-7c46-4fca-ac71-d8d168e539a0">Graph Algorithms</a>
+       <br /> Lecture slides [<a href = "slides/lec11.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">
+      <a href="homework/hw5.pdf">Homework 5</a>
+         <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework5/attachments/41" CLASS="black">Solutions</a>
+  </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>19</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=23627779-71d7-4ae9-8afd-92e23a76fbd0">Graph Algorithms II: Stable and Maximum Matchings</a>
+      <br /> Lecture slides [<a href = "slides/lec12.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>20</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+     <A HREF="recitation/recitation06.pdf" CLASS="black">Recitation 06</a>
+     <br> <A HREF="recitation/recitation06_sols.pdf" CLASS="black">Solutions</A>
+ </td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 7      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">7</td>
+    <td ALIGN=CENTER WIDTH="48">Feb<br>24</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ef855830-5cbd-4c0b-9718-a2c917d4267c">NP and NP-completeness I</a>
+       <br /> Lecture slides [<a href="slides/lec13.pdf">PDF</a>]</td>
+   <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="homework/hw6.pdf">Homework 6</a>
+         <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework6/attachments/42" CLASS="black">Solutions</a>
+  </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>26</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ca413cee-b807-47dc-9f24-8cf57269c5de">NP and NP-completeness II</a>
+        <br /> Lecture notes [<a href="slides/lec14.pdf">PDF</a>]
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Feb<br>20</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+     <A HREF="recitation/recitation07.pdf" CLASS="black">Recitation 07</a>
+     <br> <A HREF="recitation/recitation07_sols.pdf" CLASS="black">Solutions</A>
+ </td>
+
+    </td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 8      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="2" WIDTH="37">8</td>
+    <td ALIGN=CENTER WIDTH="48">Mar<br>3</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href ="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6ae12bea-71c8-4d1c-a9d8-f93b305c692e">Approximation Algorithms</a><br> Lecture slides [<a href="slides/lec15.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="2" WIDTH="224"><a href="homework/midterm2-practice.pdf">Midterm 2 practice</a></td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>5</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=5d7ac45d-3efe-4365-b605-59b5f0c53d2b">G&ouml;del's Incompleteness Theorems</a> <br> Lecture slides [<a href="slides/lec16.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 9      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">9</td>
+    <td ALIGN=CENTER WIDTH="48">Mar<br>17</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6a3880a8-fbf8-4c10-8ebb-a7ca8360a0ba">Probability I</a> <br> Lecture slides [<a href="slides/lec17.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">Midterm 2 on Mar 18, 18:30-21:30 <br> Covers weeks 4-7 <br> &nbsp; <br> <a href="homework/hw7.pdf">Homework 7</a>
+        <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework7/attachments/48" CLASS="black">Solutions</a>
+</td> </td></tr>
+
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>19</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d4ef6eb2-870e-4526-bdd8-79654572583a">Probability II</a> <br> Lecture slides [<a href="slides/lec18.pdf">PDF</a>]</td>
+  </tr>
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>20</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation08.pdf" CLASS="black">Recitation 08</a>
+      <br> <A HREF="recitation/recitation08-sols.pdf" CLASS="black">Solutions</A>
+     </td>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 10      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">10</td>
+    <td ALIGN=CENTER WIDTH="48">Mar<br>24</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2650abc4-6074-49a3-a769-923e812b16ac">Randomized Algorithms</a> <br> Lecture slides [<a href="slides/lec19.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="homework/hw8.pdf">Homework 8</a> <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework8/attachments/55" CLASS="black">Solutions</a></td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>26</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2ec86c30-762c-4936-a683-3833a32fc1de">Computational arithmetic</a><br> Lecture slides [<a href="slides/lec20.pdf">PDF</a>]</td>
+  </tr>
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>27</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation09.pdf" CLASS="black">Recitation 09</a>
+      <br> <A HREF="recitation/recitation09-sols.pdf" CLASS="black">Solutions</A>
+     </td>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 11      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">11</td>
+    <td ALIGN=CENTER WIDTH="48">Mar<br>31</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=014846a9-9cdc-41b8-b08c-014f621bb7cf">Cryptography</a><br> Lecture slides [<a href="slides/lec21.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="homework/hw9.pdf">Homework 9</a> <br> <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework9/attachments/57" CLASS="black">Solutions</a></td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>2</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=25f69c2b-55bb-4889-9718-9e1637dafda8">Polynomials</a> <br> Lecture slides [<a href="slides/lec22.pdf">PDF</a>]</td>
+  </tr>
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Mar<br>27</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation10.pdf" CLASS="black">Recitation 10</a>
+      <br> <A HREF="recitation/recitation10-sol.pdf" CLASS="black">Solutions</A>
+     </td>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 12      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">12</td>
+    <td ALIGN=CENTER WIDTH="48">Apr<br>7</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=24dba891-2a2c-4f4b-ae26-7819f479e717">Linear Algebra</a><br>Lecture slides [<a href="slides/lec23.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="homework/hw10.pdf">Homework 10</a> <br>
+      <a href="https://autolab.cs.cmu.edu/courses/15251-s15/assessments/homework10/attachments/67" CLASS="black">Solutions</a></td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>9</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e1d80a02-ecf0-4cef-8fbd-5bab0a6185a1">Markov Chains</a><br>Lecture slides [<a href="slides/lec24.pdf">PDF</a>]</td>
+</tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>10</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation11.pdf" CLASS="black">Recitation 11</a>
+      <br> <A HREF="recitation/recitation11-sol.pdf" CLASS="black">Solutions</A>
+     </td>
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 13      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">13</td>
+    <td ALIGN=CENTER WIDTH="48">Apr<br>14</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=96c4c8d2-a44b-4a30-82a2-127677b70705">Quantum computation</a><br>Lecture slides [<a href = "slides/lec25.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">Midterm 3 on Apr 15, 18:30-21:30 <br> Covers weeks 8-11</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>16</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">No class: Carnival</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>17</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">No Class: Carnival</td>
+     </td>
+
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 14      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">14</td>
+    <td ALIGN=CENTER WIDTH="48">Apr<br>21</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=335b84c9-d8eb-4f9d-aee1-53e373b6da40">Communication Complexity</a><br>Lecture slides [<a href = "slides/lec26.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224"><a href="homework/hw11.pdf">Homework 11</a></td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>23</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9bdf56f0-6bcd-4c22-b408-3552ad8d79e8">A Computational Lens on Proofs</a><br>Lecture slides [<a href = "slides/lec27.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>24</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">
+      <A HREF="recitation/recitation12.pdf" CLASS="black">Recitation 12</a>
+      <br> <!-- <A HREF="recitation/recitation11-sol.pdf" CLASS="black">Solutions</A> -->
+     </td>
+
+
+  <tr HEIGHT="10"></tr>
+
+  <!--   WEEK 15      --->
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td BGCOLOR="DDDDDD" ALIGN=CENTER ROWSPAN="3" WIDTH="37">15</td>
+    <td ALIGN=CENTER WIDTH="48">Apr<br>28</td>
+    <td ALIGN=CENTER WIDTH="25">T</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href="http://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2c2d87ef-57f3-45e5-ae9c-0ecebe6a36a7">Epilogue I</a><br>Lecture slides [<a href = "slides/lec28.pdf">PDF</a>]</td>
+    <td ALIGN=LEFT ROWSPAN="3" WIDTH="224">
+    Final Exam on May 8th <br>  5:30-8:30 CUC McConomy<br><a href = "homework/final-practice.pdf">Practice problems</a>.<br> &nbsp; <br> Covers everything except G&ouml;del and weeks 13-15.
+    </td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">Apr<br>30</td>
+    <td ALIGN=CENTER WIDTH="25">R</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417"><a href = "https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=06554055-c244-402f-8c1b-054564b85712">Epilogue II</a><br>Lecture slides [<a href = "slides/lec29.pdf">PDF</a>]</td>
+  </tr>
+
+  <tr BGCOLOR="DDDDDD"  HEIGHT="50">
+    <td ALIGN=CENTER WIDTH="48">May<br>1</td>
+    <td ALIGN=CENTER WIDTH="25">F</td>
+    <td ALIGN=LEFT VALIGN=TOP WIDTH="417">Various topics: Game theory, infinity, exam review, group theory and <a href = "https://www.ugrad.cs.cmu.edu/ta/S15/feedback/">TA feedback</a></td>
+     </td>
+
+
+</table>
+
+
+
+  </div>
+
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+
+
+</body>
+</html>

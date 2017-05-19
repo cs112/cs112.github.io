@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-112 - Summer 1 - 2016</title>  
+
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  
+
+  
+  <script type="text/javascript" src="../highlight/scripts/shCore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shThemeDefault.css"/>
+
+  <script type="text/javascript" src="../highlight/scripts/shBrushPython.js"></script>
+
+
+  
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+  
+
+</head>
+
+
+<body>
+    <h1>15-112 Fundamentals of Programming</h1>
+
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+
+      <li><a href="../syllabus.html">Syllabus</a></li>
+
+      <li><a href="../schedule.html">Schedule</a></li>
+      
+      <li><a href="../calendar.html">Calendar</a></li>
+
+      <li><a href="../staff.html">Staff</a></li>
+
+      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+
+    </ul>
+  </div>
+
+<center>
+    <h2>Notes - Lecture 1.1</h2>
+    <!--<h2>Basic building blocks of programming</h2>-->
+</center>
+ 
+  <br />
+
+  <div class="center2">
+  Contents:
+  <ul>
+    <li> <a href="#installation">Installing and running Python</a></li>
+    <li> <a href="#definitions">Some fundamental definitions</a></li>
+    <li> <a href="#bbb">Basic building blocks of programming</a>
+      <ul>
+        <li> <a href="#statements">Statements </a></li>
+        <li> <a href="#variables">Variables </a></li>
+        <li> <a href="#data-types">Data types </a></li>
+        <li> <a href="#operators">Operators </a></li>
+        <li> <a href="#functions">Functions </a></li>
+        <li> <a href="#conditionals">Conditionals </a></li>
+        <li> <a href="#loops">Loops </a></li> 
+      </ul>
+   </li>
+   <li> <a href="#errors">Types of programming errors</a>
+      <ul> 
+        <li> <a href="#syntax">Syntax errors </a></li>
+        <li> <a href="#runtime">Run-time errors </a></li>
+        <li> <a href="#logical">Logical errors </a></li>
+      </ul>
+   </li>
+  </ul>
+
+<br /><br />
+
+<h3 id="installation"> Installing and running Python </h3>
+
+You need to install two things. First, you need to install Python 3. Second, you need to install an integrated development environment (IDE). The IDE allows you to easily write/edit your code and also run it. Follow the instructions <a href="https://www.cs.cmu.edu/~112/notes/notes-getting-started.html#RunningPython" target="_blank">here</a> to install Python 3 and an IDE. For the IDE, we recommend starting with <a href="http://www.pyzo.org/start.html" target="_blank">IEP</a> (now called Pyzo) since it is easy to install and use. Later on in the semester, you may wish to switch to Sublime.
+
+<h3 id="definitions"> Some fundamental definitions </h3>
+
+<b> What is computation? </b>
+Computation is manipulation of data/information. It can be thought of as a generalization of calculation, which is the manipulation of a specific kind of data, numbers.
+<br /> <br />
+<b> What is a computer? </b>
+A computer is a device (usually electronic) that does computation.
+<br /> <br />
+<b> What is a computer program? </b>
+A computer program is a precise set of instructions that tells the computer exactly how to carry out a task (i.e. manipulate data). 
+<br /> <br />
+<b> What is an algorithm? </b>
+An algorithm is a precise set of instructions that a human could follow to carry out a task.
+<br /><br >
+
+<h3 id="bbb"> Basic building blocks of programming </h3>
+
+In this section, we'll give a taste of what the basic building blocks of programming are and how they look like in the Python programming language. It is completely ok (and expected) that you don't understand some of the details. We will discuss these in much more depth as we progress in the course.
+
+<h4 id="statements"> Statements</h4> 
+A statement is an instruction that tells the computer to do something. Example:
+<br /><br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 5
+</pre>
+</div>
+<br />
+This is called an <i>assignment statement</i>. It tells the computer to assign the value 5 to the variable named x. Another example is the print statement (changed to a function in Python 3):
+<br /><br />
+<div class="code">
+<pre class="brush: python;"> 
+print("Hello world!") 
+</pre>
+</div>
+<br />
+This tells the computer to print on the console the text "Hello world!". You can give print() more than one input.
+<br /><br />
+<div class="code">
+<pre class="brush: python;"> 
+print("Hi", "hello")  # prints Hi hello
+print("Hi", 1, 2, 3)  # prints Hi 1 2 3 
+</pre>
+</div>
+<br />
+Note that anything after a # symbol is ignored by the computer, and is called a <i>comment</i>. We use comments to explain what the code does.
+
+<h4 id="variables"> Variables </h4>
+The most basic thing one can do with data is store it. Variables allow you to store data and access data that has already been stored. For example:
+<br /><br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 5
+y = 3
+print(x)  # prints 5
+print(y)  # prints 3
+</pre>
+</div>
+<br />
+Here, we are first storing the value 5 (somewhere in memory). You should think of the variable x as a reference to that piece of data in memory. In the second line, we are storing the value 3 in memory, and making the variable y a reference to that value. In the third line, the variable name is used to access the data that it refers to. So this line prints on the screen 5. Similarly, the fourth line prints on the screen 3.
+
+<h4 id="data-types"> Data types </h4>
+Computation is all about manipulation of data. In programming, data is often divided according to their <i>type</i>. For example, an integer and a piece of text are two different types of data. Here are a few very commonly used types:
+<br /><br />
+<table border="1" cellpadding="5" cellspacing="5" style="width:100%">
+  <tr>
+    <th>Python name</th>
+    <th>Description</th>
+    <th>Values</th>
+  </tr>
+  <tr>
+    <td>int (integer)</td>
+    <td>integer values</td> 
+    <td>e.g. -100, 0, 123456789</td>
+  </tr>
+  <tr>
+    <td>float</td>
+    <td>fractional values</td> 
+    <td>e.g. 3.14</td>
+  </tr>
+  <tr>
+    <td>str (string)</td>
+    <td>text</td> 
+    <td>e.g. "Hello world", "3.14"</td>
+  </tr>
+  <tr>
+    <td>bool (boolean)</td>
+    <td>Boolean values</td> 
+    <td>True, False</td>
+  </tr>
+  <tr>
+    <td>NoneType</td>
+    <td>absence of value</td> 
+    <td>None</td>
+  </tr>
+</table>  
+
+<h4 id="operators"> Operators </h4>
+Operators allow us to manipulate data in order to produce new data. As a simple example, consider:
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+print(3 + 5)  # prints 8
+print(3 * 5)  # prints 15
+print(1 + 1 * 2)  # prints 3 (* takes precedence over +)
+print((1 + 1) * 2)  # prints 4 (parentheses evaluated first)
+</pre>
+</div>
+<br />
+Above, + and * are the operators, and they work as you would expect them to work. Data types matter because what an operator does depends on the types of data it is acting on.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+print("Hello" + "World")  # prints HelloWorld
+print("1 + 2")  # prints 1 + 2 (does not print 3)
+print(1.5 + 1.5)  # prints 3.0 (does not print 3)
+print("Hi" * 2)  # prints HiHi
+print(1 + "Hi")  # crashes: cannot add an integer and a string
+</pre>
+</div>
+<br />
+Here are some other examples of operators:
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+print(2**3)  # prints 8 (same as 2 to the power 3)
+print(8 % 3)  # prints 2 (same as 8 mod 3, the remainder when 8 is divided by 3)
+print(8 / 3)  # prints 2.6666666666666665
+print(8 // 3)  # prints 2 (this is called integer division (or floor division))
+</pre>
+</div>
+<br />
+Operators work with variables as well:
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 5 + 2
+x = x + 1
+print(x)  # prints 8
+print(x * 2)  # prints 16
+</pre>
+</div>
+<br />
+A valid combination of data, variable names and operators is called an <i>expression</i>. In an assignment statement, the right-hand-side of the equality is an expression. In a print statement/function, the portion inside the parantheses is an expression. To carry out these statements, the computer first evaluates the expression to a value.
+<br /><br />
+Here are some examples of operators that produce boolean values. 
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 10
+print(x > 11)  # prints False
+print((x > 0) and (x <= 10))  # prints True
+</pre>
+</div>
+<br />
+
+<h4 id="functions"> Functions </h4>
+Functions are the main way we structure our programs. Each function takes a number of inputs, and produces (returns) a desired output. In order to use (call) a function, we first have to define it. See the examples below to get a sense of how they work.
+<br /><br />
+<div class="code">
+<pre class="brush: python;">
+# The following is a function definition.
+# Note that the body of the function must be indented.
+def f(x):
+    y = x**2 + 2*x + 1
+    return y
+
+# The function definition is not used until you call the function.
+print(f(5))  # prints 36
+
+# A function can have more than one input
+def g(x, y):  # terminology: x and y are called the parameters of the function.
+    return x**2 + y**2  # We don't have to store the value in a variable first.
+
+print(g(2,3))  # prints 13
+# terminology: g(2,3) is the function call. 
+# 2 and 3 are the arguments to the function.
+</pre>
+</div>
+
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+def degreesInCelsius(fahrenheit):
+    celsius = (fahrenheit-32)*(5/9)
+    return celsius
+
+def degreesInFahrenheit(celsius):
+    fahrenheit = celsius*(9/5) + 32
+    return fahrenheit
+
+print(degreesInFahrenheit(30))  # prints 86.0
+print(degreesInCelsius(80))  # prints 26.666666666666668
+</pre>
+</div>
+<br />
+If a function does not explicitly return a value, then it automatically returns the built-in value None.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+def greetUser(name):
+    print("Hello", name)
+
+greetUser("David")  # prints Hello David
+print(greetUser("David"))  # prints Hello David
+                           #        None
+
+# The above function is the same as the following one.
+def greetUser(name):
+    print("Hello", name)
+    return None
+</pre>
+</div>
+<br />
+
+There are various built-in functions that you can directly use. Here are a few examples.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+print(round(0.55))  # prints 1
+print(round(-3.14))  # prints -3
+print(max(2,3))  # prints 3
+print(min(2,3))  # prints 2
+print(pow(2,3))  # prints 8 (same as 2**3)
+</pre>
+</div>
+<br />
+
+<h4 id="conditionals"> Conditional statements </h4>
+Conditional statements allow us to execute a sequence of instructions only when a certain condition is satisfied. Example:
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+def absoluteValue(n):
+    if (n < 0):
+        n = -n
+    return n
+
+print(absoluteValue(-5))  # prints 5
+print(absoluteValue(3))  # prints 3
+</pre>
+</div>
+<br />
+In the if statement, the portion inside the parentheses is an expression that is supposed to evaluate to True or False. If it evaluates to True, the <i>body</i> of the if statement (line 3 in the example above) is executed. If the it evalutes to False, the body of the if statement is skipped. (In general, the body can have multiple lines.) We will explore conditional statements in much more depth in the next lecture. 
+
+<h4 id="loops"> Loops </h4>
+Loops allow us to execute a sequence of instructions multiple times. There are two kinds of loops: for loops and while loops.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+# The following prints Hello! 10 times
+for i in range(10):
+    print("Hello!")
+
+# Here is the same thing using a while loop
+i = 0
+while (i < 10):
+    print("Hello!")
+    i = i+1
+</pre>
+</div>
+<br />
+We will explore loops in much more depth in a few lectures.
+
+<h3 id="errors">Types of programming errors</h3>
+
+Programming errors are called <a href="https://www.youtube.com/watch?v=lQS0hDqpVLE" target="_blank">bugs</a>. The process of removing bugs is called <i>debugging</i>. There are 3 types of programming errors, as described below.
+
+<h4 id="syntax">Syntax errors (compile-time errors)</h4>
+You have to follow the syntax rules of the language very closely. If you, for example, misspell a word or don't indent things properly, you'll get a syntax error. In this case, the program won't even run.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+# Python language is case-sensitive
+Print("Hello")  # Error: name Print is not defined
+
+for i in range(10):
+print(i)  # Error: expected an indented block
+</pre>
+</div>
+<br />
+
+<h4 id="runtime">Run-time errors</h4>
+A run-time error is an error that happens as your code is being executed. When this kind of error happens, the program crashes, meaning the program is terminated at that point.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 10
+x = x // 15  # x is now equal to 0
+print(1/x)  # Crash: cannot divide by 0
+print("This line won't get printed.")
+</pre>
+</div>
+<br />
+
+<h4 id="logical">Logical errors</h4>
+A logical error happens when your program runs without any syntax or run-time errors, but gives you the wrong answer at the end. This means that the logic behind your code is not correct and needs to be fixed. For example, using a wrong formula to compute a value would be a logical error.
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+def degreesInCelsius(fahrenheit):
+    celsius = fahrenheit*(5/9) - 32  # Wrong formula
+    return celsius
+
+print(degreesInCelsius(80))  # Prints a wrong answer
+</pre>
+</div>
+<br />
+
+  </div>
+
+  <br  /><br />
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+</body>
+</html>
