@@ -87,26 +87,98 @@
 
 <h3 id="installation"> Installing and running Python </h3>
 
-You need to install two things. First, you need to install Python 3. Second, you need to install an integrated development environment (IDE). The IDE allows you to easily write/edit your code and also run it. Follow the instructions <a href="https://www.cs.cmu.edu/~112/notes/notes-getting-started.html#RunningPython" target="_blank">here</a> to install Python 3 and an IDE. For the IDE, we recommend starting with <a href="http://www.pyzo.org/start.html" target="_blank">IEP</a> (now called Pyzo) since it is easy to install and use. Later on in the semester, you may wish to switch to Sublime.
+<br>Note: Your TA's will be happy to help with any of these steps!
+<ul>
 
+<br><li>Install Python3<br>
+Download and install Python 3.5.x from <a target="_blank" href="https://www.python.org/downloads/">python.org's download page</a>.
+</li>
+
+<br><li>Run IDLE (the default Python text editor / IDE)<br>
+We require that everyone uses Pyzo (former IEP) for the first 2 weeks of the course.
+However, since IDLE is available without extra installs in nearly all Python 
+installations (including the cluster machines at CMU), you should also know about and be
+able to use IDLE.  In most cases, you can type IDLE into your Mac or Windows search and it will find and run it.
+</li>
+
+<br><li>Run Pyzo (formerly "IEP")<br>
+Pyzo is a new Python IDE that is easy to setup and use.  It has some nice features that IDLE does not, such as line numbers (which are a big deal, actually), an 80-character line (very handy), and so on.  Everyone in 15-112
+will use Pyzo at least for the first 1 weeks of the semester. To install pyzo:
+<ol>
+<li>Download and install Pyzo from the appropriate link:
+    <ul>
+        <li><a href="https://github.com/pyzo/pyzo/releases/download/v4.2.1/pyzo-4.2.1-win32.exe">Pyzo for Windows</a></li>
+        <li><a href="https://github.com/pyzo/pyzo/releases/download/v4.2.1/pyzo-4.2.1-osx64.dmg">Pyzo for OS X</a><br>
+        Note: drag the icon to your Applications folder.  You may
+        also need to control-click to Open the first time only,
+        to approve launching this downloaded app.
+        <li><a href="https://github.com/pyzo/pyzo/releases/download/v4.2.1/pyzo-4.2.1-linux64.tar.gz">Pyzo for Linux</a></li>
+    </ul>
+</li>
+<li>Launch Pyzo.</li>
+<li>Setup your shell configuration for Python 3
+<ul>
+<li>On the top menu, click Shell->Edit Shell Configurations</li>
+<li>Click the dropdown labeled exe, and choose Python 3.5.</li>
+<li>Under "gui", select "None no gui support" (otherwise you may have
+problems when we do graphics).</li>
+<li>Press done.</li>
+<li>Restart Pyzo and you're ready to go!</li>
+</ul>
+Also, if you have a Mac Retina Display, pyzo will not display clearly.
+Here is what appears to be a good fix for that:
+<ol>
+<li> Go to <a target="_blank" href="http://retinizer.mikelpr.com/">http://retinizer.mikelpr.com/</a>, and download the app 'Retinizer'.</li>
+<li> Install 'Retinizer'. (It is from the Apple Store, so in order to open it, you may first either control-click on it and select "Open", or go to 'System Preference', 'Security &amp; Privacy', 'General' and 'Allow apps download from', 'Anywhere'.)</li>
+<li> Open 'Retinizer', drag pyzo from your 'Applications' folder to 'Retinizer', press Retinize!</li>
+<li>Reopen pyzo and the resolution should be adjusted to fit a Retina display!</li>
+</ol>
+</li>
+
+<li>Close the extra frames (file browser, etc), only use editor frame (on top, where it is by default) and shell frame (which you should drag to the bottom), so it mirrors IDLE's simple setup.</li>
+<li>Relaunch Pyzo, for a simple Python3 test, use this program:  print(5/3),  then choose Run File as Script or Execute File from the Run menu.  You should not get 1 (which you would get if you are using Python2) but instead should get 1.666666667.</li>
+</ol>
+</li>
+
+
+<br><li>Edit your Python file<br>
+In Pyzo, you need to open a Python file or
+create a new Python file, which then places you in the editing window.  That is where you write your code.  Be sure to save your code in a file ending in .py (like: foo.py) before running it!
+</li>
+
+<br><li>Run your code<br>
+Each IDE has its own way to run code.  In Pyzo, from the "Run" menu, select
+"Run file as script". This loads and runs your code in the Python Shell (the interpreter that runs Python code, instead of editing it).
+<ul>
+<li>There are several options on the Run menu.  Be sure to use the first one, "Run file as script".</li>
+<li>Some students reported an error where Pyzo could not find files that
+are imported from the same folder as the main file.  In these cases, this was remedied (if not outright fixed) by going into Shell/Edit-Shell-Configurations and setting the startDir field either to "." (just a dot, no quotes) or, in some cases, to the full path where your main file is.</li>
+</ul>
+</li>
+</ul>
+
+<br /> 
 <h3 id="definitions"> Some fundamental definitions </h3>
-
-<b> What is computation? </b>
-Computation is manipulation of data/information. It can be thought of as a generalization of calculation, which is the manipulation of a specific kind of data, numbers.
+<p><img src="notes-1-img/basic_defs.png" width="600" height="450" />
 <br /> <br />
-<b> What is a computer? </b>
-A computer is a device (usually electronic) that does computation.
-<br /> <br />
-<b> What is a computer program? </b>
-A computer program is a precise set of instructions that tells the computer exactly how to carry out a task (i.e. manipulate data). 
-<br /> <br />
-<b> What is an algorithm? </b>
-An algorithm is a precise set of instructions that a human could follow to carry out a task.
-<br /><br >
 
 <h3 id="bbb"> Basic building blocks of programming </h3>
 
 In this section, we'll give a taste of what the basic building blocks of programming are and how they look like in the Python programming language. It is completely ok (and expected) that you don't understand some of the details. We will discuss these in much more depth as we progress in the course.
+
+<h4 id="variables"> Variables </h4>
+The most basic thing one can do with data is store it. Variables allow you to store data and access data that has already been stored. For example:
+<br /><br />
+<div class="code">
+<pre class="brush: python;"> 
+x = 5
+y = 3
+print(x)  # prints 5
+print(y)  # prints 3
+</pre>
+</div>
+<br />
+Here, we are first storing the value 5 (somewhere in memory). You should think of the variable x as a reference to that piece of data in memory. In the second line, we are storing the value 3 in memory, and making the variable y a reference to that value. In the third line, the variable name is used to access the data that it refers to. So this line prints on the screen 5. Similarly, the fourth line prints on the screen 3.
 
 <h4 id="statements"> Statements</h4> 
 A statement is an instruction that tells the computer to do something. Example:
@@ -119,6 +191,10 @@ x = 5
 <br />
 This is called an <i>assignment statement</i>. It tells the computer to assign the value 5 to the variable named x. Another example is the print statement (changed to a function in Python 3):
 <br /><br />
+
+<p><img src="notes-1-img/assignment_statement.png" width="500" height="150" />
+<br /> <br />
+
 <div class="code">
 <pre class="brush: python;"> 
 print("Hello world!") 
@@ -135,20 +211,6 @@ print("Hi", 1, 2, 3)  # prints Hi 1 2 3
 </div>
 <br />
 Note that anything after a # symbol is ignored by the computer, and is called a <i>comment</i>. We use comments to explain what the code does.
-
-<h4 id="variables"> Variables </h4>
-The most basic thing one can do with data is store it. Variables allow you to store data and access data that has already been stored. For example:
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-x = 5
-y = 3
-print(x)  # prints 5
-print(y)  # prints 3
-</pre>
-</div>
-<br />
-Here, we are first storing the value 5 (somewhere in memory). You should think of the variable x as a reference to that piece of data in memory. In the second line, we are storing the value 3 in memory, and making the variable y a reference to that value. In the third line, the variable name is used to access the data that it refers to. So this line prints on the screen 5. Similarly, the fourth line prints on the screen 3.
 
 <h4 id="data-types"> Data types </h4>
 Computation is all about manipulation of data. In programming, data is often divided according to their <i>type</i>. For example, an integer and a piece of text are two different types of data. Here are a few very commonly used types:
@@ -246,63 +308,108 @@ print((x > 0) and (x <= 10))  # prints True
 <br />
 
 <h4 id="functions"> Functions </h4>
-Functions are the main way we structure our programs. Each function takes a number of inputs, and produces (returns) a desired output. In order to use (call) a function, we first have to define it. See the examples below to get a sense of how they work.
+Functions are the main way we structure our programs. Each function takes a number of inputs, and produces (returns) a desired output. In order to use (call) a function, we first have to define it. Here are the building blocks of a functions:
+
+<p><img src="notes-1-img/functions.png" width="600" height="350" />
+<br /> <br />
+
+Now see the examples below to get a sense of how functions work.
 <br /><br />
+
+<h5> Defining and calling functions </h5>
 <div class="code">
 <pre class="brush: python;">
 # The following is a function definition.
 # Note that the body of the function must be indented.
-def f(x):
-    y = x**2 + 2*x + 1
+def square(x):
+    y = x*x
     return y
 
 # The function definition is not used until you call the function.
-print(f(5))  # prints 36
+print(square(5))  # prints 25
 
-# A function can have more than one input
-def g(x, y):  # terminology: x and y are called the parameters of the function.
-    return x**2 + y**2  # We don't have to store the value in a variable first.
+# Other ways to write the square function
+def square(x):
+    return x*x
 
-print(g(2,3))  # prints 13
-# terminology: g(2,3) is the function call. 
-# 2 and 3 are the arguments to the function.
+def square(x):
+    return x**2
 </pre>
 </div>
 
-<br /> <br />
-<div class="code">
-<pre class="brush: python;"> 
-def degreesInCelsius(fahrenheit):
-    celsius = (fahrenheit-32)*(5/9)
-    return celsius
-
-def degreesInFahrenheit(celsius):
-    fahrenheit = celsius*(9/5) + 32
-    return fahrenheit
-
-print(degreesInFahrenheit(30))  # prints 86.0
-print(degreesInCelsius(80))  # prints 26.666666666666668
-</pre>
-</div>
 <br />
-If a function does not explicitly return a value, then it automatically returns the built-in value None.
-<br /> <br />
+
+<h5> Return statements </h5>
 <div class="code">
-<pre class="brush: python;"> 
-def greetUser(name):
-    print("Hello", name)
+<pre class="brush: python;">
+# Basic example
+def square(x):
+    y = x*x
+    return y
 
-greetUser("David")  # prints Hello David
-print(greetUser("David"))  # prints Hello David
-                           #        None
+print(square(5))   # prints 25
+print(square(10))  # prints 100
 
-# The above function is the same as the following one.
-def greetUser(name):
-    print("Hello", name)
-    return None
+# Return ends the function immediately 
+def square(x):
+    print("x equals ", x)  # runs
+    y = x*x
+    return y
+    print("y equals ", y)  # does not run ("dead code")
+
+print(square(10)) # prints x equals 10, then 100
+
+# No return statement -> returns None
+def square(x):
+    y = x*x
+    
+print(square(10)) # prints None
+
 </pre>
 </div>
+
 <br />
+
+<h5> Print vs. Return </h5>
+<div class="code">
+<pre class="brush: python;">
+# This is a common early mistake (confusing print and return):
+def cubed(x):
+    print(x**3) # Here is the error!
+
+cubed(2)          # seems to work!
+print(cubed(3))   # sort of works (but prints None, which is weird)
+print(2*cubed(4)) # Error!
+
+# Once again (correctly)
+def cubed(x):
+    return (x**3) # That's better!
+
+cubed(2)          # seems to be ignored (why?)
+print(cubed(3))   # works!
+print(2*cubed(4)) # works!
+</pre>
+</div>
+
+<br/>
+
+<h5> Different Parameter and Return Types </h5>
+<div class="code">
+<pre class="brush: python;">
+def hypotenuse(a, b):
+    return ((a**2) + (b**2))**0.5
+
+print(hypotenuse(3, 4)) # 5.0 (not 5)
+print("---------------------")
+
+def isPositive(n):
+    return (n > 0)
+
+print(isPositive(10))     # True
+print(isPositive(-1.234)) # False
+</pre>
+</div>
+<br /> <br />
 
 There are various built-in functions that you can directly use. Here are a few examples.
 <br /> <br />
