@@ -307,6 +307,24 @@ print((x > 0) and (x <= 10))  # prints True
 </div>
 <br />
 
+Operator Order (Precedence and Associativity):
+<br /> <br />
+<div class="code">
+<pre class="brush: python;"> 
+print("Precedence:")
+print(2+3*4)  # prints 14, not 20
+print(5+4%3)  # prints  6, not 0 (% has same precedence as *, /, and //)
+print(2**3*4) # prints 32, not 4096 (** has higher precedence than *, /, //, and %)
+
+print()
+
+print("Associativity:")
+print(5-4-3)   # prints -2, not 4 (- associates left-to-right)
+print(4**3**2) # prints 262144, not 4096 (** associates right-to-left)
+</pre>
+</div>
+<br />
+
 <h4 id="functions"> Functions </h4>
 Functions are the main way we structure our programs. Each function takes a number of inputs, and produces (returns) a desired output. In order to use (call) a function, we first have to define it. Here are the building blocks of a functions:
 

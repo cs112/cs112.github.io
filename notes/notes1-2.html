@@ -60,7 +60,7 @@
 
   <div class="center2">
 
-<h3> Operators </h3>
+<h2> More on Operators </h2>
 
 Here are the operators you need to know. <br /> <br />
 <table border="1" cellpadding="5" cellspacing="5">
@@ -71,36 +71,314 @@ Here are the operators you need to know. <br /> <br />
 <tr><td>Logical</td><td>and, or, not</td></tr>
 </table>
 <br />
-See <a href="https://www.cs.cmu.edu/~112/notes/notes-data-and-exprs.html#IntegerDivision">here</a> for more detail on <i>integer division</i> // (also known as <i>floor division</i>). 
-<br />
-See <a href="https://www.cs.cmu.edu/~112/notes/notes-data-and-exprs.html#Modulus">here</a> for more detail on the <i>mod operator</i> %.
 
-<h3> Functions </h3>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-writing-functions.html">See here.</a> 
-<br />
-<br />
-Here are some built-in functions.
-<br /> <br />
+<h4> Types Affect Semantics </h4>
 <div class="code">
-<pre class="brush: python;"> 
-print("Type conversion functions:")
-print(bool(0))   # convert to boolean (True or False)
-print(float(42)) # convert to a floating point number
-print(int(2.8))  # convert to an integer (int)
-
-print("And some basic math functions:")
-print(abs(-5))   # absolute value
-print(max(2,3))  # return the max value
-print(min(2,3))  # return the min value
-print(pow(2,3))  # raise to the given power (pow(x,y) == x**y)
-print(round(2.354, 1)) # round with the given number of digits
+<pre class="brush: python;">
+print(3 * 2)
+print(3 * "abc")
+print(3 + 2)
+print("abc" + "def")
+print(3 + "def")
 </pre>
 </div>
 <br />
-To check what kind of built-in functions Python has, see the official Python documentation <a href="https://docs.python.org/3/library/functions.html">here</a>.
 
-<h3> Conditional Statements </h3>
+<h4> Integer division </h4>
+<div class="code">
+<pre class="brush: python;">
+print("The / operator does 'normal' float division:")
+print(" 5/3  =", ( 5/3))
+print()
+print("The // operator does integer division:")
+print(" 5//3 =", ( 5//3))
+print(" 2//3 =", ( 2//3))
+print("-1//3 =", (-1//3))
+print("-4//3 =", (-4//3))
+</pre>
+</div>
+<br />
+
+<h4> The Modulus or Remainder Operator (%) </h4>
+
+<p> What does <strong> n mod m </strong> represent? </p>
+<p> The distance between the largest multiple of m that is no larger than
+n and n itself. So for example 8 % 3 = 2, because the largest multiple of 3 that
+is less than 8 is 6 and the distance between 6 and 8 is 2. Similarly -4 % 3 = 2 
+because the largest multiple of 3 that is less than -4 is -6. The distance between -6 and -4 is 2.</p>
+
+<p>To get a feel for what how the mod operator behaves, take a look at the following cases:
+</p>
+<div class="code">
+<pre class="brush: python;">
+print(" 6%3 =", ( 6%3))
+print(" 5%3 =", ( 5%3))
+print(" 2%3 =", ( 2%3))
+print(" 0%3 =", ( 0%3))
+print("-4%3 =", (-4%3))
+print(" 3%0 =", ( 3%0))
+</pre>
+</div>
+<br />
+
+<p><strong>Verify that (a%b) is equivalent to (a - (a//b)*b)</strong></p>
+<div class="code">
+<pre class="brush: python;">
+def mod(a, b):
+  return a - (a//b)*b
+
+print(41%14, mod(41,14))
+print(14%41, mod(14,41))
+print(-32%9, mod(-32,9))
+print(32%-9, mod(32,-9))
+</pre>
+</div>
+<br />
+
+<p>A couple of useful things you can do with the mod operator </p>
+<ul>
+  <li>n%1 the fractional part of n</li>
+  <li>n%2 the parity of n</li>
+</ul>
+
+<h4> Boolean operators: not, or, and  </h4>
+<strong>not</strong> <i>boolean-expression</i>
+<br/>
+<font color="blue">Flips the value of the expression.</font>
+<br/><br/>
+
+<div class="code">
+<pre class="brush: python;">
+x = 10
+print(not(x == 10))  #prints False
+</pre>
+</div>
+<br/>
+
+<i>boolean-exp1</i> <strong>and</strong> <i>boolean-exp2</i>
+<br/>
+<font color="blue">Evaluates to True only if both expressions are True.</font>
+<br/><br/>
+
+<div class="code">
+<pre class="brush: python;">
+y = 5
+
+# Checking if y is a positive even number
+print(y > 0 and y%2 == 0)  #prints False
+
+# Checking if y is a positive odd number
+print(y > 0 and y%2 == 1)  #prints True
+</pre>
+</div>
+<br/>
+
+<i>boolean-exp1</i> <strong>or</strong> <i>boolean-exp2</i>
+<br/>
+<font color="blue">Evaluates to True only if at least one of the expressions 
+is True.</font>
+<br/><br/>
+
+<div class="code">
+<pre class="brush: python;">
+
+x = 10.2
+y = 5
+
+# Checking if one of x or y is an integer
+print(type(x) == int or type(y) == int)  #prints True
+
+x = 10.2
+y = 5.1
+
+# Checking if one of x or y is an integer
+print(type(x) == int or type(y) == int)  #prints False
+
+</pre>
+</div>
+<br/>
+
+<p><b>Order precedence of boolean operators from low to high </b></p>
+<ol>
+  <li>or</li>
+  <li>and</li>
+  <li>not</li>
+</ol>
+
+<h2> More on Functions </h2>
+
+<h4> Function composition </h4>
+<div class="code">
+<pre class="brush: python;"> 
+def f(w):
+    return 10*w
+
+def g(x, y):
+    return f(3*x) + y
+
+def h(z):
+    return f(g(z, f(z+1)))
+
+print(h(1))
+</pre>
+</div>
+<br />
+
+<h4> Helper functions </h4>
+<div class="code">
+<pre class="brush: python;"> 
+def onesDigit(n):
+    return n%10
+
+def largerOnesDigit(x, y):
+    return max(onesDigit(x), onesDigit(y))
+
+print(largerOnesDigit(134, 672)) # 4
+print(largerOnesDigit(132, 674)) # Still 4
+</pre>
+</div>
+<br />
+
+<h4> Test functions </h4>
+
+<p> A broken test function: Can you think why the following test function is not effective? </p>
+<div class="code">
+<pre class="brush: python;"> 
+def onesDigit(n):
+    return n%10
+
+def testOnesDigit():
+    print("Testing onesDigit()...", end="")
+    assert(onesDigit(5) == 5)
+    assert(onesDigit(123) == 3)
+    assert(onesDigit(100) == 0)
+    assert(onesDigit(999) == 9)
+    print("Passed!")
+
+testOnesDigit() # Passed!  
+</pre>
+</div>
+<br />
+
+<p> A better version </p>
+<div class="code">
+<pre class="brush: python;"> 
+def onesDigit(n):
+    return n%10
+
+def testOnesDigit():
+    print("Testing onesDigit()...", end="")
+    assert(onesDigit(5) == 5)
+    assert(onesDigit(123) == 3)
+    assert(onesDigit(100) == 0)
+    assert(onesDigit(999) == 9)
+    assert(onesDigit(-123) == 3) # Added this test
+    print("Passed!")
+
+testOnesDigit() # Crashed!  So the test function worked!
+</pre>
+</div>
+<br />
+
+<h4> Variable scope </h4>
+
+<p>
+Not all variables are accessible from all parts of our program. Where a variable is accessible depend on how it is defined. We call the part of a program where a variable is accessible its <b>scope </b>.</p>
+
+<p> A variable which is defined in the main body of a file is called a <b>global</b> variable. It will be visible throughout the file. Global variables can have unintended consequences because of their wide-ranging effects – that is why we should almost never use them.</p>
+
+<p>A variable which is defined inside a function is <b>local</b> to that function. It is accessible from the point at which it is defined until the end of the function, and exists for as long as the function is executing. </p>
+
+<p>Here's a picture to illustrate local and global variables:</p>
+
+<br/>
+
+
+<p><img src="notes-1-img/variable_scope.png" width="450" height="350" />
+<br /> <br />
+
+<p>Now consider the following examples:</p>
+
+<h5> Local variables </h5>
+<div class="code">
+<pre class="brush: python;"> 
+def f(x):
+    print("In f, x =", x)
+    x += 5
+    return x
+
+def g(x):
+    return f(x*2) + f(x*3)
+
+print(g(2))
+</pre>
+</div>
+<br />
+
+<h5> Another example </h5>
+<div class="code">
+<pre class="brush: python;"> 
+def f(x):
+    print("In f, x =", x)
+    x += 7
+    return round(x / 3)
+
+def g(x):
+    x *= 10
+    return 2 * f(x)
+
+def h(x):
+    x += 3
+    return f(x+4) + g(x)
+
+print(h(f(1)))
+</pre>
+</div>
+<br />
+
+<h5> Global variables </h5>
+<div class="code">
+<pre class="brush: python;"> 
+# In general, you should avoid using global variables.
+# You will even lose style points if you use them!
+# Still, you need to understand how they work, since others
+# will use them, and there may also be some very few occasions
+# where you should use them, too!
+
+g = 100
+
+def f(x):
+    return x + g
+
+print(f(5)) # 105
+print(f(6)) # 106
+print(g)    # 100
+</pre>
+</div>
+<br />
+
+<h5> Another example </h5>
+<div class="code">
+<pre class="brush: python;"> 
+g = 100
+
+def f(x):
+    # If we modify a global variable, we must declare it as global.
+    # Otherwise, Python will assume it is a local variable.
+    global g
+    g += 1
+    return x + g
+
+print(f(5)) # 106
+print(f(6)) # 108
+print(g)    # 102
+</pre>
+</div>
+<br />
+
+
+
+<h2> Conditional Statements </h2>
 
 <a href="https://www.cs.cmu.edu/~112/notes/notes-conditionals.html">See here.</a>
 <br /> <br />
