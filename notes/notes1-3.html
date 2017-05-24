@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -24,10 +24,7 @@
   
   <script type="text/javascript">SyntaxHighlighter.all();</script>
 
-  
-
 </head>
-
 
 <body>
     <h1>15-112 Fundamentals of Programming</h1>
@@ -44,9 +41,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/assessments">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,17 +56,219 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#for-loops">for loops</a></li>
+    <li> <a href="#nested-for-loops">nested for loops</a></li>
+    <li> <a href="#while-loops">while looops</a>
+    <li> <a href="#isPrime">isPrime</a>
+    <li> <a href="#nthPrime">nthPrime</a>
+  </ol>
+
+  <br />
 
 
-<h3> Loops </h3>
-
-First, <a href="https://www.cs.cmu.edu/~112/notes/notes-loops.html" target="_blank">see here</a>, but skip sections 2 and 4, we will cover them later. 
-<br /> <br />
-Below are the examples we covered in class.
-
-<h4> while loops</h4> 
+<p><img src="notes-1-img/nice_try.gif" width="650" height="250" />
 
 
+<h3 id="for-loops"> 1. For loops </h3>
+
+<h5 id="for-loops"> A first example </h5>
+<div class="code">
+<pre class="brush: python;">
+def sumFromMToN(m, n):
+    total = 0
+    # note that range(x, y) includes x but excludes y
+    for x in range(m, n+1):
+        total += x
+    return total
+
+print(sumFromMToN(5, 10) == 5+6+7+8+9+10)
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> Actually we don't even need a loop here ... </h5>
+<div class="code">
+<pre class="brush: python;">
+def sumFromMToN(m, n):
+    return sum(range(m, n+1))
+
+print(sumFromMToN(5, 10) == 5+6+7+8+9+10)
+
+# And we can even do this with a closed-form formula,
+# which is the fastest way, but which doesn't really
+# help us demonstrate loops.  :-)
+
+def sumToN(n):
+    # helper function
+    return n*(n+1)//2
+
+def sumFromMToNByFormula(m, n):
+    return (sumToN(n) - sumToN(m-1))
+
+print(sumFromMToNByFormula(5, 10) == 5+6+7+8+9+10)
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> What if we ommit the first parameter ? </h5>
+<div class="code">
+<pre class="brush: python;">
+def sumToN(n):
+    total = 0
+    for x in range(n+1):
+        total += x
+    return total
+
+print(sumToN(5) == 0+1+2+3+4+5)
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> What if we add a third parameter ?</h5>
+<div class="code">
+<pre class="brush: python;">
+def sumEveryKthFromMToN(m, n, k):
+    total = 0
+    for x in range(m, n+1, k):
+        total += x
+    return total
+
+print(sumEveryKthFromMToN(5, 20, 7) == (5 + 12 + 19))
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> Sum just odd numbers from m to n</h5>
+<div class="code">
+<pre class="brush: python;">
+def sumOfOddsFromMToN(m, n):
+    total = 0
+    for x in range(m, n+1):
+        if (x % 2 == 1):
+            total += x
+    return total
+
+print(sumOfOddsFromMToN(4, 10) == sumOfOddsFromMToN(5,9) == (5+7+9))
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> Once again</h5>
+<div class="code">
+<pre class="brush: python;">
+def sumOfOddsFromMToN(m, n):
+    if (m % 2 == 0):
+        # m is even, add 1 to start on an odd
+        m += 1
+    total = 0
+    for x in range(m, n+1, 2):
+        total += x
+    return total
+
+print(sumOfOddsFromMToN(4, 10) == sumOfOddsFromMToN(5,9) == (5+7+9))
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> And again</h5>
+<div class="code">
+<pre class="brush: python;">
+# Here we will range in reverse
+# (not wise in this case, but instructional)
+
+def sumOfOddsFromMToN(m, n):
+    if (n % 2 == 0):
+        # n is even, subtract 1 to start on an odd
+        n -= 1
+    total = 0
+    for x in range(n, m-1, -2):
+        total += x
+    return total
+
+print(sumOfOddsFromMToN(4, 10) == sumOfOddsFromMToN(5,9) == (5+7+9))
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> And again</h5>
+<div class="code">
+<pre class="brush: python;">
+def sumOfOddsFromMToN(m, n):
+    if (m % 2 == 0): m += 1
+    return sum(range(m, n+1, 2))
+
+print(sumOfOddsFromMToN(4, 10) == sumOfOddsFromMToN(5,9) == (5+7+9))
+</pre>
+</div>
+<br />
+
+<h5 id="for-loops"> And again</h5>
+<div class="code">
+<pre class="brush: python;">
+# This is the worst way so far -- too confusing.
+
+def sumOfOddsFromMToN(m, n):
+    return sum(range(m + (1 - m%2), n+1, 2)) # this works, but it's gross!
+
+print(sumOfOddsFromMToN(4, 10) == sumOfOddsFromMToN(5,9) == (5+7+9))
+</pre>
+</div>
+<br />
+
+<h3 id="nested-for-loops"> 2. Nested for loops </h3>
+
+<h5> Printing coordinates </h5>
+<div class="code">
+<pre class="brush: python;">
+def printCoordinates(xMax, yMax):
+    for x in range(xMax+1):
+        for y in range(yMax+1):
+            print("(", x, ",", y, ")  ", end="")
+        print()
+
+printCoordinates(4, 5)
+</pre>
+</div>
+<br />
+
+<h5> First star pattern </h5>
+<p><img src="notes-1-img/rectangle_stars.png" width="150" height="150" />
+
+<div class="code">
+<pre class="brush: python;">
+def printStarRectangle(n):
+    for row in range(n):
+        for col in range(n):
+            print("*", end="")
+        print()
+
+printStarRectangle(5)
+</pre>
+</div>
+<br />
+
+<h5> Another star pattern </h5>
+<p><img src="notes-1-img/pyramid_stars.jpg" width="150" height="200" />
+
+<div class="code">
+<pre class="brush: python;">
+def printStarPyramid(n):
+    for row in range(n):
+        print(row, end=" ")
+        for col in range(row):
+            print("*", end=" ")
+        print()
+
+printStarPyramid(7)
+</pre>
+</div>
+<br />
+
+<h3 id="while-loops"> 2. While loops </h3>
+
+<h5> Getting user's input </h5>
 <div class="code">
 <pre class="brush: python;"> 
 def getPositiveInteger():
@@ -81,61 +280,7 @@ def getPositiveInteger():
 </div>
 <br />
 
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-# Repeating a block of code a certain number of times with a while loop:
-i = 0
-numRepetitions = 10       
-while (i < numRepetitions):         
-    # Some block of code
-    # ...
-    counter += 1     
-</pre>
-</div>
-<br />
-
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-def countToN(n):
-    counter = 1       
-    while(counter <= n):
-        print(counter)
-        counter += 1
-
-countToN(7)     
-</pre>
-</div>
-<br />
-
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-def sumToN(n):
-    counter = 1
-    total = 0       
-    while(counter <= n):
-        total += counter
-        counter += 1
-    return total
-
-print(sumToN(5))  # prints 15
-
-def sumFromMToN(m, n):
-    counter = m
-    total = 0       
-    while(counter <= n):
-        total += counter
-        counter += 1
-    return total
-
-print(sumFromMToN(3,6))  # prints 18    
-</pre>
-</div>
-<br />
-
-<br /><br />
+<h5> A while loop appropriate example </h5>
 <div class="code">
 <pre class="brush: python;"> 
 def leftmostDigit(n):     
@@ -157,142 +302,113 @@ print(leftmostDigit(-1234))  # prints 1
 </div>
 <br />
 
-<br /><br />
+<h5> Misuse: While loop over a fixed range </h5>
 <div class="code">
 <pre class="brush: python;"> 
-def nthAwesome(n):
+def countToN(n):
+    counter = 1       
+    while(counter <= n):
+        print(counter)
+        counter += 1
+
+countToN(7)     
+</pre>
+</div>
+<br />
+
+<h5> Example: nth positive integer with some property </h5>
+<div class="code">
+<pre class="brush: python;"> 
+# eg: find the nth number that is a multiple of either 4 or 7
+def isMultipleOf4or7(x):
+    return ((x % 4) == 0) or ((x % 7) == 0)
+
+def nthMultipleOf4or7(n):
     found = 0
-    guess = 0
+    guess = -1
     while (found <= n):
-        if (isAwesome(guess)): 
-            found += 1
         guess += 1
-    return guess - 1
+        if (isMultipleOf4or7(guess)):
+            found += 1
+    return guess
 
-def isAwesome(m):
-    return ((m % 3) == 0) or ((m % 5) == 0)   
+print("Multiples of 4 or 7: ", end="")
+for n in range(15):
+    print(nthMultipleOf4or7(n), end=" ")
+print()  
 </pre>
 </div>
 <br />
 
-<h4> for loops</h4>
+<h3 id="isPrime"> isPrime</h3>
 
+<h5> First try </h5>
 <div class="code">
 <pre class="brush: python;"> 
-for i in [1, 2, 3, 4]:
-    print(i)
+# Note: there are faster/better ways.  We're just going for clarity and simplicity here.
+def isPrime(n):
+    if (n < 2):
+        return False
+    for factor in range(2,n):
+        if (n % factor == 0):
+            return False
+    return True
 
-# the following does the same thing
-# think of range(m, n) as the list [m, m+1, .., n-1]
-for i in range(1, 5):
-    print(i)
-
-# range(n) is the same as range(0, n)
-# note that it starts from 0!
-for i in range(5):
-    print(i)
+# And take it for a spin
+for n in range(100):
+    if isPrime(n):
+        print(n, end=" ")
+print()
 </pre>
 </div>
 <br />
 
-
-<br /><br />
+<h5> fasterIsPrime </h5>
 <div class="code">
 <pre class="brush: python;"> 
-# this prints the letters of "Hello", each one on a separate line
-for c in "Hello":
-    print(c)
+#Note: this is still not the fastest way, but it's a nice improvement.
+def fasterIsPrime(n):
+    if (n < 2):
+        return False
+    if (n == 2):
+        return True
+    if (n % 2 == 0):
+        return False
+    maxFactor = round(n**0.5)
+    for factor in range(3,maxFactor+1,2):
+        if (n % factor == 0):
+            return False
+    return True
+
+# And try out this version:
+for n in range(100):
+    if fasterIsPrime(n):
+        print(n, end=" ")
+print()
 </pre>
 </div>
 <br />
 
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-# If you know how many iterations are needed,
-# use a for loop rather than a while loop.
-def sumToN(n):
-    total = 0
-    for i in range(n+1):
-        total += i
-    return total
+<h3 id="nthPrime"> nthPrime</h3>
 
-def sumFromMToN(m, n):
-    total = 0
-    for i in range(m, n+1):
-        total += i
-    return total
-
-# think of range(m, n, k) as the list [m, m+k, m+2k, m+3k, ...] 
-# (stops before reaching n)
-def sumEveryKthFromMToN(m, n, k):
-    total = 0
-    for i in range(m, n+1, k):
-        total += i
-    return total
-</pre>
-</div>
-<br />
-
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-def sumOfOddsFromMToN(m, n):
-    total = 0
-    for x in range(m, n+1):
-        if (x % 2 == 1):
-            total += x
-    return total
-
-def sumOfOddsFromMToN(m, n):
-    if (m % 2 == 0):
-        # m is even, add 1 to start on an odd
-        m += 1
-    total = 0
-    for i in range(m, n+1, 2):
-        total += i
-    return total
-
-# This works, but is not clear code!
-def sumOfOddsFromMToN(m, n):
-    if (n % 2 == 0): n -= 1
-    total = 0
-    for x in range(n, m-1, -2):
-        total += x
-    return total
-</pre>
-</div>
-<br />
-
-<h4> isPrime and nthPrime </h4>
-
+<h5> nthPrime </h5>
 <div class="code">
 <pre class="brush: python;"> 
 def isPrime(n):
-    if (n < 2): return False
-    for x in range(2, n):
-        if(n % x == 0): return False
-    return True
-</pre>
-</div>
-<br />
-
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
-def fasterIsPrime(n):
-    if (n < 2): return False
+    if (n < 2):
+        return False
+    if (n == 2):
+        return True
+    if (n % 2 == 0):
+        return False
     maxFactor = round(n**0.5)
-    for x in range(2, maxFactor + 1):
-        if(n % x == 0): return False
+    for factor in range(3,maxFactor+1,2):
+        if (n % factor == 0):
+            return False
     return True
-</pre>
-</div>
-<br />
 
-<br /><br />
-<div class="code">
-<pre class="brush: python;"> 
+# Adapt the "nth" pattern we used above in nthMultipleOf4or7()
+
 def nthPrime(n):
     found = 0
     guess = 0
@@ -301,6 +417,11 @@ def nthPrime(n):
         if (isPrime(guess)):
             found += 1
     return guess
+
+# and let's see a list of the primes
+for n in range(10):
+    print(n, nthPrime(n))
+print("Done!")
 </pre>
 </div>
 <br />
