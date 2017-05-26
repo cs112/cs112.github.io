@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,140 +59,479 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#break-continue">Wrapping up</a></li>
+    <ol>
+      <li> <a href="#break-continue">break and continue</a></li>
+      <li> <a href="#optional-params">Optional parameters</a></li>
+      <li> <a href="#importing-modules">Importing modules</a></li>
+      <li> <a href="#approximate-float">Approximate values for floats</a></li>
+      <li> <a href="#short-circuit">Short-circuit evaluation</a></li>
+      <li> <a href="#conditional-expression">Conditional (if-else) expression</a></li>
+      </ol>
+    <li> <a href="#intro-strings">Introduction to strings</a>
+    <ol>
+      <li> <a href="#string-operations">Some string operators</a></li>
+      <li> <a href="#string-indexing">String indexing and slicing</a></li>
+      <li> <a href="#string-looping">Looping over strings</a></li>
+      <li> <a href="#string-immutable">String are immutable</a></li>
+      <li> <a href="#string-built-in">Some string related built-in functions</a></li>
+      <li> <a href="#examples">Examples</a></li>
+    </ol>
 
+  </ol>
 
-<h4> Importing modules </h4>
+  <br />
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-getting-started.html#Importing" target="_blank">See here.</a>
+<h4 id="break-continue"> break and continue </h4>
 
-<h4> Approximate values for floats </h4> 
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-data-and-exprs.html#FloatingPointApprox" target="_blank">See here.</a>
-
-<h4> Short-circuit evaluation </h4>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-data-and-exprs.html#ShortCircuitEvaluation" target="_blank">See here.</a>
-
-<h4> Conditional (if-else) expression </h4>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-conditionals.html#IfElseExpression" target="_blank">See here.</a> 
-
-<br /> <br /><br /><br />
-
-<h3>Introduction to Strings</h3>
-
-<h4>String operators</h4>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-strings.html#stringOperators" target="_blank">See here.</a> <br /><br />
-And from class:
-
+The break statement breaks out of a loop. In the example below, once counter reaches n (counter == n), the break statement is executed, which then makes the program go to line 8.
 <br /><br />
 <div class="code">
 <pre class="brush: python;">
-# String Concatenation
-
-print("Hello" + "World" + "!")  # prints HelloWorld!
-print("Hello" "World" "!")      # prints HelloWorld!
-s = "Hello"
-print(s + "World" + "!")        # prints HelloWorld!
-print(s "World" "!")            # Error
-
-print("hi"*3)                   # prints hihihi
-print(3*"hi")                   # prints hihihi
-print(2*"hi"*2)                 # prints hihihihi
-
-
-# String Indexing
-
-s = "Go Tartans!"
-
-print(s[0])                # prints G
-print(s[5], s[10], s[3])   # prints r ! T
-
-print(s[-1])               # prints !
-print(len(s))              # prints 11
-print("Yabadabaduuu!"[5])  # prints a
-print(s[len(s)])           # Crashes: index error
-
-
-# String Slicing
-
-print(s[3:len(s)])         # prints Tartans!
-print(s[0:len(s)])         # prints Go Tartans!
-print(s[3:])               # prints Tartans!
-print(s[:1])               # prints G
-print(s[:])                # prints Go Tartans!
-
-print(s[0:len(s):2])       # prints G atn!
-print(s[::])               # prints Go Tartans!
-print(s[len(s)-1:0:-1])    # prints !snatraT o
-print(s[len(s)-1:-1:-1])   # prints nothing (range is empty)
-print(s[::-1])             # prints !snatraT oG 
-
-
-# Strings are immutable
-
-s[3] = "t"                 # error
-
-s += " haha"               # creates a new string in memory
-print(s)                   # prints Go Tartans! haha
-
-s = s[:3] + "t" + s[4:]    # effectively s[3] = "t"
-print(s)                   # prints Go tartans! haha
-
+def countToN(n):
+    counter = 1       
+    while(True):
+        print(counter)
+        if(counter == n):
+            break
+        counter += 1
+    print("bye!")
 </pre>
 </div>
 <br />
 
-<!--
-# The in operator
-
-print("h" in "hello")      # prints True
-print("hell" in "hello")   # prints True
-print("ll" in "hello")     # prints True
-print("H" in "hello")      # prints False
-print("" in "hello")       # prints True
-print("k" not in "hello")  # prints True-->
-
-<h4>Looping over strings</h4>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-strings.html#looping" target="_blank">See here.</a> Skip sections 3 and 4.
+The continue statement breaks out of the current iteration and skips to the next iteration. In the example above, in iterations where x is even (x % 2 == 0), the continue statement is executed, which makes the program go to the next iteration, i.e. it skips line 6.
 <br /><br />
 <div class="code">
 <pre class="brush: python;">
-# Looping over a string with an index:
-s = "hello"
+def sumOfOddsToN(n):
+    total = 0
+    for x in range(1, n+1):
+        if(x % 2 == 0):
+            continue
+        total += x
+    return total
+</pre>
+</div>
+<br />
+
+<h4 id="optional-params"> Optional parameters </h4>
+
+<div class="code">
+<pre class="brush: python;">
+# Below y is an optional parameter.
+# When calling the function, if a second argument is given, that value
+# will be assigned to y. If a second argument is not given, by default,
+# y will be assigned the value 10.  
+def f(x, y=10): 
+    return x+y
+
+print(f(5))   # prints 15
+print(f(5,6)) # prints 11
+</pre>
+</div>
+<br />
+
+<h4 id="importing-modules"> Importing modules </h4>
+
+<h5> Call without importing </h5>
+<div class="code">
+<pre class="brush: python;">
+print(math.factorial(20))  # we did not first import the math module
+
+# Python output:
+#   NameError: name 'math' is not defined
+</pre>
+</div>
+<br />
+
+<h5> Call with importing </h5>
+<div class="code">
+<pre class="brush: python;">
+print(math.factorial(20))  # we did not first import the math module
+
+# Python output:
+#   NameError: name 'math' is not defined
+</pre>
+</div>
+<br />
+
+<h5> What does a module export? </h5>
+<div class="code">
+<pre class="brush: python;">
+# list all the functions in the math module
+# (ignore items in __double_underscores__)
+import math
+print(dir(math))
+
+# even better, read the online docs!
+import webbrowser
+input("Hit enter to see the online docs for the math module.")
+webbrowser.open("https://docs.python.org/3/library/math.html")
+</pre>
+</div>
+<br />
+
+<h4 id="approximate-float"> Approximate values for floats </h4> 
+
+<h5> Approximate Values of Floating-Point Numbers </h5>
+<div class="code">
+<pre class="brush: python;">
+print(0.1 + 0.1 == 0.2)        # True, but...
+print(0.1 + 0.1 + 0.1 == 0.3)  # False!
+print(0.1 + 0.1 + 0.1)         # prints 0.30000000000000004 (uh oh)
+print((0.1 + 0.1 + 0.1) - 0.3) # prints 5.55111512313e-17 (tiny, but non-zero!)
+</pre>
+</div>
+<br />
+
+
+<h5> Equality Testing with almostEqual </h5>
+<div class="code">
+<pre class="brush: python;">
+print("The problem....")
+d1 = 0.1 + 0.1 + 0.1
+d2 = 0.3
+print(d1 == d2)                # False (never use == with floats!)
+
+print()
+print("The solution...")
+epsilon = 10**-10
+print(abs(d2 - d1) < epsilon)  # True!
+
+print()
+print("Once again, using a useful helper function, almostEqual:")
+
+def almostEqual(d1, d2):
+    epsilon = 10**-10
+    return (abs(d2 - d1) < epsilon)
+
+d1 = 0.1 + 0.1 + 0.1
+d2 = 0.3
+print(d1 == d2)            # still False, of course
+print(almostEqual(d1, d2)) # True, and now packaged in a handy reusable function!
+</pre>
+</div>
+<br />
+
+
+<h4 id="short-circuit"> Short-circuit evaluation </h4>
+
+<h5> Short-Circuit Evaluation </h5>
+<div class="code">
+<pre class="brush: python;">
+def yes():
+    return True
+
+def no():
+    return False
+
+def crash():
+    return 1/0 # crashes!
+
+print(no() and crash()) # Works!
+print(crash() and no()) # Crashes!
+print (yes() and crash()) # Never runs (due to crash), but would also crash (without short-circuiting)
+</pre>
+</div>
+<br />
+
+<h5> Once again, using the "or" operator </h5>
+<div class="code">
+<pre class="brush: python;">
+def yes():
+    return True
+
+def no():
+    return False
+
+def crash():
+    return 1/0 # crashes!
+
+print(yes() or crash()) # Works!
+print(crash() or yes()) # Crashes!
+print(no() or crash())  # Never runs (due to crash), but would also crash (without short-circuiting)
+</pre>
+</div>
+<br />
+
+<h5> Yet another example </h5>
+<div class="code">
+<pre class="brush: python;">
+def isPositive(n):
+    result = (n > 0)
+    print("isPositive(",n,") =", result)
+    return result
+
+def isEven(n):
+    result = (n % 2 == 0)
+    print("isEven(",n,") =", result)
+    return result
+
+print("Test 1: isEven(-4) and isPositive(-4))")
+print(isEven(-4) and isPositive(-4)) # Calls both functions
+print("----------")
+print("Test 2: isEven(-3) and isPositive(-3)")
+print(isEven(-3) and isPositive(-3)) # Calls only one function!
+</pre>
+</div>
+<br />
+
+<h4 id="conditional-expression"> Conditional (if-else) expression </h4>
+
+<h5> if-else expression </h5>
+<div class="code">
+<pre class="brush: python;">
+# if-else expression (not an if-else statement!)
+
+def abs7(n):
+    return n if (n >= 0) else -n
+
+print("abs7(5) =", abs7(5), "and abs7(-5) =", abs7(-5))
+</pre>
+</div>
+<br />
+
+<br /> <br /><br />
+
+<h3 id="intro-strings">Introduction to Strings</h3>
+ 
+<p>A 'string' is simply a list of characters in order. A character is anything you can type on the keyboard in one keystroke, like a letter, a number, or a backslash. For example, "hello" is a string. Strings are a type of sequences becuase they allow us to store multiple characters, well, in a sequence.</p>
+
+<p>Python strings are <b>immutable</b> which means they cannot be changed after they are created. Since strings can't be changed, we construct <b>new</b> strings as we go to represent computed values. So for example the expression ('hello' + 'there') takes in the 2 strings 'hello' and 'there' and builds a new string 'hellothere'.</p>
+
+<h4 id="string-operations">1. Some string operators</h4>
+
+<h5> String + and * </h5>
+<div class="code">
+<pre class="brush: python;">
+print("abc" + "def")
+print("abc" * 3)
+print("abc" + 3)  # error
+</pre>
+</div>
+<br />
+
+<h5> The in operator </h5>
+<div class="code">
+<pre class="brush: python;">
+print("ring" in "strings")
+print("wow" in "amazing!")
+print("Yes" in "yes!")
+print("" in "No way!")
+</pre>
+</div>
+<br />
+
+<h4 id="string-indexing">2. String indexing and slicing</h4>
+
+<h5> Indexing a single character </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcdefgh"
+print(s)
+print(s[0])
+print(s[1])
+print(s[2])
+
+print("-----------")
+print(s[len(s)-1])
+print(s[len(s)])  # crashes (string index out of range)
+</pre>
+</div>
+<br />
+
+
+<h5> Negative indexes </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcdefgh"
+print(s)
+print(s[-1])
+print(s[-2])
+</pre>
+</div>
+<br />
+
+<h5> Slicing a range of characters </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcdefgh"
+print(s)
+print(s[0:3])
+print(s[1:3])
+print("-----------")
+print(s[2:3])
+print(s[3:3])
+</pre>
+</div>
+<br />
+
+<h5> Slicing with default parameters </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcdefgh"
+print(s)
+print(s[3:])
+print(s[:3])
+print(s[:])
+</pre>
+</div>
+<br />
+
+<h5> Slicing with a step parameter</h5>
+<div class="code">
+<pre class="brush: python;">
+print("This is not as common, but perfectly ok.")
+s = "abcdefgh"
+print(s)
+print(s[1:7:2])
+print(s[1:7:3])
+</pre>
+</div>
+<br />
+
+<h5> Reversing a string </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcdefgh"
+
+print("This works, but is confusing:")
+print(s[::-1])
+
+print("This also works, but is still confusing:")
+print("".join(reversed(s)))
+
+print("Best way: write your own reverseString() function:")
+
+def reverseString(s):
+    return s[::-1]
+
+print(reverseString(s)) # crystal clear!
+</pre>
+</div>
+<br />
+
+<h4 id="string-looping">3. Looping over strings</h4>
+
+<h5> "for" loop with indexes </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcd"
 for i in range(len(s)):
     print(i, s[i])
+</pre>
+</div>
+<br />
 
-# Looping over a string without an index:
+<h5> "for" loop without indexes </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcd"
 for c in s:
     print(c)
 </pre>
 </div>
 <br />
 
-<h4>Example: isPalindrome</h4>
+<h4 id="string-immutable">4. String are immutable</h4>
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-strings.html#isPalindrome" target="_blank">See here.</a> Recommended implementation:
-
-<br /><br />
+<h5> You cannot change strings! They are immutable. </h5>
 <div class="code">
 <pre class="brush: python;">
-def isPalindrome(s):
-    mid = len(s)//2
-    for i in range(mid):
-        if (s[i] != s[len(s)-1-i]): return False
-    return True
+s = "abcde"
+s[2] = "z"  # Error! Cannot assign into s[i]
 </pre>
 </div>
 <br />
 
-<h4>String related built-in functions</h4>
+<h5> Instead, you must create a new string </h5>
+<div class="code">
+<pre class="brush: python;">
+s = "abcde"
+s = s[:2] + "z" + s[3:]
+print(s)
+</pre>
+</div>
+<br />
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-strings.html#stringBuiltinFns" target="_blank">See here.</a>
+<h4 id="string-built-in">5. Some string related built-in functions</h4>
 
+<h5> nput(), str(), and len() </h5>
+<div class="code">
+<pre class="brush: python;">
+name = input("Enter your name: ")
+print("Hi, " + name + ". Your name has " + str(len(name)) + " letters!")
+</pre>
+</div>
+<br />
 
+<h5> chr() and ord() </h5>
+<div class="code">
+<pre class="brush: python;">
+# eval() works but you should not use it!
+s = "(3**2 + 4**2)**0.5"
+print(eval(s))
+
+# why not? Well...
+s = "reformatMyHardDrive()"
+print(eval(s)) # no such function!  But what if there was?
+</pre>
+</div>
+<br />
+
+<h4 id="examples">6. Examples </h4>
+
+<h5> converting upper case to lower case </h5>
+<div class="code">
+<pre class="brush: python;">
+def convertToLowercase(character):
+  distance = ord("a") - ord("A")
+  return chr(ord(character) + distance)
+</pre>
+</div>
+<br />
+
+<h5> isPalindrome </h5>
+<div class="code">
+<pre class="brush: python;">
+# There are many ways to write isPalindrome(s)
+# Here are several.  Which way is best?
+
+def reverseString(s):
+    return s[::-1]
+
+def isPalindrome1(s):
+    return (s == reverseString(s))
+
+def isPalindrome2(s):
+    for i in range(len(s)):
+        if (s[i] != s[len(s)-1-i]):
+            return False
+    return True
+
+def isPalindrome3(s):
+    for i in range(len(s)):
+        if (s[i] != s[-1-i]):
+            return False
+    return True
+
+def isPalindrome4(s):
+    while (len(s) > 1):
+        if (s[0] != s[-1]):
+            return False
+        s = s[1:-1]
+    return True
+
+print(isPalindrome1("abcba"), isPalindrome1("abca"))
+print(isPalindrome2("abcba"), isPalindrome2("abca"))
+print(isPalindrome3("abcba"), isPalindrome3("abca"))
+print(isPalindrome4("abcba"), isPalindrome4("abca"))
+</pre>
+</div>
+<br />
 
   </div>
 

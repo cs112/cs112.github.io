@@ -60,70 +60,61 @@
 
   <div class="center2">
 
-
-
-<h4> break and continue </h4> 
-
-The break statement breaks out of a loop. In the example below, once counter reaches n (counter == n), the break statement is executed, which then makes the program go to line 8.
-<br /><br />
-<div class="code">
-<pre class="brush: python;">
-def countToN(n):
-    counter = 1       
-    while(True):
-        print(counter)
-        if(counter == n):
-            break
-        counter += 1
-    print("bye!")
-</pre>
-</div>
-<br />
-
-The continue statement breaks out of the current iteration and skips to the next iteration. In the example above, in iterations where x is even (x % 2 == 0), the continue statement is executed, which makes the program go to the next iteration, i.e. it skips line 6.
-<br /><br />
-<div class="code">
-<pre class="brush: python;">
-def sumOfOddsToN(n):
-    total = 0
-    for x in range(1, n+1):
-        if(x % 2 == 0):
-            continue
-        total += x
-    return total
-</pre>
-</div>
-<br />
-
-<h4> Optional parameters </h4> 
-
-<div class="code">
-<pre class="brush: python;">
-# Below y is an optional parameter.
-# When calling the function, if a second argument is given, that value
-# will be assigned to y. If a second argument is not given, by default,
-# y will be assigned the value 10.  
-def f(x, y=10): 
-    return x+y
-
-print(f(5))   # prints 15
-print(f(5,6)) # prints 11
-</pre>
-</div>
-<br />
-
 <h4> Examples covered in class </h4>
 
-<li>Computing square root using Newton's method. </li>
-<li>Approximating the prime-counting function. </li>
-<li>walkThroughDigits</li>
-<li>digitCount</li>
+<h5> CT 1 </h5>
+<div class="code">
+<pre class="brush: python;">
+def ct1(x):
+    counter = 0
+    target = 5
+    while (target < 7):
+        if ((counter % x) == (target % x)):
+            print(counter, target, end=" * ")
+            target += 1
+        counter += 2
+    return 1000*counter + target
+print(ct1(3))
+</pre>
+</div>
+<br />
+
+<h5> CT 2 </h5>
+<div class="code">
+<pre class="brush: python;">
+def ct2(x):
+    for y in range(x, 2*x, 1+x//2):
+        for z in range(3, 4):
+            x += 1
+            if ((x + z) % 2 == 1):
+                print("A", x, end=" ")
+        for z in range(y, y-3, -2):
+            print("B", z, end=" ")
+    return y
+print(ct2(4)) 
+</pre>
+</div>
+<br />
+
+<h5> ROC 1 </h5>
+<div class="code">
+<pre class="brush: python;">
+def g(z):
+    assert((type(z) == int) and (100>z>0))
+    for x in range(z):
+        s = 0
+        for y in range(6, 5*x, 4):
+            print(y)
+            s += y
+    return (s == 48)
+</pre>
+</div>
+<br />
+
+
 <li>largestDigit</li>
 <li>countOfMostFreqDigit</li>
 <li>mostFreqDigit</li>
-<li>isSubnumber</li>
-<li>longestDigitRun</li>
-<li>isRotation</li>
 <li>nthPalindromicPrime</li>
 
   </div>

@@ -4,7 +4,15 @@
 ################################################################################
 
 def largestDigit(n):
-    return 42
+    n = abs(n)
+    answer = 0
+    check =0
+    while n >0:
+        check = n%10
+        n //= 10
+        if check > answer:
+            answer = check
+    return answer
 
 def testLargestDigit():
     print("Testing largestDigit()...", end="")
