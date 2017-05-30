@@ -378,23 +378,25 @@ def encrypt(message, shiftNum):
     for char in message:
         result += shift(char, shiftNum)
     return result
+ 
+def shift(char, shiftNum):
+    shiftNum = shiftNum % 26
+    if(not char.isalpha()): return char
+    shiftedOrd = ord(char) + shiftNum
+    if char.islower():
+        distanceFromOrigin = (shiftedOrd - ord('a')) % 26
+        return chr(ord('a') + distanceFromOrigin)
+    else:
+        distanceFromOrigin = (shiftedOrd - ord('A')) % 26
+        return chr(ord('A') + distanceFromOrigin)
 
-# Shift a single character by shiftNum.
-# The following is a very "Pythonic" implementation.
-def shift(c, shiftNum):
-    shiftNum %= 26
-    if (not c.alpha()): return c
-    alph = string.ascii_lower if (c.islower())  else string.ascii_upper
-    shiftedAlph = alph[shiftNum:] + alph[:shiftNum]
-    return shiftedAlph[alph.find(c)]
-
-# The following is a more standard approach.
-def shift(c, shiftNum):
+# An alternative solution
+def shift(char, shiftNum):
     shiftNum = shiftNum % 26
     if(not char.isalpha()): return char
     shifted = ord(char) + shiftNum
     if ( ((char <= 'Z') and (shifted > ord('Z'))) or
-         ((char <= 'z') and (shifted > ord('z')))    ):
+         ((char <= 'z') and (shifted > ord('z')))):
         return chr(shifted - 26)
     else:
         return chr(shifted)
