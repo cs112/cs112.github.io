@@ -459,7 +459,7 @@ print(s)
 
 <h4 id="string-built-in">5. Some string related built-in functions</h4>
 
-<h5> nput(), str(), and len() </h5>
+<h5> input(), str(), and len() </h5>
 <div class="code">
 <pre class="brush: python;">
 name = input("Enter your name: ")
@@ -469,6 +469,16 @@ print("Hi, " + name + ". Your name has " + str(len(name)) + " letters!")
 <br />
 
 <h5> chr() and ord() </h5>
+<div class="code">
+<pre class="brush: python;">
+print(ord("A")) # 65
+print(chr(65))  # "A"
+print(chr(ord("A")+1)) # ?
+</pre>
+</div>
+<br />
+
+<h5> eval() </h5>
 <div class="code">
 <pre class="brush: python;">
 # eval() works but you should not use it!
