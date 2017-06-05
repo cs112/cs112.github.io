@@ -544,11 +544,10 @@ which is quite useful and generally easier to compute than average-case.
 <div class="code">
 <pre class="brush: python;">
 # what is the total cost here?
-L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
-L.sort()                       # This is O(NlogN)
-L.sort(reverse=True)           # This is O(NlogN)
+a = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
+L = copy.copy(a)               # This is O(N)
 L[0] -= 5                      # This is O(1)
-print(L.count(L[0]) + sum(L))  # This is O(N) + O(N)
+print(b.count(b[0]) + sum(L))  # This is O(N) + O(N)
 </pre>
 </div>
 <br />
@@ -557,11 +556,12 @@ print(L.count(L[0]) + sum(L))  # This is O(N) + O(N)
 <div class="code">
 <pre class="brush: python;">
 # what is the total cost here?
-L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
+L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N
+maxSum = 0
 for c in L:                    # This loop's body is executed O(N) times
     L[0] += c                  # This is O(1)
-    L.sort()                   # This is O(NlogN)
-print(L)                       # This is O(N) (why?)
+    maxSum += max(L)           # This is O(N) (why?)
+print(maxSum)                  # This is O(1)
 </pre>
 </div>
 <br />
@@ -570,17 +570,15 @@ print(L)                       # This is O(N) (why?)
 <div class="code">
 <pre class="brush: python;">
 # what is the total cost here?
-def f(L):             # assume L is an arbitrary list of length N 
-    L1 = sorted(L)    # This is O(NlogN)
-    return L1         # This is O(1)
+def f(L):             # assume L is an arbitrary list of length N
+    return max(L)     # This is O(N)
 
 def g(L):             # assume L is an arbitrary list of length N
     L1 = L * len(L)   # This is O(N**2) (why?)
     return L1         # This is O(1)
 
-L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
-L = f(g(L))                    # What is the big-oh of this?
-print(L)                       # This is O(N**2) (why?)
+L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N
+result = f(g(L))               # What is the big-oh of this?
 </pre>
 </div>
 <br />
