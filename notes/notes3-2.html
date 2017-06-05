@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -32,7 +32,7 @@
 <body>
     <h1>15-112 Fundamentals of Programming</h1>
 
-  <div id="navcontainer">
+    <div id="navcontainer">
     <ul id="navlist">
       <li id="navlistfirst"><a href="../index.html">Home</a></li>
 
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,77 +59,532 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#2d-lists-examples">2d lists worked examples</a></li>
+    <ol>
+      <li> <a href="#word-search">Word Search</a></li>
+      <li> <a href="#word-search-redux">Word Search Redux</a></li>
+      <li> <a href="#connect-4">Connect 4</a></li>
+      <li> <a href="#othello">Othello</a></li>
+    </ol>
+    <li> <a href="#intro-to-efficiency">Intro to Efficiency</a></li>
+    <ol>
+      <li> <a href="#big-oh">Big-Oh</a></li>
+      <li> <a href="#fn-families">Common Function Families</a></li>
+      <li> <a href="#efficiency">Efficiency</a></li>
+      <li> <a href="#big-idea">The Big Idea</a></li>
+      <li> <a href="#simple-examples">Sequences, Nesting, and Composition</a></li>
+    </ol>
+  </ol>
 
+  <br />
 
+<h3 id="2d-lists-examples">2d lists worked examples</h4>
 
-
-<h3>Efficiency</h3>
-
-Sections 1, 2, 3, 4, 5.1, 5.2 and 5.4 from <a href="https://www.cs.cmu.edu/~112/notes/notes-efficiency.html" target="_blank">here.</a>
-  
-
-<h4>Linear search and binary search</h4>
-
+<h4 id="word-search"> 1. Word Search</h5>
 <div class="code">
 <pre class="brush: python;">
-def linearSearch(L, target):
-    for index in range(len(L)):
-        if(L[index] == target):
-            return True
-    return False
+# wordSearch1.py
 
+def wordSearch(board, word):
+    (rows, cols) = (len(board), len(board[0]))
+    for row in range(rows):
+        for col in range(cols):
+            result = wordSearchFromCell(board, word, row, col)
+            if (result != None):
+                return result
+    return None
 
-def binarySearch(L, target):      
-    start = 0
-    end = len(L) - 1           
-    while(start <= end):
-        middle = (start + end)//2
-        if(L[middle] == target): 
-            return True
-        elif(L[middle] > target): 
-            end = middle-1
-        else: 
-            start = middle+1
-    return False
+def wordSearchFromCell(board, word, startRow, startCol):
+    for dir in range(8):
+        result = wordSearchFromCellInDirection(board, word,
+                                               startRow, startCol, dir)
+        if (result != None):
+            return result
+    return None
+
+def wordSearchFromCellInDirection(board, word, startRow, startCol, dir):
+    (rows, cols) = (len(board), len(board[0]))
+    dirs = [ (-1, -1), (-1, 0), (-1, +1),
+             ( 0, -1),          ( 0, +1),
+             (+1, -1), (+1, 0), (+1, +1) ]
+    dirNames = [ "up-left"  ,   "up", "up-right",
+                 "left"     ,         "right",
+                 "down-left", "down", "down-right" ]
+    (drow,dcol) = dirs[dir]    
+    for i in range(len(word)):
+        row = startRow + i*drow
+        col = startCol + i*dcol
+        if ((row < 0) or (row >= rows) or
+            (col < 0) or (col >= cols) or
+            (board[row][col] != word[i])):
+            return None
+    return (word, (startRow, startCol), dirNames[dir])
+
+def testWordSearch():
+    board = [ [ 'd', 'o', 'g' ],
+              [ 't', 'a', 'c' ],
+              [ 'o', 'a', 't' ],
+              [ 'u', 'r', 'k' ],
+            ]
+    print(wordSearch(board, "dog")) # ('dog', (0, 0), 'right')
+    print(wordSearch(board, "cat")) # ('cat', (1, 2), 'left')
+    print(wordSearch(board, "tad")) # ('tad', (2, 2), 'up-left')
+    print(wordSearch(board, "cow")) # None
+
+testWordSearch()
 </pre>
 </div>
 <br />
 
-<h4>Selection sort and bubble sort</h4>
-
+<h4 id="word-search-redux"> 2. Word Search Redux</h5>
 <div class="code">
 <pre class="brush: python;">
-def swap(L, i, j):
-    (L[i], L[j]) = (L[j], L[i])
+# wordSearch2.py
+# This time with a slightly different handling of directions
 
+def wordSearch(board, word):
+    (rows, cols) = (len(board), len(board[0]))
+    for row in range(rows):
+        for col in range(cols):
+            result = wordSearchFromCell(board, word, row, col)
+            if (result != None):
+                return result
+    return None
 
-def selectionSort(L):
-    N = len(L)
-    for startIndex in range(N):
-        minIndex = startIndex
-        for i in range(startIndex+1, N):
-            if(L[i] < L[minIndex]):
-                minIndex = i
-        swap(L, startIndex, minIndex)
+def wordSearchFromCell(board, word, startRow, startCol):
+    for drow in [-1, 0, +1]:
+        for dcol in [-1, 0, +1]:
+            if ((drow != 0) or (dcol != 0)):
+                result = wordSearchFromCellInDirection(board, word,
+                                                       startRow, startCol,
+                                                       drow, dcol)
+                if (result != None):
+                    return result
+    return None
 
+def wordSearchFromCellInDirection(board, word, startRow, startCol, drow, dcol):
+    (rows, cols) = (len(board), len(board[0]))
+    dirNames = [ ["up-left"  ,   "up", "up-right"],
+                 ["left"     ,   ""  , "right"   ],
+                 ["down-left", "down", "down-right" ] ]
+    for i in range(len(word)):
+        row = startRow + i*drow
+        col = startCol + i*dcol
+        if ((row < 0) or (row >= rows) or
+            (col < 0) or (col >= cols) or
+            (board[row][col] != word[i])):
+            return None
+    return (word, (startRow, startCol), dirNames[drow+1][dcol+1])
 
-def bubbleSort(L):
-    N = len(L)
-    end = N
-    swapped = True
-    while(swapped):
-        swapped = False
-        for i in range(1, end):
-            if(L[i-1] > L[i]):
-                swap(L, i-1, i)
-                swapped = True
-        end -= 1
+def testWordSearch():
+    board = [ [ 'd', 'o', 'g' ],
+              [ 't', 'a', 'c' ],
+              [ 'o', 'a', 't' ],
+              [ 'u', 'r', 'k' ],
+            ]
+    print(wordSearch(board, "dog")) # ('dog', (0, 0), 'right')
+    print(wordSearch(board, "cat")) # ('cat', (1, 2), 'left')
+    print(wordSearch(board, "tad")) # ('tad', (2, 2), 'up-left')
+    print(wordSearch(board, "cow")) # None
+
+testWordSearch()
 </pre>
 </div>
 <br />
 
+<h4 id="connect-4">3. Connect 4</h5>
+<div class="code">
+<pre class="brush: python;">
+# connect4.py
 
+# A simple game of connect4 with a text interface
+# based on the wordSearch code written in class.
+
+def playConnect4():
+    rows = 6
+    cols = 7
+    board = makeBoard(rows, cols)
+    player = "X"
+    moveCount = 0
+    printBoard(board)
+    while (moveCount < rows*cols):
+        moveCol = getMoveCol(board, player)
+        moveRow = getMoveRow(board, moveCol)
+        board[moveRow][moveCol] = player
+        printBoard(board)
+        if checkForWin(board, player):
+            print("*** Player %s Wins!!! ***" % player)
+            return
+        moveCount += 1
+        player = "O" if (player == "X") else "X"
+    print("*** Tie Game!!! ***")
+
+def makeBoard(rows, cols):
+    return [ (["-"] * cols) for row in range(rows) ]
+
+def printBoard(board):
+    rows = len(board)
+    cols = len(board[0])
+    print()
+    # first print the column headers
+    print("    ", end="")
+    for col in range(cols):
+        print(str(col+1).center(3), " ", end="")
+    print()
+    # now print the board
+    for row in range(rows):
+        print("    ", end="")
+        for col in range(cols):
+            print(board[row][col].center(3), " ", end="")
+        print()
+
+def getMoveCol(board, player):
+    cols = len(board[0])
+    while True:
+        response = input("Enter player %s's move (column number) --> " %
+                         (player))
+        try:
+            moveCol = int(response)-1  # -1 since user sees cols starting at 1
+            if ((moveCol < 0) or (moveCol >= cols)):
+                print("Columns must be between 1 and %d. " % (cols), end="")
+            elif (board[0][moveCol] != "-"):
+                print("That column is full! ", end="")
+            else:
+                return moveCol
+        except:
+            # they did not even enter an integer!
+            print("Columns must be integer values! ", end="")
+        print("Please try again.")
+
+def getMoveRow(board, moveCol):
+    # find first open row from bottom
+    rows = len(board)
+    for moveRow in range(rows-1, -1, -1):
+        if (board[moveRow][moveCol] == "-"):
+            return moveRow
+    # should never get here!
+    assert(False)
+
+def checkForWin(board, player):
+    winningWord = player * 4
+    return (wordSearch(board, winningWord) != None) # that was easy!
+
+##############################################
+# taken from wordSearch.py
+##############################################
+
+def wordSearch(board, word):
+    (rows, cols) = (len(board), len(board[0]))
+    for row in range(rows):
+        for col in range(cols):
+            result = wordSearchFromCell(board, word, row, col)
+            if (result != None):
+                return result
+    return None
+
+def wordSearchFromCell(board, word, startRow, startCol):
+    for drow in [-1, 0, +1]:
+        for dcol in [-1, 0, +1]:
+            if ((drow != 0) or (dcol != 0)):
+                result = wordSearchFromCellInDirection(board, word,
+                                                       startRow, startCol,
+                                                       drow, dcol)
+                if (result != None):
+                    return result
+    return None
+
+def wordSearchFromCellInDirection(board, word, startRow, startCol, drow, dcol):
+    (rows, cols) = (len(board), len(board[0]))
+    dirNames = [ ["up-left"  ,   "up", "up-right"],
+                 ["left"     ,   ""  , "right"   ],
+                 ["down-left", "down", "down-right" ] ]
+    for i in range(len(word)):
+        row = startRow + i*drow
+        col = startCol + i*dcol
+        if ((row < 0) or (row >= rows) or
+            (col < 0) or (col >= cols) or
+            (board[row][col] != word[i])):
+            return None
+    return (word, (startRow, startCol), dirNames[drow+1][dcol+1])
+
+playConnect4()
+</pre>
 </div>
+<br />
+
+<h4 id="othello">4. Othello</h5>
+<div class="code">
+<pre class="brush: python;">
+# othello.py
+
+def make2dList(rows, cols):
+    a=[]
+    for row in range(rows): a += [[0]*cols]
+    return a
+
+def hasMove(board, player):
+    (rows, cols) = (len(board), len(board[0]))
+    for row in range(rows):
+        for col in range(cols):
+            if (hasMoveFromCell(board, player, row, col)):
+                return True
+    return False
+
+def hasMoveFromCell(board, player, startRow, startCol):
+    (rows, cols) = (len(board), len(board[0]))
+    if (board[startRow][startCol] != 0):
+        return False
+    for dir in range(8):
+        if (hasMoveFromCellInDirection(board, player, startRow, startCol, dir)):
+            return True
+    return False
+
+def hasMoveFromCellInDirection(board, player, startRow, startCol, dir):
+    (rows, cols) = (len(board), len(board[0]))
+    dirs = [ (-1, -1), (-1, 0), (-1, +1),
+             ( 0, -1),          ( 0, +1),
+             (+1, -1), (+1, 0), (+1, +1) ]
+    (drow,dcol) = dirs[dir]
+    i = 1
+    while True:
+        row = startRow + i*drow
+        col = startCol + i*dcol
+        if ((row < 0) or (row >= rows) or (col < 0) or (col >= cols)):
+            return False
+        elif (board[row][col] == 0):
+            # no blanks allowed in a sandwich!
+            return False
+        elif (board[row][col] == player):
+            # we found the other side of the 'sandwich'
+            break
+        else:
+            # we found more 'meat' in the sandwich
+            i += 1
+    return (i > 1)
+
+def makeMove(board, player, startRow, startCol):
+    # assumes the player has a legal move from this cell
+    (rows, cols) = (len(board), len(board[0]))
+    for dir in range(8):
+        if (hasMoveFromCellInDirection(board, player, startRow, startCol, dir)):
+            makeMoveInDirection(board, player, startRow, startCol, dir)
+    board[startRow][startCol] = player
+
+def makeMoveInDirection(board, player, startRow, startCol, dir):
+    (rows, cols) = (len(board), len(board[0]))
+    dirs = [ (-1, -1), (-1, 0), (-1, +1),
+             ( 0, -1),          ( 0, +1),
+             (+1, -1), (+1, 0), (+1, +1) ]
+    (drow,dcol) = dirs[dir]
+    i = 1
+    while True:
+        row = startRow + i*drow
+        col = startCol + i*dcol
+        if (board[row][col] == player):
+            # we found the other side of the 'sandwich'
+            break
+        else:
+            # we found more 'meat' in the sandwich, so flip it!
+            board[row][col] = player
+            i += 1
+
+def getPlayerLabel(player):
+    labels = ["-", "X", "O"]
+    return labels[player]
+
+def printColLabels(board):
+    (rows, cols) = (len(board), len(board[0]))
+    print("   ", end="") # skip row label
+    for col in range(cols): print(chr(ord("A")+col)," ", end="")
+    print()
+
+def printBoard(board):
+    (rows, cols) = (len(board), len(board[0]))
+    printColLabels(board)
+    for row in range(rows):
+        print("%2d " % (row+1), end="")
+        for col in range(cols):
+            print(getPlayerLabel(board[row][col]), " ", end="")
+        print("%2d " % (row+1))
+    printColLabels(board)
+
+def isLegalMove(board, player, row, col):
+    (rows, cols) = (len(board), len(board[0]))
+    if ((row < 0) or (row >= rows) or (col < 0) or (col >= cols)): return False
+    return hasMoveFromCell(board, player, row, col)
+
+def getMove(board, player):
+    print("\n**************************")
+    printBoard(board)
+    while True:
+        prompt = "Enter move for player " + getPlayerLabel(player) + ": "
+        move = input(prompt).upper()
+        # move is something like "A3"
+        if ((len(move) != 2) or
+            (not move[0].isalpha()) or
+            (not move[1].isdigit())):
+            print("Wrong format!  Enter something like A3 or D5.")
+        else:
+            col = ord(move[0]) - ord('A')
+            row = int(move[1])-1
+            if (not isLegalMove(board, player, row, col)):
+                print("That is not a legal move!  Try again.")
+            else:
+                return (row, col)            
+
+def playOthello(rows, cols):
+    # create initial board
+    board = make2dList(rows, cols)
+    board[rows//2][cols//2] = board[rows//2-1][cols//2-1] = 1
+    board[rows//2-1][cols//2] = board[rows//2][cols//2-1] = 2
+    (currentPlayer, otherPlayer) = (1, 2)
+    # and play until the game is over
+    while True:
+        if (hasMove(board, currentPlayer) == False):
+            if (hasMove(board, otherPlayer)):
+                print("No legal move!  PASS!")
+                (currentPlayer, otherPlayer) = (otherPlayer, currentPlayer)
+            else:
+                print("No more legal moves for either player!  Game over!")
+                break
+        (row, col) = getMove(board, currentPlayer)
+        makeMove(board, currentPlayer, row, col)
+        (currentPlayer, otherPlayer) = (otherPlayer, currentPlayer)
+    print("Goodbye!")
+
+playOthello(8,8)
+</pre>
+</div>
+<br />
+<br />
+<br />
+
+<h3 id="intro-to-efficiency">Into to efficiency</h3>
+
+<h4 id="big-oh">1. Big-Oh</h3>
+  <ol>
+  <li>Describes asymptotic behavior of a function
+  </li><li>Informally (for 15112):  ignore all lower-order terms and constants
+  </li><li>Formally (after 15112):  see
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition">here</a>
+  </li><li>A few examples:
+    <ul>
+    <li>3n<sup>2</sup> - 2n + 25 is O(n<sup>2</sup>)
+    </li><li>30000n<sup>2</sup> + 2n - 25 is O(n<sup>2</sup>)
+    </li><li>0.00000000001n<sup>2</sup> + 123456789n is O(n<sup>2</sup>)
+    </li><li>10nlog<sub>17</sub>n + 25n - 17 is O(nlogn)
+    </li></ul>
+  </ol>
+
+<h4 id="fn-families">2. Common Function Families</h3>
+<ol>
+<li>Constant O(1)
+</li><li>Logarithmic O(logn)
+</li><li>Square-Root O(n<sup>0.5</sup>)
+</li><li>Linear  O(n)
+</li><li>Linearithmic, Loglinear, or quasilinear  O(nlogn)
+</li><li>Quadratic  O(n<sup>2</sup>)
+</li><li>Exponential  O(k<sup>n</sup>)
+</li></ol>
+
+<br>
+<b>Graphically (Images borrowed from
+<a target="_blank" href="http://science.slc.edu/~jmarshall/courses/2002/spring/cs50/BigO/index.html">here</a>):</b><br>
+<img border="0" src="notes-3-img/big-oh1.gif" width="552" height="411"><br>
+<br>
+<img border="0" src="notes-3-img/big-oh2.gif" width="547" height="402"><br>
+<br>
+<img border="0" src="notes-3-img/big-oh3.gif" width="549" height="400"><br>
+
+
+<h4 id="efficiency">3. Efficiency</h3>
+When we say the program runs in O(f(N)), we mean...
+<ul>
+<li>N is the size of our input
+<ul>
+<li>For a string s, N = len(s)</li>
+<li>For a list L, N = len(L) (also true for sets, dictionaries, and other collections)</li>
+<li>For an integer n, N = numberOfDigits(n) = log<sub>b</sub>(n), so n = b<sup>N</sup> (where b is the base, and you can use any base b >= 2).</li>
+<li>In the literature, N is often written in lowercase n, but we use that often to represent an integer n, which is different from the size of that integer.  So in 112, we use uppercase N for the size of the input.
+</li>
+</ul>
+</li><li>f(N) = resource consumption of our program
+  <ul><li>Resource can be time, space, bandwidth, ...
+      </li><li>For 15112, we mainly care about time
+      </li></ul>
+</li><li>For time, we usually measure algorithmic steps rather than elapsed time
+(These share the same big-oh, but algorithmic steps are easier to precisely describe and reason over)
+</li><li>Note that you can measure worst-case or average case, or even other
+cases such as best case (which often is trivial to compute and not very useful in practice).  For 15-112, we often omit this term (which is a notable simplification
+that you will not see in future courses), and we nearly always mean worst-case,
+which is quite useful and generally easier to compute than average-case.
+<ul>
+<li>Count steps in a written algorithm, or comparisons and swaps in a list, etc
+</li><li>Can verify by timing your code's execution with:  time.time()
+</li></ul></li></ul>
+
+
+<h4 id="big-idea">4. The Big Idea</h3>
+<ul>
+<li>Each function family grows much faster than the one before it!
+</li><li>And: on modern computers, any function family is usually efficient enough on small n, so we only care about large n
+</li><li>So...  Constants do not matter nearly as much as function families
+</li><li>Practically...
+   <ul><li>Do not prematurely or overly optimize your code
+   </li><li>Instead:  <b>think algorithmically!!!</b>
+   </li></ul>
+</li></ul>
+
+
+<h4 id="simple-examples">5. Sequences, Nesting, and Composition</h3>
+
+<h5> Sequences </h5>
+<div class="code">
+<pre class="brush: python;">
+# what is the total cost here?
+L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
+L.sort()                       # This is O(NlogN)
+L.sort(reverse=True)           # This is O(NlogN)
+L[0] -= 5                      # This is O(1)
+print(L.count(L[0]) + sum(L))  # This is O(N) + O(N)
+</pre>
+</div>
+<br />
+
+<h5> Nesting </h5>
+<div class="code">
+<pre class="brush: python;">
+# what is the total cost here?
+L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
+for c in L:                    # This loop's body is executed O(N) times
+    L[0] += c                  # This is O(1)
+    L.sort()                   # This is O(NlogN)
+print(L)                       # This is O(N) (why?)
+</pre>
+</div>
+<br />
+
+<h5> Composition </h5>
+<div class="code">
+<pre class="brush: python;">
+# what is the total cost here?
+def f(L):             # assume L is an arbitrary list of length N 
+    L1 = sorted(L)    # This is O(NlogN)
+    return L1         # This is O(1)
+
+def g(L):             # assume L is an arbitrary list of length N
+    L1 = L * len(L)   # This is O(N**2) (why?)
+    return L1         # This is O(1)
+
+L = [ 52, 83, 78, 9, 12, 4 ]   # assume L is an arbitrary list of length N 
+L = f(g(L))                    # What is the big-oh of this?
+print(L)                       # This is O(N**2) (why?)
+</pre>
+</div>
+<br />
+
 
   <br  /><br />
   <div class="badges">

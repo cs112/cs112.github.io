@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,20 +59,274 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#1d-lists-continued">Wrapping up 1d lists</a></li>
+    <ol>
+      <li> <a href="#swapping-elems">Swapping Elements</a></li>
+      <li> <a href="#copying-lists">Copying lists</a></li>
+      <li> <a href="#list-comprehension">List comprehension</a></li>
+      <li> <a href="#string-list-conversion">Converting Between Lists and Strings</a></li>
+      <li> <a href="#list-ct">1d list CT</a></li>
+      <li> <a href="#anagrams">Worked example 1: Anagrams</a></li>
+      <li> <a href="#sieve">Worked example 2: The Sieve of Eratosthenes</a></li>
+    </ol>
+    <li> <a href="#2d-lists">2d lists</a></li>
+    <ol>
+      <li> <a href="#2d-lists">2d lists</a></li>
+      <li> <a href="#2d-lists-ct">2d lists CT</a></li>
+      <li> <a href="#magic-square">Example 1: isMagicSquare</a></li>
+    </ol>
+  </ol>
 
+  <br />
 
+<h3 id="1d-lists-continued">Wrapping up 1d lists</h3>
 
+<h4 id="swapping-elems">1. Swapping elements </h4>
 
-<h3>2 Dimensional Lists</h3>
+<h5> Failed swap </h5>
+<div class="code">
+<pre class="brush: python;">
+a = [ 2, 3, 5, 7 ]
+print("a =", a)
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-2d-lists.html" target="_blank">See here.</a>
-  
-
-<h4>Word Search Example</h4>
-
-<a href="https://www.cs.cmu.edu/~112/notes/notes-2d-lists-examples.html#wordsearch2" target="_blank">See here.</a>
-
+a[0] = a[1]
+a[1] = a[0]
+print("After failed swap of a[0] and a[1]:")
+print("   a=",a)
+</pre>
 </div>
+<br />
+
+<h5> Swap with a temp variable </h5>
+<div class="code">
+<pre class="brush: python;">
+a = [ 2, 3, 5, 7 ]
+print("a =", a)
+
+temp = a[0]
+a[0] = a[1]
+a[1] = temp
+print("After swapping a[0] and a[1]:")
+print("   a=",a)
+</pre>
+</div>
+<br />
+
+<h5> Swap with parallel (tuple) assignment </h5>
+<div class="code">
+<pre class="brush: python;">
+a = [ 2, 3, 5, 7 ]
+print("a =", a)
+
+a[0],a[1] = a[1],a[0]
+print("After swapping a[0] and a[1]:")
+print("   a=",a)
+</pre>
+</div>
+<br />
+
+<h4 id="copying-lists">2. Copying lists </h4>
+
+<h5> Copy vs Alias </h5>
+<div class="code">
+<pre class="brush: python;">
+import copy
+
+# Create a list
+a = [ 2, 3 ]
+
+# Try to copy it
+b = a             # Error!  Not a copy, but an alias
+c = copy.copy(a)  # Ok
+
+# At first, things seem ok
+print("At first...")
+print("   a =", a)
+print("   b =", b)
+print("   c =", c)
+
+# Now modify a[0]
+a[0] = 42
+print("But after a[0] = 42")
+print("   a =", a)
+print("   b =", b)
+print("   c =", c)
+</pre>
+</div>
+<br />
+
+<h5> Other ways to copy </h5>
+<div class="code">
+<pre class="brush: python;">
+import copy
+
+a = [2, 3]
+b = copy.copy(a)
+c = a[:]
+d = a + [ ]
+e = list(a)
+f = copy.deepcopy(a)
+g = sorted(a)
+
+a[0] = 42
+print(a, b, c, d, e, f, g)
+</pre>
+</div>
+<br />
+
+<h4 id="list-comprehension">3. List comprehension</h4>
+<div class="code">
+<pre class="brush: python;">
+a = [i for i in range(10)]
+print(a)
+
+a = [(i*100) for i in range(20) if i%5 == 0]
+print(a)
+</pre>
+</div>
+<br />
+
+<h4 id="string-list-conversion">4. Converting between Lists and Strings</h4>
+<div class="code">
+<pre class="brush: python;">
+# use list(s) to convert a string to a list of characters
+a = list("wahoo!")
+print(a)  # prints: ['w', 'a', 'h', 'o', 'o', '!']
+
+# use s1.split(s2) to convert a string to a list of strings delimited by s2
+a = "How are you doing today?".split(" ")
+print(a) # prints ['How', 'are', 'you', 'doing', 'today?']
+
+# use "".join(a) to convert a list of characters to a single string
+s = "".join(a)
+print(s)  # prints: wahoo!
+
+# "".join(a) also works on a list of strings (not just single characters)
+a = ["parsley", " ", "is", " ", "gharsley"] # by Ogden Nash!
+s = "".join(a)
+print(s)  # prints: parsley is gharsley
+</pre>
+</div>
+<br />
+
+<h4 id="list-ct">5. 1d List CT </h4>
+<div class="code">
+<pre class="brush: python;">
+import copy
+
+def ct1(a):
+    (b, c) = (a, copy.copy(a))
+    a[0] = 3
+    b[0] = 4
+    c[0] = 5
+    print(a[0], b[0], c[0], end = " ")
+    a = c
+    a[0] = 6
+    b[0] = 7
+    c[0] = 8
+    print (a[0], b[0], c[0], end = " ")              
+
+a = [1, 2]
+ct1(a)
+print(a[0])
+
+</pre>
+</div>
+<br />
+
+<h4 id="anagrams">6. Worked example 1: Anagrams</h4>
+
+<div class="code">
+<pre class="brush: python;">
+def letterCounts(s):
+    counts = [0] * 26
+    for ch in s.upper():
+        if ((ch >= "A") and (ch <= "Z")):
+            counts[ord(ch) - ord("A")] += 1
+    return counts
+
+def isAnagram(s1, s2):
+    # First approach: same #'s of each letter
+    return (letterCounts(s1) == letterCounts(s2))
+
+def isAnagram(s1, s2):
+    # Second approach: sorted strings must match!
+    return sorted(list(s1.upper())) == sorted(list(s2.upper()))
+
+def testIsAnagram():
+    print("Testing isAnagram()...", end="")
+    assert(isAnagram("", "") == True)
+    assert(isAnagram("abCdabCd", "abcdabcd") == True)
+    assert(isAnagram("abcdaBcD", "AAbbcddc") == True)
+    assert(isAnagram("abcdaabcd", "aabbcddcb") == False)
+    print("Passed!")
+
+testIsAnagram()
+</pre>
+</div>
+<br />
+
+<h4 id="sieve">7. Worked example 2: The Sieve of Eratosthenes</h4>
+
+<div class="code">
+<pre class="brush: python;">
+# Sieve of Eratosthenes
+
+# This function returns a list of prime numbers
+# up to n (inclusive), using the Sieve of Eratosthenes.
+# See http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+
+def sieve(n):
+    isPrime = [ True ] * (n+1) # assume all are prime to start
+    isPrime[0] = isPrime[1] = False # except 0 and 1, of course
+    primes = [ ]
+    for prime in range(n+1):
+        if (isPrime[prime] == True):
+            # we found a prime, so add it to our result
+            primes.append(prime)
+            # and mark all its multiples as not prime
+            for multiple in range(2*prime, n+1, prime):
+                isPrime[multiple] = False
+    return primes
+
+print(sieve(100))
+</pre>
+</div>
+<br />
+<br />
+<br />
+
+<h3 id="2d-lists">2d Lists</h3>
+
+<h4 id="2d-lists">1. 2d lists</h4>
+<a href="https://www.cs.cmu.edu/~112/notes/notes-2d-lists.html" target="_blank">See here.</a>
+
+<h4 id="2d-lists-ct">2. 2d lists CT</h4>
+<div class="code">
+<pre class="brush: python;">
+import copy
+
+def ct1(L):
+    a = L
+    b = copy.copy(L)
+    c = copy.deepcopy(L)
+    b[0] = a[1] * a[1][0]
+    a[0][0] += a.pop()[0]
+    b[1] = c[0]
+    return  b
+
+L = [[1],[2],[3]]
+print(ct1(L))
+print(L)
+</pre>
+</div>
+<br />
+
+
+<h4 id="magic-square">3. Example 1: isMagicSquare(a)</h4>
+<a href="http://www.kosbie.net/cmu/spring-16/15-112/notes/hw6.html" target="_blank">See here.</a>
 
   <br  /><br />
   <div class="badges">
