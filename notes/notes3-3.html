@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,19 +59,174 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#efficiency-continued">Efficiency continued</a></li>
+    <ol>
+      <li> <a href="#python-builtins">Python Builtins</a></li>
+      <li> <a href="#isPrime">isPrime vs fasterIsPrime</a></li>
+      <li> <a href="#searching">Linear Search vs Binary Search</a></li>
+      <li> <a href="#sorting">Sorting</a></li>
+      <li> <a href="#sumOfSquares">sumOfSquares Examples</a></li>
+    </ol>
+  </ol>
+
+  <br />
 
 
+<h3 id="efficiency-continued">Efficiency continued</h3>
+
+<h4 id="python-builtins"> 1. Python Builtins</h5>
+Here we use S for a set and L for a list:
+<ul>
+<li>Some are O(1), including len(L), (val in S), L.append(item)
+</li><li>Some are O(N), including max(L), min(L), (val in L), L.count(val), set(L)
+</li><li>Sorting is O(NlogN)
+</li><li>For a more complete list, see
+  <a target="_blank" href="https://wiki.python.org/moin/TimeComplexity">here</a>
+</li></ul>
+
+<h4 id="isPrime"> 2. isPrime vs fasterIsPrime</h5>
+
+<ul>
+<li>From
+ <a href="https://cs112.github.io/notes/notes1-3.html#isPrime">
+  these examples</a>,
+we see that isPrime tests O(n) factors whereas fasterIsPrime 
+tests O(n<sup>0.5</sup>) factors. </li>
+<li>But the size of the input is N=log<sub>2</sub>(n), so we substitute n=2<sup>N</sup>.</li>
+<li>And we conclude that our isPrime is O(2<sup>N</sup>) and fasterIsPrime is O((2<sup>N</sup>)<sup>0.5</sup>)) = O(2<sup>N/2</sup>).</li>
+<li>And so: isPrime(n) is exponential, and hopelessly slow on large inputs.</li>
+<li>And: fasterIsPrime, while much faster, is also exponential and so also hopelessly slow on large inputs.
+<li>Much faster primality tests exist.  For example, the
+<a target="_blank" href="https://en.wikipedia.org/wiki/AKS_primality_test">AKS Primality Test</a> is polynomial not exponential!
+</ul>
 
 
-<h3>Efficiency continued</h3>
+<h4 id="searching"> 3. Linear Search vs Binary Search</h5>
 
-Sections 5.3, 5.5 from <a href="https://www.cs.cmu.edu/~112/notes/notes-efficiency.html" target="_blank">here.</a>
-  
+<h5> Linear search </h5>
+<div class="code">
+<pre class="brush: python;">
+def linearSearch(L, target):
+    for index in range(len(L)):
+        if(L[index] == target):
+            return True
+    return False
 
-<h3>Sets and dictionaries </h3>
+# What's the total cost here?
+</pre>
+</div>
+<br />
 
-See <a href="https://www.cs.cmu.edu/~112/notes/notes-sets.html" target="_blank">here</a>, and <a href="https://www.cs.cmu.edu/~112/notes/notes-maps.html" target="_blank">here</a>.
+<h5> Binary search </h5>
+<div class="code">
+<pre class="brush: python;">
+def binarySearch(L, target):      
+    start = 0
+    end = len(L) - 1          
+    while(start <= end):
+        middle = (start + end)//2
+        if(L[middle] == target): 
+            return True
+        elif(L[middle] > target): 
+            end = middle-1
+        else: 
+            start = middle+1
+    return False
 
+# What's the total cost here?
+</pre>
+</div>
+<br />
+
+<h4 id="sorting"> 4. Sorting</h5>
+
+<h5> Sorting Examples </h5>
+See <a href="https://www.cs.cmu.edu/~112/notes/notes-1d-lists-examples.html#sorting">here</a>.
+
+<h5> SelectionSort vs MergeSort </h5>
+See <a href="https://www.cs.cmu.edu/~112/notes/notes-efficiency.html#sorting2">here</a>.
+
+<h4 id="sumOfSquares"> 5. sumOfSquares Examples</h5>
+
+<div class="code">
+<pre class="brush: python;">
+# The following functions all solve the same problem:
+# Given a non-negative integer n, return True if n is the sum
+# of the squares of two non-negative integers, and False otherwise.
+
+def f1(n):
+    for x in range(n+1):
+        for y in range(n+1):
+            if (x**2 + y**2 == n):
+                return True
+    return False
+
+def f2(n):
+    for x in range(n+1):
+        for y in range(x,n+1):
+            if (x**2 + y**2 == n):
+                return True
+    return False
+
+def f3(n):
+    xmax = int(n**0.5)
+    for x in range(xmax+1):
+        for y in range(x,n+1):
+            if (x**2 + y**2 == n):
+                return True
+    return False
+
+def f4(n):
+    xyMax = int(n**0.5)
+    for x in range(xyMax+1):
+        for y in range(x,xyMax+1):
+            if (x**2 + y**2 == n):
+                return True
+    return False
+
+def f5(n):
+    xyMax = int(n**0.5)
+    for x in range(xyMax+1):
+        y = int((n - x**2)**0.5)
+        if (x**2 + y**2 == n):
+            return True
+    return False
+
+def testFunctionsMatch(maxToCheck):
+    # first, verify that all 5 functions work the same
+    print("Verifying that all functions work the same...")
+    for n in range(maxToCheck):
+        assert(f1(n) == f2(n) == f3(n) == f4(n) == f5(n))
+    print("All functions match up to n =", maxToCheck)
+
+testFunctionsMatch(100) # use larger number to be more confident
+
+import time
+def timeFnCall(f, n):
+    # call f(n) and return time in ms
+    # Actually, since one call may require less than 1 ms,
+    # we'll keep calling until we get at least 1 secs,
+    # then divide by # of calls we had to make
+    calls = 0
+    start = end = time.time()
+    while (end - start < 1):
+        f(n)
+        calls += 1
+        end = time.time()
+    return float(end - start)/calls*1000 #(convert to ms)
+
+def timeFnCalls(n):
+    print("***************")
+    for f in [f1, f2, f3, f4, f5]:
+        print ("%s(%d) takes %8.3f milliseconds" %
+               (f.__name__, n, timeFnCall(f, n)))
+
+timeFnCalls(1001)  # use larger number, say 3000, to get more accurate timing
+</pre>
+</div>
+<br />
 
 </div>
 
