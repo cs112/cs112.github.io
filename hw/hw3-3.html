@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-112 - Summer 1 - 2017</title>  
+
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  
+
+  
+  <script type="text/javascript" src="../highlight/scripts/shCore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shThemeDefault.css"/>
+
+  <script type="text/javascript" src="../highlight/scripts/shBrushPython.js"></script>
+
+
+  
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+  
+
+</head>
+
+
+<body>
+    <h1>15-112 Fundamentals of Programming</h1>
+
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+
+      <li><a href="../syllabus.html">Syllabus</a></li>
+
+      <li><a href="../schedule.html">Schedule</a></li>
+      
+      <li><a href="../calendar.html">Calendar</a></li>
+
+      <li><a href="../staff.html">Staff</a></li>
+
+      <li><a target="_blank" href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
+
+      <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
+
+    </ul>
+  </div>
+
+<center>
+    <h2>Homework 3.3</h2>
+    <!--<h2>Basic building blocks of programming</h2>-->
+</center>
+ 
+  <div class="center2">
+  <br />
+  
+  
+For this homework, there is no starter file. You have to create your own .py file and submit it to Autolab. You can take a previous starter file and modify it appropriately.
+<br /><br /> 
+
+  <li> Please add your name, Andrew id, and section at the top of the file.
+  <li> Write test functions for each function you write. </li>
+  <li> APPLY TOP-DOWN DESIGN, USE LOTS OF HELPER FUNCTIONS. </li>
+  <li> IMPORTANT: Make sure you put all test functions and manually graded functions below #ignore_rest. </li>
+  <li> You will be graded on style. You can lose up to 10 poins for style (out of 100 points). Please see <a href="https://www.cs.cmu.edu/~112/notes/notes-style.html" target="_blank">here</a> for the style rubric.</li>
+  <li> You may not use recursion, sets, dictionaries or any other constructs that we have not yet covered in class.</li>
+  <li> You will have 5 submissions on Autolab for this homework. </li>
+
+
+  <h3> Questions </h3>
+
+  <h4> 1. BigO Analysis [15 pts][manually graded] </h4>
+  In a triple-quoted string at the top of your file (just below your name), include solutions to this exercise.  For each of the following functions:
+  <ol>
+  <li>State in just a few words what it does in general.
+  </li><li>State and prove (in a few words) its worst-case big-oh runtime.</li>
+  </ol>
+  You should assume that lists all contain at least 5 values, and only integer values. Also, if a function takes two lists, you should assume they are the same length N.
+  <br /><br />
+
+  <div class="code">
+  <pre class="brush: python;">
+import copy
+
+def slow1(a):
+    (b, c) = (copy.copy(a), 0)
+    while (b != [ ]):
+        b.pop()
+        c += 1
+    return c
+
+def slow2(a):
+    n = len(a)
+    count = 0
+    for i in range(n):
+        for j in range(n):
+            if (a[i] == a[j]):
+                count += 1
+    return (count == n)
+
+def slow3(a, b):
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = 0
+    for c in b:
+        if c not in a:
+            result += 1
+    return result 
+
+def slow4(a, b):
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = abs(a[0] - b[0])
+    for c in a:
+        for d in b:
+            delta = abs(c - d)
+            if (delta > result):
+                result = delta
+    return result
+
+def slow5(a, b):
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = abs(a[0] - b[0])
+    for c in a:
+        for d in b:
+            delta = abs(c - d)
+            if (delta < result):
+                result = delta
+    return result
+  </pre>
+  </div>
+  <br />
+
+  <h4> 2. nearestKaprekar(n) [30 pts] [autograded] </h4>
+  See question 9 from
+  <a href="http://www.kosbie.net/cmu/fall-14/15-112/notes/hw6.html" target="_blank">here.</a> 
+  <br /><br />
+  Hint: one way to solve this is to start at n and grow in each direction until you find a Kaprekar number. <br /><br />
+
+  <h4> 3. hasBalancedParentheses(s)[15 pts] [autograded] </h4>
+  See question 6 from
+  <a href="http://www.kosbie.net/cmu/fall-14/15-112/notes/hw6.html" target="_blank">here.</a> <br /><br />
+
+  <h4> 3. unboundedNumberGuessing(n) [30 pts] [autograded] </h4>
+As we covered in class, guessing a number between 1 and N is a basic application of binary search.  But what if you don't know the upper bound?  Or even the lower bound?  What if I asked you to guess the number I am thinking of, and I tell you nothing of its value.  It might be 42, but it might be -42 quadrillion.  Hmmm.  To solve this, first guess 0.  If it is right, you're done!  Amazing luck!  Otherwise, if it is too low, we know N is positive.  In that case, we have to determine an upper bound for N.  How?  Try 1.  If that is too low, double it to 2.  And keep going until you find your upper bound.  This is kind of like inverse binary search.  Cool!  Also note that you know your lower bound is the next-to-last value you tried.  So if N==5, you would guess 1, then 2, then 4, then 8, and at that point you would know that N is between 4 and 8.  Actually, since you'd know that 4 and 8 could not be N, you would know N is between 5 and 7 inclusively.  Now, what if N is negative, and our first guess of 0 was too high?  Then you would do the analogous operations to find the lower bound.  In any case, once bounded above and below, this reduces to everyday binary search.  
+<br /><br />
+With this in mind, write the function unboundedNumberGuessing(n) that takes an integer value n and returns a comma-separated string of all the values in order required to find the value n.
+<br /><br />
+So, for example:
+<br /><br />
+     unboundedNumberGuessing(42) returns "0,1,2,4,8,16,32,64,48,40,44,42"
+<br /><br />
+and
+<br /><br />
+     unboundedNumberGuessing(-13) returns "0,-1,-2,-4,-8,-16,-12,-14,-13"</a> <br /><br />
+
+  <h4> 4. selectionSort and bubbleSort modifications[10 pts] [manually graded] </h4>
+  <h5> 1. selectionSort </h5>
+  In class we developed the following code for selectionSort:
+  <br /><br />
+  <div class="code">
+  <pre class="brush: python;">
+def selectionSort(a):
+    n = len(a)
+    for startIndex in range(n):
+        minIndex = startIndex
+        for i in range(startIndex, n):
+            if (a[i] < a[minIndex]):
+                minIndex = i
+        (a[minIndex], a[startIndex]) = (a[startIndex], a[minIndex])
+  </pre>
+  </div>
+  <br />
+
+  This implementation first finds the smallest element in the lists and swaps it with the element in the first position, then find the second smallest element and swaps it with the element in the second position, and continue in this way until the entire lists is sorted. <br /> <br />
+  Modify this code such that instead, in the first iteration we find the largest element and swap it with the element in the last position, then find the second largest element and swap it with the element in the second to last position and so on until the array is sorted. Turn in this newly modified code as part of you solution.
+
+  <br /><br />
+
+  <h5> 2. bubbleSort </h5>
+  In class we developed the following code for bubbleSort:
+  <br /><br />
+  <div class="code">
+  <pre class="brush: python;">
+def bubbleSort(a):
+  end = len(a) - 1
+  swapped = True
+  while (swapped):
+    swapped = False
+    for i in range(end):
+        if (a[i] > a[i + 1]):
+          (a[i], a[i+1]) = (a[i+1], a[i])
+          swapped = True
+    end -= 1
+  </pre>
+  </div>
+  <br />
+
+  This implementation "bubbles up" the largest element to the end of the array in each iteration until all the elements are sorted. Modify this code such that instead, the smallest elements are "bubbled down" to the front of the array in each iteration until all the elements are sorted.
+
+  
+  <!--<br />
+  <li>
+  Do question 4 from <a href="https://www.cs.cmu.edu/~112/notes/hw4.html" target="_blank">here</a>. <br />
+  Note that the input to the function is 3 lists so the length/size of the input is the sum of the lengths of these lists. There are two ways to approach this problem. One is a polynomial-time algorithm, which is the solution you should be implementing. The other is an exponential time algorithm and is actually harder to implement. Before you start coding, think carefully about your approach and make sure you are using the polynomial-time approach. In fact, you are encouraged to discuss your approach with a course staff before you start typing code.
+  </li>-->
+
+  
+  
+  </ol>
+
+  </div>
+
+  <br  /><br />
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+</body>
+</html>
