@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-112 - Summer 1 - 2017</title>  
+
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  
+
+  
+  <script type="text/javascript" src="../highlight/scripts/shCore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shThemeDefault.css"/>
+
+  <script type="text/javascript" src="../highlight/scripts/shBrushPython.js"></script>
+
+
+  
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+  
+
+</head>
+
+
+<body>
+    <h1>15-112 Fundamentals of Programming</h1>
+
+<div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+
+      <li><a href="../syllabus.html">Syllabus</a></li>
+
+      <li><a href="../schedule.html">Schedule</a></li>
+      
+      <li><a href="../calendar.html">Calendar</a></li>
+
+      <li><a href="../staff.html">Staff</a></li>
+
+      <li><a target="_blank" href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
+
+      <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
+
+    </ul>
+  </div>
+
+<center>
+    <h2>Homework 4.1</h2>
+    <!--<h2>Basic building blocks of programming</h2>-->
+</center>
+ 
+  <div class="center2">
+  <br />
+  
+For this homework, there is no starter file. You have to create your own .py file and submit it to Autolab. You can take a previous starter file and modify it appropriately. <br /><br /> 
+  <li> Please add your name, Andrew id, and section at the top of the file.
+  <li> Write test functions for each function you write. </li>
+  <li> APPLY TOP-DOWN DESIGN, USE LOTS OF HELPER FUNCTIONS. </li>
+  <li> IMPORTANT: Make sure you put all test functions and manually graded functions below #ignore_rest. </li>
+  <li> You will be graded on style. You can lose up to 10 poins for style (out of 100 points). Please see <a href="https://www.cs.cmu.edu/~112/notes/notes-style.html" target="_blank">here</a> for the style rubric.</li>
+  <li> You may not use recursion, sets, dictionaries or any other constructs that we have not yet covered in class.</li>
+  <li> You will have 4 submissions on Autolab for this homework. </li>
+
+
+  <h3> Questions </h3>
+
+  <h4> 1. Better Big Oh [30 pts][manually graded]</h4>
+  In the last week's homework
+  <a href="https://cs112.github.io/hw/hw3-3.html" target="_blank">3.3</a>
+  you analyzed the big-Oh of 5 separate functions. Your job now is to:
+  <ol>
+  <li>Provide an equivalent Python function that is more than a constant-factor faster (so it's worst-case big-oh runtime is in a different function family). The better your solution's big-oh runtime, the more points you get!
+  </li><li>State and prove (in a few words) your better solution's worst-case big-oh runtime.</li>
+  </ol> 
+  <div class="code">
+  <pre class="brush: python;">
+import copy
+
+def slow1(a):
+    (b, c) = (copy.copy(a), 0)
+    while (b != [ ]):
+        b.pop()
+        c += 1
+    return c
+
+def slow2(a):
+    n = len(a)
+    count = 0
+    for i in range(n):
+        for j in range(n):
+            if (a[i] == a[j]):
+                count += 1
+    return (count == n)
+
+def slow3(a, b):
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = 0
+    for c in b:
+        if c not in a:
+            result += 1
+    return result 
+
+def slow4(a, b):
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = abs(a[0] - b[0])
+    for c in a:
+        for d in b:
+            delta = abs(c - d)
+            if (delta > result):
+                result = delta
+    return result
+
+def slow5(a, b):
+    # Hint: this is a tricky one!  Even though it looks syntactically
+    # almost identical to the previous problem, in fact the solution
+    # is very different and more complicated.
+    # You'll want to sort one of the lists,
+    # and then use binary search over that sorted list (for each value in
+    # the other list).  In fact, you should use bisect.bisect for this
+    # (you can read about this function in the online Python documentation).
+    # The bisect function returns the index i at which you would insert the
+    # value to keep the list sorted (with a couple edge cases to consider, such
+    # as if the value is less than or greater than all the values in the list, 
+    # or if the value actually occurs in the list).
+    # The rest is left to you...
+    #
+    # assume a and b are the same length n
+    n = len(a)
+    assert(n == len(b))
+    result = abs(a[0] - b[0])
+    for c in a:
+        for d in b:
+            delta = abs(c - d)
+            if (delta < result):
+                result = delta
+    return result
+  </pre>
+  </div>
+  <br />
+  
+
+
+  <h4> 2. invertDictionary(d) [20 pts][autograded] </h4>
+  See question 3 from
+  <a href="http://www.kosbie.net/cmu/fall-15/15-112/notes/hw6.html" target="_blank">here.</a> <br /><br />
+
+  <h4> 3. friendsOfFriends(d)[20 pts][autograded]</h4>
+  See question 5 from
+  <a href="http://www.kosbie.net/cmu/fall-15/15-112/notes/hw6.html" target="_blank">here.</a> <br /><br />
+
+  <h4> 4. runFancyWheel(d)[30 pts][manually graded]</h4>
+  See <a href="HW4-1.pdf">this file</a> for this question. <br /><br />
+  <strong>Note</strong> Your top level function should be runFancyWheel(), with no
+  parameters. That's what we will call to test your function and you will loose points
+  if that is not the name of your top level function.
+  <a href="http://www.kosbie.net/cmu/fall-15/15-112/notes/hw6.html" target="_blank">here.</a> <br /><br />
+
+  </div>
+
+  <br  /><br />
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+</body>
+</html>
