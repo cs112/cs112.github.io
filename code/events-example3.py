@@ -11,7 +11,6 @@ from tkinter import *
 # CONTROLLER:  event-handling functions and their helper functions
 ####################################
 
-
 ####################################
 # customize these functions
 ####################################
@@ -92,7 +91,6 @@ def doStep(data):
             data.headingDown = True
         else:
             moveUp(data)
-
 
 # This is the VIEW
 # IMPORTANT: VIEW does *not* modify data at all!
