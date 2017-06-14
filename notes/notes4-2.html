@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -33,23 +33,26 @@
     <h1>15-112 Fundamentals of Programming</h1>
 
   <div id="navcontainer">
-    <ul id="navlist">
-      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+      <ul id="navlist">
+        <li id="navlistfirst"><a href="index.html">Home</a></li>
 
-      <li><a href="../syllabus.html">Syllabus</a></li>
+        <li><a href="syllabus.html">Syllabus</a></li>
 
-      <li><a href="../schedule.html">Schedule</a></li>
-      
-      <li><a href="../calendar.html">Calendar</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
 
-      <li><a href="../staff.html">Staff</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+        <li><a href="staff.html">Staff</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+        <li><a target="_blank" href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-    </ul>
-  </div>
+        <!-- <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li> -->
+        <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
+
+        <li><a target="_blank" href="https://queue.onetwelve.xyz/#/">OH Queue</a></li>
+
+      </ul>
+    </div>
 
 <center>
     <h2>Notes - Lecture 4.2</h2>
@@ -63,20 +66,49 @@
 
 
 
-<h3>Event-Based Programming and Animations in Tkinter - Part 2</h3>
+<h3>Introduction to Event-Based Programming and Animations in Tkinter</h3>
 
+Notes taken from <a href="https://www.cs.cmu.edu/~112/notes/notes-animations.html" target="_blank">here.</a>
+  
+<h4>Event-Based Programming (Model-View-Controller or MVC) </h4>
+<ol>
+  <li>Tkinter owns the event loop. Your code does nothing until it is called, then it runs quickly and returns control back to Tkinter. </li>
+  <li>When a mouse, keyboard, or timer event occurs, Tkinter calls the appropriate event handler function (mousePressed, keyPressed, timerFired), or controller, that you wrote. </li>
+  <li>When called from Tkinter, your controllers modify the model (the values in data dictionary). </li>
+  <li>Soon after that, Tkinter updates the view by calling your function redrawAll, which redraws the canvas (the view) based on the model (the values in data). </li>
+</ol>
+
+<h4>Elements of Event-Based Animations </h4>
+
+<ol>
+  <li><b>run(width, height)</b> <br />
+      written for you (so you just copy-paste from code provided for you) creates canvas and data; registers event handlers; calls init; starts timer; etc You call run() to start program
+  </li>
+  <li> <b>init(data)</b> <br />
+      initialize values in data
+  </li>
+  <li> <b>mousePressed(event, data)</b> <br />
+      extract mouse location via event.x, event.y; modify data based on mouse press location
+  </li>
+  <li> <b>keyPressed(event, data)</b> <br />
+      extract char and/or keysym from event.char and event.keysym; modify data based on key pressed
+  </li>
+  <li> <b>timerFired(event, data)</b> <br />
+      modify data based on elapsed time
+  </li>
+  <li> <b>redrawAll(canvas, data)</b> <br />
+      redraw everything that needs to be drawn on the canvas using the values stored in data
+  </li>
+</ol>
 
 <h4>Examples</h4>
 
-<li><a href="../code/mode-demo.py" target="_blank">Mode Demo</a></li>
-<li><a href="../code/grid-demo.py" target="_blank">Grid Demo</a></li>
-<li><a href="../code/undo-redo-demo.py" target="_blank">Undo/Redo Demo</a></li>
-<li><a href="../code/images-demo.py" target="_blank">Images Demo</a><br />
-To run this demo, first download <a href="../code/playing-card-gifs.zip">playing-card-gifs.zip</a> and unzip that file, so the folder playing-card-gifs is at the same level as this code.
-</li>
-<li><a href="../code/make-black-and-white.py" target="_blank">Make Black and White Demo</a><br />
-To run this demo, download <a href="../code/publicImage.gif">publicImage.gif</a>.
-</li>
+<li><a href="../code/events-example0.py" target="_blank">Barebones</a></li>
+<li><a href="../code/events-example1.py" target="_blank">Basic timer, mouse, keyboard events</a></li>
+<li><a href="../code/one-box-falling.py" target="_blank">One box falling</a></li>
+<li><a href="../code/events-example2.py" target="_blank">Multiple objects on screen</a></li>
+<li><a href="../code/raining-circles.py">Raining circles</a></li>
+<li><a href="../code/events-example3.py">A more sophisticated example</a></li>
 
 
 </div>

@@ -19,16 +19,16 @@ from tkinter import *
 
 # Initialize the data which will be used to draw on the screen.
 def init(data):
-    data["squareLeft"] = 50
-    data["squareTop"] = 50
-    data["squareFill"] = "yellow"
-    data["squareSize"] = 25
-    data["circleCenters"] = [ ]
-    data["counter"] = 0
-    data["headingRight"] = True
-    data["headingDown"] = True
-    data["isPaused"] = False
-    data["timerDelay"] = 50
+    data.squareLeft = 50
+    data.squareTop = 50
+    data.squareFill = "yellow"
+    data.squareSize = 50
+    data.circleCenters = [ ]
+    data.counter = 0
+    data.headingRight = True
+    data.headingDown = True
+    data.isPaused = False
+    data.timerDelay = 50
 
 
 # These are the CONTROLLERs.
@@ -36,16 +36,16 @@ def init(data):
 # It only modifies data according to the events.
 def mousePressed(event, data):
     newCircleCenter = (event.x, event.y)
-    data["circleCenters"].append(newCircleCenter)
+    data.circleCenters.append(newCircleCenter)
 
 def keyPressed(event, data):
     if (event.char == "d"):
-        if (len(data["circleCenters"]) > 0):
-            data["circleCenters"].pop(0)
+        if (len(data.circleCenters) > 0):
+            data.circleCenters.pop(0)
         else:
             print("No more circles to delete!")
     elif (event.char == "p"):
-        data["isPaused"] = not data["isPaused"]
+        data.isPaused = not data.isPaused
     elif (event.char == "s"):
         doStep(data)
     if (event.keysym == "Left"):
@@ -54,42 +54,42 @@ def keyPressed(event, data):
         moveRight(data)
 
 def moveLeft(data):
-    data["squareLeft"] -= 20
+    data.squareLeft -= 20
 
 def moveRight(data):
-    data["squareLeft"] += 20
+    data.squareLeft += 20
 
 def moveUp(data):
-    data["squareTop"] -= 20
+    data.squareTop -= 20
 
 def moveDown(data):
-    data["squareTop"] += 20
+    data.squareTop += 20
 
 def timerFired(data):
-    if (not data["isPaused"]): doStep(data)
+    if (not data.isPaused): doStep(data)
 
 def doStep(data):
-    data["counter"] += 1
-    if (data["counter"] % 5 == 0):
-        data["squareFill"] = "green" if (data["squareFill"] == "yellow") else "yellow"
-    if (data["headingRight"] == True):
-        if (data["squareLeft"] + data["squareSize"] > data["width"]):
-            data["headingRight"] = False
+    data.counter += 1
+    if (data.counter % 5 == 0):
+        data.squareFill = "green" if (data.squareFill == "yellow") else "yellow"
+    if (data.headingRight == True):
+        if (data.squareLeft + data.squareSize > data.width):
+            data.headingRight = False
         else:
             moveRight(data)
     else:
-        if (data["squareLeft"] < 0):
-            data["headingRight"] = True
+        if (data.squareLeft < 0):
+            data.headingRight = True
         else:
             moveLeft(data)
-    if (data["headingDown"] == True):
-        if (data["squareTop"] + data["squareSize"] > data["height"]):
-            data["headingDown"] = False
+    if (data.headingDown == True):
+        if (data.squareTop + data.squareSize > data.height):
+            data.headingDown = False
         else:
             moveDown(data)
     else:
-        if (data["squareTop"] < 0):
-            data["headingDown"] = True
+        if (data.squareTop < 0):
+            data.headingDown = True
         else:
             moveUp(data)
 
@@ -99,13 +99,13 @@ def doStep(data):
 # It only draws on the canvas.
 def redrawAll(canvas, data):
     # draw the square
-    canvas.create_rectangle(data["squareLeft"],
-                            data["squareTop"],
-                            data["squareLeft"] + data["squareSize"],
-                            data["squareTop"] + data["squareSize"],
-                            fill=data["squareFill"])
+    canvas.create_rectangle(data.squareLeft,
+                            data.squareTop,
+                            data.squareLeft + data.squareSize,
+                            data.squareTop + data.squareSize,
+                            fill=data.squareFill)
     # draw the circles
-    for circleCenter in data["circleCenters"]:
+    for circleCenter in data.circleCenters:
         (cx, cy) = circleCenter
         r = 20
         canvas.create_oval(cx-r, cy-r, cx+r, cy+r, fill="cyan")
@@ -118,8 +118,6 @@ def redrawAll(canvas, data):
     canvas.create_text(150,120,text="Left arrow moves square left")
     canvas.create_text(150,140,text="Right arrow moves square right")
     canvas.create_text(150,160,text="Timer changes color of square")
-
-
 
 ####################################
 ####################################
@@ -145,16 +143,18 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+        
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 100 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
     init(data)
     # create the root and the canvas
     root = Tk()
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:
@@ -166,4 +166,4 @@ def run(width=300, height=300):
     root.mainloop()  # blocks until window is closed
     print("bye!")
 
-run(300, 200)
+run(300, 600)

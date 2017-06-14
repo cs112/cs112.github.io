@@ -16,14 +16,13 @@ from tkinter import *
 # customize these functions
 ####################################
 
-
 # Initialize the data which will be used to draw on the screen.
 def init(data):
     # load data as appropriate
-    data["cx"] = data["width"]/2
-    data["cy"] = 0
-    data["r"] = min(data["width"], data["height"])/10
-    data["color"] = "blue"
+    data.cx = data.width/2
+    data.cy = 0
+    data.r = min(data.width, data.height)/10
+    data.color = "blue"
 
 # These are the CONTROLLERs.
 # IMPORTANT: CONTROLLER does *not* draw at all!
@@ -34,12 +33,12 @@ def mousePressed(event, data):
 
 def keyPressed(event, data):
     # use event.char and event.keysym
-    if(event.keysym == "Left"): data["cx"] -= 10
-    if(event.keysym == "Right"): data["cx"] += 10
+    if(event.keysym == "Left"): data.cx -= 10
+    if(event.keysym == "Right"): data.cx += 10
 
 def timerFired(data):
-    data["cy"] += 10
-    data["cy"] %= data["height"]
+    data.cy += 10
+    data.cy %= data.height
 
 
 # This is the VIEW
@@ -47,10 +46,9 @@ def timerFired(data):
 # It only draws on the canvas.
 def redrawAll(canvas, data):
     # draw in canvas
-    (cx, cy, r) = (data["cx"], data["cy"], data["r"])
-    color = data["color"]
+    (cx, cy, r) = (data.cx, data.cy, data.r)
+    color = data.color
     canvas.create_rectangle(cx-r, cy-r, cx+r, cy+r, fill=color)
-
 
 
 ####################################
@@ -77,16 +75,18 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+        
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 100 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
     init(data)
     # create the root and the canvas
     root = Tk()
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:

@@ -71,16 +71,18 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+        
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 100 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
     init(data)
     # create the root and the canvas
     root = Tk()
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:
