@@ -8,32 +8,32 @@ from tkinter import *
 
 def init(data):
     # There is only one init, not one-per-mode
-    data["mode"] = "splashScreen"
-    data["score"] = 0
+    data.mode = "splashScreen"
+    data.score = 0
 
 ####################################
 # mode dispatcher
 ####################################
 
 def mousePressed(event, data):
-    if (data["mode"] == "splashScreen"): splashScreenMousePressed(event, data)
-    elif (data["mode"] == "playGame"):   playGameMousePressed(event, data)
-    elif (data["mode"] == "help"):       helpMousePressed(event, data)
+    if (data.mode == "splashScreen"): splashScreenMousePressed(event, data)
+    elif (data.mode == "playGame"):   playGameMousePressed(event, data)
+    elif (data.mode == "help"):       helpMousePressed(event, data)
 
 def keyPressed(event, data):
-    if (data["mode"] == "splashScreen"): splashScreenKeyPressed(event, data)
-    elif (data["mode"] == "playGame"):   playGameKeyPressed(event, data)
-    elif (data["mode"] == "help"):       helpKeyPressed(event, data)
+    if (data.mode == "splashScreen"): splashScreenKeyPressed(event, data)
+    elif (data.mode == "playGame"):   playGameKeyPressed(event, data)
+    elif (data.mode == "help"):       helpKeyPressed(event, data)
 
 def timerFired(data):
-    if (data["mode"] == "splashScreen"): splashScreenTimerFired(data)
-    elif (data["mode"] == "playGame"):   playGameTimerFired(data)
-    elif (data["mode"] == "help"):       helpTimerFired(data)
+    if (data.mode == "splashScreen"): splashScreenTimerFired(data)
+    elif (data.mode == "playGame"):   playGameTimerFired(data)
+    elif (data.mode == "help"):       helpTimerFired(data)
 
 def redrawAll(canvas, data):
-    if (data["mode"] == "splashScreen"): splashScreenRedrawAll(canvas, data)
-    elif (data["mode"] == "playGame"):   playGameRedrawAll(canvas, data)
-    elif (data["mode"] == "help"):       helpRedrawAll(canvas, data)
+    if (data.mode == "splashScreen"): splashScreenRedrawAll(canvas, data)
+    elif (data.mode == "playGame"):   playGameRedrawAll(canvas, data)
+    elif (data.mode == "help"):       helpRedrawAll(canvas, data)
 
 ####################################
 # splashScreen mode
@@ -43,15 +43,15 @@ def splashScreenMousePressed(event, data):
     pass
 
 def splashScreenKeyPressed(event, data):
-    data["mode"] = "playGame"
+    data.mode = "playGame"
 
 def splashScreenTimerFired(data):
     pass
 
 def splashScreenRedrawAll(canvas, data):
-    canvas.create_text(data["width"]/2, data["height"]/2-20,
+    canvas.create_text(data.width/2, data.height/2-20,
                        text="This is a splash screen!", font="Arial 26 bold")
-    canvas.create_text(data["width"]/2, data["height"]/2+20,
+    canvas.create_text(data.width/2, data.height/2+20,
                        text="Press any key to play!", font="Arial 20")
 
 ####################################
@@ -62,19 +62,19 @@ def helpMousePressed(event, data):
     pass
 
 def helpKeyPressed(event, data):
-    data["mode"] = "playGame"
+    data.mode = "playGame"
 
 def helpTimerFired(data):
     pass
 
 def helpRedrawAll(canvas, data):
-    canvas.create_text(data["width"]/2, data["height"]/2-40,
+    canvas.create_text(data.width/2, data.height/2-40,
                        text="This is help mode!", font="Arial 26 bold")
-    canvas.create_text(data["width"]/2, data["height"]/2-10,
+    canvas.create_text(data.width/2, data.height/2-10,
                        text="How to play:", font="Arial 20")
-    canvas.create_text(data["width"]/2, data["height"]/2+15,
+    canvas.create_text(data.width/2, data.height/2+15,
                        text="Do nothing and score points!", font="Arial 20")
-    canvas.create_text(data["width"]/2, data["height"]/2+40,
+    canvas.create_text(data.width/2, data.height/2+40,
                        text="Press any key to keep playing!", font="Arial 20")
 
 ####################################
@@ -82,23 +82,23 @@ def helpRedrawAll(canvas, data):
 ####################################
 
 def playGameMousePressed(event, data):
-    data["score"] = 0
+    data.score = 0
 
 def playGameKeyPressed(event, data):
     if (event.keysym == 'h'):
-        data["mode"] = "help"
+        data.mode = "help"
 
 def playGameTimerFired(data):
-    data["score"] += 1
+    data.score += 1
 
 def playGameRedrawAll(canvas, data):
-    canvas.create_text(data["width"]/2, data["height"]/2-40,
+    canvas.create_text(data.width/2, data.height/2-40,
                        text="This is a fun game!", font="Arial 26 bold")
-    canvas.create_text(data["width"]/2, data["height"]/2-10,
-                       text="Score = " + str(data["score"]), font="Arial 20")
-    canvas.create_text(data["width"]/2, data["height"]/2+15,
+    canvas.create_text(data.width/2, data.height/2-10,
+                       text="Score = " + str(data.score), font="Arial 20")
+    canvas.create_text(data.width/2, data.height/2+15,
                        text="Click anywhere to reset score", font="Arial 20")
-    canvas.create_text(data["width"]/2, data["height"]/2+40,
+    canvas.create_text(data.width/2, data.height/2+40,
                        text="Press 'h' for help!", font="Arial 20")
 
 ####################################
@@ -108,6 +108,8 @@ def playGameRedrawAll(canvas, data):
 def run(width=300, height=300):
     def redrawAllWrapper(canvas, data):
         canvas.delete(ALL)
+        canvas.create_rectangle(0, 0, data.width, data.height,
+                                fill='white', width=0)
         redrawAll(canvas, data)
         canvas.update()    
 
@@ -123,16 +125,17 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 100 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
     init(data)
     # create the root and the canvas
     root = Tk()
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:

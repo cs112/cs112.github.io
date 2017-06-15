@@ -3,17 +3,17 @@
 from tkinter import *
 
 def init(data):
-    data["step"] = 0
+    data.step = 0
     loadPlayingCardImages(data) # always load images in init!
 
 def loadPlayingCardImages(data):
     cards = 55 # cards 1-52, back, joker1, joker2
-    data["cardImages"] = [ ]
+    data.cardImages = [ ]
     for card in range(cards):
         rank = (card%13)+1
         suit = "cdhsx"[card//13]
         filename = "playing-card-gifs/%s%d.gif" % (suit, rank)
-        data["cardImages"].append(PhotoImage(file=filename))
+        data.cardImages.append(PhotoImage(file=filename))
 
 def getPlayingCardImage(data, rank, suitName):
     suitName = suitName[0].lower() # only car about first letter
@@ -21,7 +21,7 @@ def getPlayingCardImage(data, rank, suitName):
     assert(1 <= rank <= 13)
     assert(suitName in suitNames)
     suit = suitNames.index(suitName)
-    return data["cardImages"][13*suit + rank - 1]
+    return data.cardImages[13*suit + rank - 1]
 
 def getSpecialPlayingCardImage(data, name):
     specialNames = ["back", "joker1", "joker2"]
@@ -34,22 +34,22 @@ def keyPressed(event, data):
     pass
 
 def timerFired(data):
-    data["step"] += 1
+    data.step += 1
 
 def redrawAll(canvas, data):
     suitNames = ["Clubs", "Diamonds", "Hearts", "Spades", "Xtras"]
-    suit = (data["step"]//10) % len(suitNames)
+    suit = (data.step//10) % len(suitNames)
     suitName = suitNames[suit]
     cards = 3 if (suitName == "Xtras") else 13
     margin = 10
     (left, top) = (margin, 40)
     for rank in range(1,cards+1):
         image = getPlayingCardImage(data, rank, suitName)
-        if (left + image.width() > data["width"]):
+        if (left + image.width() > data.width):
             (left, top) = (margin, top + image.height() + margin)
         canvas.create_image(left, top, anchor=NW, image=image)
         left += image.width() + margin
-    canvas.create_text(data["width"]/2, 20, text=suitName, font="Arial 28 bold")
+    canvas.create_text(data.width/2, 20, text=suitName, font="Arial 28 bold")
 
 ####################################
 # use the run function as-is
@@ -58,6 +58,8 @@ def redrawAll(canvas, data):
 def run(width=300, height=300):
     def redrawAllWrapper(canvas, data):
         canvas.delete(ALL)
+        canvas.create_rectangle(0, 0, data.width, data.height,
+                                fill='white', width=0)
         redrawAll(canvas, data)
         canvas.update()    
 
@@ -73,17 +75,18 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
     # Create root before calling init (so we can create images in init)
     root = Tk()
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 250 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 250 # milliseconds
     init(data)
     # create the root and the canvas
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:

@@ -3,36 +3,36 @@
 from tkinter import *
 
 def init(data):
-    data["points"] = [ ]
-    data["undoList"] = [ ]
+    data.points = [ ]
+    data.undoList = [ ]
 
 def mousePressed(event, data):
-    data["points"].append((event.x, event.y))
-    data["undoList"] = [ ]
+    data.points.append((event.x, event.y))
+    data.undoList = [ ]
 
 def keyPressed(event, data):
     if (event.keysym == "u"):
-        if (len(data["points"]) > 0):
-            data["undoList"].append(data["points"].pop())
+        if (len(data.points) > 0):
+            data.undoList.append(data.points.pop())
     elif (event.keysym == "r"):
-        if (len(data["undoList"]) > 0):
-            data["points"].append(data["undoList"].pop())
+        if (len(data.undoList) > 0):
+            data.points.append(data.undoList.pop())
     elif (event.keysym == "c"):
-        data["points"] = [ ]
-        data["undoList"] = [ ]
+        data.points = [ ]
+        data.undoList = [ ]
 
 def timerFired(data):
     pass
 
 def redrawAll(canvas, data):
-    if (data["points"] != []):
-        canvas.create_polygon(data["points"], fill="gold", outline="black")
-    canvas.create_text(data["width"]/2, 20,
+    if (data.points != []):
+        canvas.create_polygon(data.points, fill="gold", outline="black")
+    canvas.create_text(data.width/2, 20,
                        text="click to add point. u=undo. r=redo. c=clear.")
-    canvas.create_text(data["width"]/2, 40,
-                       text=str(len(data["points"])) + " point(s) in polygon")
-    canvas.create_text(data["width"]/2, 60,
-                       text=str(len(data["undoList"])) + " point(s) on undoList")
+    canvas.create_text(data.width/2, 40,
+                       text=str(len(data.points)) + " point(s) in polygon")
+    canvas.create_text(data.width/2, 60,
+                       text=str(len(data.undoList)) + " point(s) on undoList")
 
 ####################################
 # use the run function as-is
@@ -41,6 +41,8 @@ def redrawAll(canvas, data):
 def run(width=300, height=300):
     def redrawAllWrapper(canvas, data):
         canvas.delete(ALL)
+        canvas.create_rectangle(0, 0, data.width, data.height,
+                                fill='white', width=0)
         redrawAll(canvas, data)
         canvas.update()    
 
@@ -56,16 +58,17 @@ def run(width=300, height=300):
         timerFired(data)
         redrawAllWrapper(canvas, data)
         # pause, then call timerFired again
-        canvas.after(data["timerDelay"], timerFiredWrapper, canvas, data)
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
     # Set up data and call init
-    data = dict()
-    data["width"] = width
-    data["height"] = height
-    data["timerDelay"] = 100 # milliseconds
+    class Struct(object): pass
+    data = Struct()
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
     init(data)
     # create the root and the canvas
     root = Tk()
-    canvas = Canvas(root, width=data["width"], height=data["height"])
+    canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
     root.bind("<Button-1>", lambda event:
