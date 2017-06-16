@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-112 - Summer 1 - 2017</title>  
+
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  
+
+  
+  <script type="text/javascript" src="../highlight/scripts/shCore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shThemeDefault.css"/>
+
+  <script type="text/javascript" src="../highlight/scripts/shBrushPython.js"></script>
+
+
+  
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+  
+
+</head>
+
+
+<body>
+    <h1>15-112 Fundamentals of Programming</h1>
+
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+
+      <li><a href="../syllabus.html">Syllabus</a></li>
+
+      <li><a href="../schedule.html">Schedule</a></li>
+      
+      <li><a href="../calendar.html">Calendar</a></li>
+
+      <li><a href="../staff.html">Staff</a></li>
+
+      <li><a target="_blank" href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
+
+      <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
+
+    </ul>
+  </div>
+
+<center>
+    <h2>Homework 4.2</h2>
+    <!--<h2>Basic building blocks of programming</h2>-->
+</center>
+ 
+  <div class="center2">
+  <br />
+  
+  For this homework, there is no starter file. You have to create your own .py file and submit it to Autolab. You can take a previous starter file and modify it appropriately. <br /><br /> 
+  <li> Please add your name, Andrew id, and section at the top of the file.
+  <li> APPLY TOP-DOWN DESIGN, USE LOTS OF HELPER FUNCTIONS. </li>
+  <li> This homework will be manually graded. </li>
+  <li> You will be graded on style. You can lose up to 10 poins for style (out of 100 points). Please see <a href="https://www.cs.cmu.edu/~112/notes/notes-style.html" target="_blank">here</a> for the style rubric.</li>
+  <li> You may not use recursion, or any other constructs that we have not yet covered in class.</li>
+  <li> You will have 3 submissions on Autolab for this homework. </li>
+
+  <h3> Questions </h3>
+
+  <h4> 1. More Snake [30 pts][manually graded]</h4>
+  Starting from the Snake demo code developed <a href="https://cs112.github.io/notes/notes4-4.html" target="_blank">during lecture</a> add the following features:
+ <ol>
+  <li> A <b>pause</b> feature, where the game pauses when the player presses 'p' for 'pause', and where the game resumes (exactly where it left off) when the user presses 'p' again.  While paused, the board should be visible, but the colors should be a bit dimmer than when unpaused. </li>
+  <li> A <b>score</b>, which should be displayed at the top-center, above the board (which will have to be moved down by enough pixels to make room for the score).  The score should start at 0 for each game, and increase by 1 each time the snake eats food. </li>
+  <li>A <b>high score list</b>, which should be displayed as part of the "Game Over" screen at the end of each game.  This is just a list of the 3 highest scores (during this execution; so if you exit and restart the program, the list is cleared), in sorted order from largest (on top) to smallest (on the bottom).  If there are fewer than 3 scores available, do not list the missing scores as 0's, but just do not list them at all (thus, you will list one score after the first game).</li>
+  <li>Two <b>levels</b>. Level 1 works just as described in the Snake tutorial.  But when the snake eats the 3rd piece of food, the game switches to Level 2, with the following changes:
+  <ol>
+    <li><b>Speed-up</b>:  make the game move noticeably faster, but not unplayably faster.</li>
+    <li><b>Poison</b>:  in addition to randomly-placed food, a separate randomly-placed piece of red poison is placed on the board (and of course not on the snake nor on the food).  If the snake eats the poison, it dies.  Note that you must be sure the poison is not placed one square away from the snake's head unless that is the only location remaining. (Note that this is slightly ambiguous- when necessary, you should make design decisions, and document them!)</li>
+  </ol></li>
+  <li><b>Walls</b>.  When the game is paused, the user can click with the mouse in empty cells to create walls (which are brown), or click on walls to remove them.  If the snake runs into a wall, it does not die, but rather it destroys the wall at a cost of 1 point.  If that would result in a negative score, then the snake dies.  At the end of a level, if any walls existed for at least 20 snake moves on that level, the score increases by 1 extra bonus point.  Do not remove the walls when placing new food or poison.</li>
+  </ol>
+ 
+
+  <h4> 2. Tetris [70 pts][manually graded]</h4>
+  Write Tetris following the step-by-step instructions <a href="https://www.cs.cmu.edu/~112/notes/notes-tetris/TetrisForIntroIntermediateProgrammers.html" target="_blank">here</a>. You have to follow these instructions exactly (even if you think there might be a better way to implement a certain step.)
+  </li>
+  
+
+  
+  
+  </ol>
+
+  </div>
+
+  <br  /><br />
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+</body>
+</html>
