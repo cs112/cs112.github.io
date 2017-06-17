@@ -220,9 +220,9 @@ def run(width=300, height=300):
     canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
-    root.bind("<Button-1>", lambda event:
+    root.bind("&ltButton-1&gt", lambda event:
                             mousePressedWrapper(event, canvas, data))
-    root.bind("<Key>", lambda event:
+    root.bind("&ltKey&gt", lambda event:
                             keyPressedWrapper(event, canvas, data))
     timerFiredWrapper(canvas, data)
     # and launch the app
@@ -230,6 +230,9 @@ def run(width=300, height=300):
     print("bye!")
 
 run(300, 300)
+
+
+
 </pre>
 </div>
 
@@ -373,9 +376,9 @@ def run(width=300, height=300):
     canvas = Canvas(root, width=data.width, height=data.height)
     canvas.pack()
     # set up events
-    root.bind("<Button-1>", lambda event:
+    root.bind("&ltButton-1&gt", lambda event:
                             mousePressedWrapper(event, canvas, data))
-    root.bind("<Key>", lambda event:
+    root.bind("&ltKey&gt", lambda event:
                             keyPressedWrapper(event, canvas, data))
     timerFiredWrapper(canvas, data)
     # and launch the app
