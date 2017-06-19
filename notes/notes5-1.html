@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,16 +59,399 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#intro">Intro examples</a></li>
+    <li> <a href="#fractions">Fraction example</a></li>
+    <ol> 
+      <li> <a href="#constructor">Constructor (__init__)</a></li>
+      <li> <a href="#strings">Converting to strings</a></li>
+      <li> <a href="#equality">Equality Testing</a></li>
+      <li> <a href="#multiply">Multiplying two fractions</a></li>
+      <li> <a href="#sets">Using in Sets (__hash__ and __eq__)</a></li>
+      <li> <a href="#dictionaries">Using in Dictionaries (__hash__ and __eq__)</a></li>
+      <li> <a href="#full">The full Fraction example</a></li>
+    </ol>
+  </ol>
 
 
+<h4 id="intro">Intro examples</h4>
+
+For an introduction to OOP ideas and paradigms, check the slides and see the 3 simple examples below:
+
+<br /><br />
+<li><a href="../code/rectangle.py" target="_blank">Rectangle class</a></li>
+<li><a href="../code/employee.py" target="_blank">Employee class</a></li>
+<li><a href="../code/feedthecats.py" target="_blank">Cat class</a></li>
 
 
-<h3>Object-Oriented Programming (OOP) Part 2</h3>
+<h4 id="fractions">Fractions example</h4>
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-oop-part2.html" target="_blank">See here.</a>
+<h4 id="constructor">1. Constructor (__init__)</h3>
+
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+f1 = Fraction(2, 3)
+f2 = Fraction(1, 5)
+print(f1.num, f1.den)
+print(f2.num, f2.den)
+</pre>
+</div>
+
+<h4 id="strings">2. Converting to strings</h4>
+
+<h5>Defining a toString() method</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def toString(self):
+        return str(self.num) + "/" + str(self.den)
+
+f1 = Fraction(2, 3)
+f2 = Fraction(1, 5)
+print(f1.toString())
+print(f2.toString())
+</pre>
+</div>
+
+<h5>The problem</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def toString(self):
+        return "%d/%d" % (self.num, self.den)
+
+f1 = Fraction(2, 3)
+f2 = Fraction(1, 5)
+print(f1.toString()) # prints 2/3
+print(f2.toString()) # prints 1/5
+
+# What about print(f1) or print(f2)?
+print(f1) # prints <__main__.Fraction object at 0x10611db38> (yuck!)
+print(f2) # prints <__main__.Fraction object at 0x10611dba8> (yuck!)
+</pre>
+</div>
+
+<h5>The partial solution: __str__</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __str__(self):
+        return "%d/%d" % (self.num, self.den)
+
+f1 = Fraction(2, 3)
+f2 = Fraction(1, 5)
+print(f1) # prints 2/3 
+print(f2) # prints 1/5 
+
+# What about adding a fraction object to a list and printing the list? 
+L = []
+L.append(f1)
+L.append(f2)
+print(L) # prints [<__main__.Fraction object at 0x106f68ba8>, 
+         #         <__main__.Fraction object at 0x106f68be0>] (yuck!)
+</pre>
+</div>
+
+<h5>The better solution: __repr__</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __repr__(self):
+        return "%d/%d" % (self.num, self.den)
+
+f1 = Fraction(2, 3)
+f2 = Fraction(1, 5)
+
+# What about print(f1) or print(f2)?
+print(f1) # prints 2/3 
+print(f2) # prints 1/5 
+
+# What about adding a fraction object to a list and printing the list? 
+L = []
+L.append(f1)
+L.append(f2)
+print(L) # prints [2/3, 1/5]
+</pre>
+</div>
 
 
+<h4 id="equality">3. Equality Testing</h4>
 
+<h5>Comparing objects: defining our own method</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def equal(self, other):
+        return self.num == other.num and self.den == other.den
+
+f1 = Fraction(10, 2)
+f2 = Fraction(10, 2)
+print(f1.equal(f2)) # True
+
+# What about using == ?
+print(f1 == f2) # False! 
+</pre>
+</div>
+
+<h5>The partial solution: __eq__</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __eq__(self, other):
+        return self.num == other.num and self.den == other.den
+
+f1 = Fraction(10, 5)
+f2 = Fraction(10, 5)
+print(f1 == f2) # True
+
+# Can we compare objects from our own class to objects of other classes?
+print(f1 == 2) # Crashes!
+</pre>
+</div>
+
+<h5>A better solution</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __eq__(self, other):
+        if (isinstance(other, int)):
+            return self.num/self.den == other
+        elif (isinstance(other, Fraction)):
+            return self.num == other.num and self.den == other.den
+        return False
+
+f1 = Fraction(10, 5)
+f2 = Fraction(10, 5)
+print(f1 == f2) # True
+print(f1 == 2) # True
+</pre>
+</div>
+
+<h4 id="multiply">4. Multiplying two fractions</h4>
+
+<h5>The problem</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+f1 = Fraction(1, 4)
+f2 = Fraction(2, 4)
+print(f1 * f2) # Crashes
+</pre>
+</div>
+
+<h5>Using: __mul__ </h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __repr__(self):
+        return "%d/%d" % (self.num, self.den)
+
+    def __mul__(self, other):
+        num = self.num*other.num
+        den = self.den*other.den
+        return Fraction(num, den)
+
+f1 = Fraction(1, 4)
+f2 = Fraction(2, 4)
+print(f1*f2) # prints 2/16 
+</pre>
+</div>
+
+<h4 id="sets">5. Using in Sets (__hash__ and __eq__)</h4>
+
+<h5>The problem </h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+s = set()
+f1 = Fraction(1, 4)
+f2 = Fraction(1, 4)
+s.add(f1)
+print(f1 in s) # True
+print(f2 in s) # False (but 1/4 should be in the set!)
+</pre>
+</div>
+
+<h5>The solution: __hash__ and __eq__</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __eq__(self, other):
+        if (isinstance(other, int)):
+            return self.num/self.den == other
+        elif (isinstance(other, Fraction)):
+            return self.num == other.num and self.den == other.den
+        return False
+
+    def __hash__(self):
+        return hash((self.num, self.den))
+
+s = set()
+f1 = Fraction(1, 4)
+f2 = Fraction(1, 4)
+s.add(f1)
+print(f1 in s) # True
+print(f2 in s) # True
+</pre>
+</div>
+
+<h4 id="dictionaries">6. Using in Dictionaries (__hash__ and __eq__)</h4>
+
+<h5>The problem </h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+d = dict()
+f1 = Fraction(1, 4)
+f2 = Fraction(1, 4)
+d[f1] = 0.4
+print(d[f2]) # crashes: key-error! (But 1/4 should be in the dictionary)
+</pre>
+</div>
+
+<h5>The solution (same as sets):</h5>
+<div class="code">
+<pre class="brush: python;">
+class Fraction(object):
+    def __init__(self, num, den):
+        self.num = num
+        self.den = den
+
+    def __eq__(self, other):
+        if (isinstance(other, int)):
+            return self.num/self.den == other
+        elif (isinstance(other, Fraction)):
+            return self.num == other.num and self.den == other.den
+        return False
+
+    def __hash__(self):
+        return hash((self.num, self.den))
+
+
+d = dict()
+f1 = Fraction(1, 4)
+f2 = Fraction(1, 4)
+d[f1] = 0.4
+print(d[f2]) # prints 0.4
+</pre>
+</div>
+
+<h4 id="full">6. The full Fraction example</h4>
+
+<h5>The solution (same as sets):</h5>
+<div class="code">
+<pre class="brush: python;">
+# Very simple, far-from-fully implemented Fraction class
+# to demonstrate the OOP ideas from above.
+# Note that Python actually has a full Fraction class that
+# you would use instead (from fractions import Fraction),
+# so this is purely for demonstrational purposes.
+
+def gcd(x, y):
+    if (y == 0): return x
+    else: return gcd(y, x%y)
+
+class Fraction(object):
+    def __init__(self, num, den):
+        # Partial implementation -- does not deal with 0 or negatives, etc
+        g = gcd(num, den)
+        self.num = num // g
+        self.den = den // g
+
+    def __repr__(self):
+        return '%d/%d' % (self.num, self.den)
+
+    def __eq__(self, other):
+        if (isinstance(other, int)):
+            return self.num/self.den == other
+        elif (isinstance(other, Fraction)):
+            return self.num == other.num and self.den == other.den
+        return False
+
+    def __mul__(self, other):
+        if (isinstance(other, int)):
+            return Fraction(self.num * other, self.den)
+        else:
+            return Fraction(self.num * other.num, self.den * other.den)
+
+    def __hash__(self):
+        return hash((self.num, self.den))
+
+def testFractionClass():
+    print('Testing Fraction class...', end='')
+    assert(str(Fraction(2, 3)) == '2/3')
+    assert(str([Fraction(2, 3)]) == '[2/3]')
+    assert(Fraction(2,3) == Fraction(2,3))
+    assert(Fraction(2,3) != Fraction(2,5))
+    assert(Fraction(2,3) != "Don't crash here!")
+    assert(Fraction(2,3) * (Fraction(3,4)) == Fraction(1,2))
+    assert(Fraction(2,3) * 5 == Fraction(10,3))
+    s = set()
+    assert(Fraction(1, 2) not in s)
+    s.add(Fraction(1, 2))
+    assert(Fraction(1, 2) in s)
+    s.remove(Fraction(1, 2))
+    assert(Fraction(1, 2) not in s)
+    print('Passed.')
+
+if (__name__ == '__main__'):
+    testFractionClass()
+</pre>
+</div>
 
 </div>
 
