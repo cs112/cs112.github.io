@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
+
+  <title>15-112 - Summer 1 - 2017</title>  
+
+  <link rel="stylesheet" type="text/css" href="../style.css" />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  
+
+  
+  <script type="text/javascript" src="../highlight/scripts/shCore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shCore.css"/>
+  <link type="text/css" rel="stylesheet" href="../highlight/styles/shThemeDefault.css"/>
+
+  <script type="text/javascript" src="../highlight/scripts/shBrushPython.js"></script>
+
+
+  
+  <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+  
+
+</head>
+
+
+<body>
+    <h1>15-112 Fundamentals of Programming</h1>
+
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li id="navlistfirst"><a href="../index.html">Home</a></li>
+
+      <li><a href="../syllabus.html">Syllabus</a></li>
+
+      <li><a href="../schedule.html">Schedule</a></li>
+      
+      <li><a href="../calendar.html">Calendar</a></li>
+
+      <li><a href="../staff.html">Staff</a></li>
+
+      <li><a target="_blank" href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
+
+      <li><a target="_blank" href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
+
+    </ul>
+  </div>
+
+<center>
+    <h2>Homework 5.1</h2>
+    <!--<h2>Basic building blocks of programming</h2>-->
+</center>
+ 
+  <div class="center2">
+  <br />
+  
+  For this homework, there is no starter file. You have to create your own .py file and submit it to Autolab. You can take a previous starter file and modify it appropriately. <br /><br /> 
+  <li> Please add your name, Andrew id, and section at the top of the file.
+  <li> APPLY TOP-DOWN DESIGN, USE LOTS OF HELPER FUNCTIONS. </li>
+  <li> Parts of this homework will be manually graded. </li>
+  <li> You will be graded on style. You can lose up to 10 poins for style (out of 100 points). Please see <a href="https://www.cs.cmu.edu/~112/notes/notes-style.html" target="_blank">here</a> for the style rubric.</li>
+
+  <br /><br />
+  <b>Important instructions</b>
+  <ol>
+  <li>This hw has two parts -- hw51a covers OOP (with some animation) and hw51b covers recursion. Note that you may (and should) use iteration (while and for loops) in hw51a, but you may not use iteration in hw51b. Be sure to submit hw51a.py and hw51b.py separately (there will be separate autolab assignments for each part).</li>
+  <li>Each part uses up to 1 grace day separately. Thus, if you submit both parts on Friday, you would use 2 separate grace days.</li>
+  <li>If you know what itertools are, don't use them to get around using recursion. If you don't know what itertools are, you may safely ignore this item.</li>
+  <li>Portions of this hw are autograded. You may make up to 5 submissions each of hw51a and hw51b. As usual, only your last one counts.</li>
+  </ol>
+  <br />
+
+  <h3> Questions </h3>
+
+
+  <h3> Hw5.1a: TP + OOP </h3>
+
+  <h4> 1. 5-Minute TP Meetings [10pts] [manually graded]</h4>
+
+  <p>
+  By hw 5.1's deadline, everyone must have completed a 5-minute meeting (yes, just 5 minutes, though they may expand to 10 minutes at your TA's discretion) with one of the TA's from your assigned recitation, to begin a discussion about your term project ideas. This is very brief, just to be sure you've started thinking about TP's at least a bit. You do not have to prepare for these meetings, but it would be nice (and probably more effective) if you showed up with some ideas about what you might want to pursue.
+  </p>
+
+  <p>
+  Early in this hw cycle, you will receive an email from your TA's with instructions about how to sign up for these meetings. Be sure to sign up right away, and be sure to be on time to these meetings. And move quickly, since they will be kept to 5 minutes, for real. So you know: They are worth 10 points in hw5.1, and the only way to get the points is to be on time. If you are late, or if you miss the meeting, you will not get the points, even if you have a make-up meeting. Of course, this does not include students with hw5.1 extensions for university-approved conflicts, or documented medical emergencies, etc. 
+  </p>
+
+  <p>
+  These meetings are only to help you. But you can help yourself, too. Look over the gallery a bit. Get an idea of what constitutes a term project. And start thinking about what you might be interested in.
+  </p>
+
+
+  <h4> 2. Polynomial and Quadratic classes [40 pts][autograded]</h4>
+  <p>
+  Starting from the Polynomial class <a href="polynomial.py" target="_blank">here</a>, edit that class and also implement the Quadratic class so that all the tests below succeed.  Be sure not to hardcode against these tests, as the autograder will use similar tests, but with different constants. You are also responsible for understanding how the tests themselves work. For example, understand how the list of first-class functions is being used in testPolynomialAndQuadraticClasses, and also understand why the try/except calls are used in testQuadraticClass. Good luck!
+  </p>
+
+  <div class="code">
+<pre class="brush: python;">
+def testPolynomialAndQuadraticClasses():
+    print("Testing Polynomial and Quadratic classes...")
+    for testFn in [testPolynomialBasics,
+                   testPolynomialEq,
+                   testPolynomialStr,
+                   testPolynomialConstructor,
+                   testPolynomialInSets,
+                   testPolynomialTimesOperator,
+                   testPolynomialExponentiationOperator,
+                   testQuadraticClass
+                  ]:
+        print("  Running %s..." % testFn.__name__, end = " ")
+        testFn()
+        print("Passed!")
+    print("Passed all Polynomial and Quadratic Class tests!")
+
+def almostEqual(d1, d2):
+    epsilon = 0.000001
+    return abs(d1 - d2) < epsilon
+
+def testPolynomialBasics():
+    p1 = Polynomial([2, -3, 5])  # 2x**2 -3x + 5
+    assert(type(p1) == Polynomial)
+    assert(p1.degree() == 2)
+    assert(p1.coeff(0) == 5)
+    assert(p1.coeff(1) == -3)
+    assert(p1.coeff(2) == 2)
+    assert(p1.evalAt(0) == 5)
+    assert(p1.evalAt(2) == 7)
+    p2 = Polynomial([4, -3])
+    # Now test the + operator
+    p3 = p1 + p2 # (2x**2 -3x + 5) + (4x - 3) == (2x**2 + x + 2)
+    assert(type(p3) == Polynomial)
+    assert(p3.evalAt(2) == 12)
+    assert(p3.evalAt(5) == 57)
+
+def testPolynomialEq():
+    assert(Polynomial([1,2,3]) == Polynomial([1,2,3]))
+    assert(Polynomial([1,2,3]) != Polynomial([1,2,3,0]))
+    assert(Polynomial([1,2,3]) != Polynomial([1,2,0,3]))
+    assert(Polynomial([1,2,3]) != Polynomial([1,-2,3]))
+    assert(Polynomial([1,2,3]) != 42)
+    assert(Polynomial([1,2,3]) != "Wahoo!")
+    # A polynomial of degree 0 has to equal the same non-Polynomial numeric!
+    assert(Polynomial([42]) == 42)
+
+def testPolynomialStr():
+    assert(str(Polynomial([1,2,3])) == "x^2 + 2x + 3")
+    assert(str(Polynomial([-1,-2,-3])) == "-x^2 - 2x - 3")
+    assert(str(Polynomial([42])) == "42")
+    assert(str(Polynomial([-42])) == "-42")
+    assert(str(Polynomial([0])) == "0")
+    assert(str(Polynomial([1,0,-3, 0, 1])) == "x^4 - 3x^2 + 1")
+    assert(str(Polynomial([1,0,-3, 0, 1])) == "x^4 - 3x^2 + 1")
+    assert(str(Polynomial([-1,0,3, 0, -1])) == "-x^4 + 3x^2 - 1")
+
+def testPolynomialConstructor():
+    # If the list is empty, treat it the same as [0]
+    assert(Polynomial([]) == Polynomial([0]))
+    assert(Polynomial([]) != Polynomial([1]))
+    # Remove leading 0's
+    assert(Polynomial([0,0,0,1,2]) == Polynomial([1,2]))
+    assert(Polynomial([0,0,0,1,2]).degree() == 1)
+    # Require that the constructor be non-destructive
+    coeffs = [0,0,0,1,2]
+    assert(Polynomial(coeffs) == Polynomial([1,2]))
+    assert(coeffs == [0,0,0,1,2])
+    # Require that the constructor also accept tuples of coefficients
+    coeffs = (0, 0, 0, 1, 2)
+    assert(Polynomial(coeffs) == Polynomial([1,2]))
+    # Allow for variable-length arguments.  That is, if the arguments
+    # are not a list, then put them in a list
+    assert(Polynomial(1,2,3) == Polynomial([1,2,3]))
+    # And thus if no values are supplied, this is also the same as [0]:
+    assert(Polynomial() == Polynomial([0]))
+
+def testPolynomialInSets():
+    s = set()
+    assert(Polynomial(1,2,3) not in s)
+    s.add(Polynomial(1,2,3))
+    assert(Polynomial(1,2,3) in s)
+    assert(Polynomial([1,2,3]) in s)
+    assert(Polynomial(1,2) not in s)
+
+def testPolynomialTimesOperator():
+    # (x**2 + 2)(x**4 + 3x**2) == (x**6 + 5x**4 + 6x**2)
+    assert(Polynomial([1,0,2]) * Polynomial([1,0,3,0,0]) ==
+           Polynomial([1,0,5,0,6,0,0]))
+    # (x**3 - 3x + 5) * 10 == (10x**3 - 30x + 50)
+    assert(Polynomial(1,0,-3,5) * 10 == Polynomial(10,0,-30,50))
+    # Hint: to do multiplication this way, you have to use __rmul__,
+    # which should just call __mul__ (yes, really)
+    assert(10 * Polynomial(1,0,-3,5) == Polynomial(10,0,-30,50))
+
+def testPolynomialExponentiationOperator():
+    assert(Polynomial(1,2,3)**0 == 1)
+    assert(Polynomial(1,2,3)**1 == Polynomial(1,2,3))
+    assert(Polynomial(1,2,3)**2 == Polynomial(1,2,3) * Polynomial(1,2,3))
+    assert(Polynomial(1,2,3)**3 == Polynomial(1,2,3) * Polynomial(1,2,3) * Polynomial(1,2,3))
+
+def testQuadraticClass():
+    q1 = Quadratic(3,2,1)  # 3x^2 + 2x + 1
+    assert(type(q1) == Quadratic)
+    assert(q1.evalAt(10) == 321)
+    assert(isinstance(q1, Quadratic) == isinstance(q1, Polynomial) == True)
+    # the determinant is b**2 - 4ac
+    assert(q1.determinant() == -8)
+    # use the determinant to determine how many real roots (zeroes) exist
+    assert(q1.numberOfRealRoots() == 0)
+    assert(q1.getRealRoots() == [ ])
+    # Once again, with a double root
+    q2 = Quadratic(1,-6,9)
+    assert(q2.determinant() == 0)
+    assert(q2.numberOfRealRoots() == 1)
+    [root] = q2.getRealRoots()
+    assert(almostEqual(root, 3))
+    # And again with two roots
+    q3 = Quadratic(1,1,-6)
+    assert(q3.determinant() == 25)
+    assert(q3.numberOfRealRoots() == 2)
+    [root1, root2] = q3.getRealRoots() # smaller one first
+    assert(almostEqual(root1, -3) and almostEqual(root2, 2))
+    # Now, creating a non-quadratic "Quadratic" is an error
+    ok = False # the exception turns this to True!
+    try: q = Quadratic(1,2,3,4) # this is cubic, should fail!
+    except: ok = True
+    assert(ok)
+    # one more time, with a line, which is sub-quadratic, so also fails
+    ok = False
+    try: q = Quadratic([2,3])
+    except: ok = True
+    assert(ok)
+    # And make sure that these methods were defined in the Quadratic class
+    # and not in the Polynomial class (we'll just check a couple of them...)
+    assert('evalAt' in Polynomial.__dict__)
+    assert('evalAt' not in Quadratic.__dict__)
+    assert('determinant' in Quadratic.__dict__)
+    assert('determinant' not in Polynomial.__dict__)
+
+testPolynomialAndQuadraticClasses()
+</pre>
+</div>
+
+
+  <h4> 3. OOPy Flappy Bird [30 pts][manually graded]</h4>
+  <p> 
+  During last's week recitation, we developed the animation for flappy bird.
+  If you have forgotten how Flappy Bird Animation works, <a href="http://flappybird.io/" target="_blank">here</a> is an implementation.
+  Note though that instead of using the mouse to keep the bird flapping, we've 
+  used the Space bar. 
+  <p> 
+  Here, we want to re-write the flappy bird animation using objects. You should 
+  create two classes: The Bird Class and the Obstacle Class. The Bird class should 
+  have at least a draw() and move() method, while the Obstacle Class should have at 
+  least a draw(), move(), and isColliding() method.  
+  </p>
+  <p>
+  In addition, as we mentioned in lecture, the attributes of an object should never
+  be directly changed, so make good use of observer methods and modifier methods. 
+  <b>If you fail to adhere to this, you will loose points.</b>
+  </p>
+  <p>
+  Here's a few more specifications/features for this game: 
+  <ol>
+  <li>Include a splash screen that shows a main menu with some initial instructions when the animation is first run and then allow the user to switch to 
+  the play mode when pressing any key. </li>
+  <li>Include a 'help' screen mode, which pauses the game and takes the user to a help screen with some useful instructions for the gameplay when the user presses 'h'.</li>
+  <li>Include a reset feature, where the game starts over when the player presses 'r'.</li>
+  </ol>
+  </p>
+  <p>
+  Make sure to put all of the animation code for Flappy bird below the #ignore_rest line!
+  </p>
+  </li>
+  
+  <h3> Hw5.1b: Recursion </h3>
+
+  <h4> 4. interleave(s1, s2) [10 pts][autograded]</h4>
+  Without using any iteration, write the function interleave(s1, s2) that takes two strings, s1 and s2, and interleaves their characters starting with the first character in s1. For example, interleave('pto', 'yhn') would return the string "python". If one string is longer than the other, concatenate the rest of the 
+  remaining string onto the end of the new string. For example, ('a#', 'cD!f2') would return the string "ac#D!f2".
+
+
+  <h4> 5. isPerfectNumber(n) [10 pts][autograded]</h4>
+  Without using any iteration, write the function isPerfectNumber that takes a possibly-negative integer n and returns True if it is a perfect number and False otherwise, where a number is perfect if it is the sum of its positive divisors less than itself. 
+  We'll assume 0 is perfect.
+  The next perfect number is 6 because 6 = 1 + 2 + 3. 
+  The next one is 28 because 28 = 1 + 2 + 4 + 7 + 14. 
+  The next one is 496, then 8128, ...
+  </ol>
+
+  </div>
+
+  <br  /><br />
+  <div class="badges">
+    <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style=
+    "border:0;width:88px;height:31px" src=
+    "http://jigsaw.w3.org/css-validator/images/vcss-blue" alt=
+    "Valid CSS!" /></a> <a href=
+    "http://validator.w3.org/check?uri=referer"><img src=
+    "http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict"
+    height="31" width="88" /></a>
+  </div>
+
+</body>
+</html>
