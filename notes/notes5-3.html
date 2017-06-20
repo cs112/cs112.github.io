@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,24 +59,319 @@
   <br />
 
   <div class="center2">
+  <h3> Content </h3>
+  <ol>
+    <li> <a href="#basic">Basic Examples</a></li>
+    <ol> 
+      <li> <a href="#b-digitSum">digitSum</a></li>
+      <li> <a href="#b-factorial">factorial</a></li>
+      <li> <a href="#b-sum">sum</a></li>
+      <li> <a href="#b-range-sum">rangeSum</a></li>
+      <li> <a href="#b-list-sum">listSum</a></li>
+      <li> <a href="#b-power">power</a></li>
+    </ol>
+    <li> <a href="#divide">Divide and Conquer Examples</a></li>
+    <ol> 
+      <li> <a href="#d-range-sum">rangeSum</a></li>
+      <li> <a href="#d-list-sum">listSum</a></li>
+    </ol>
+    <li> <a href="#multiple-base">Examples with Multiple Base or Recursive Cases</a></li>
+    <ol> 
+      <li> <a href="#power-neg">power with negative exponents</a></li>
+    </ol>
+    <li> <a href="#multiple-calls">Examples with Multiple Recursive Calls</a></li>
+    <ol> 
+      <li> <a href="#fibonacci">fibonacci</a></li>
+    </ol>
+    <li> <a href="#hanoi">Towers of Hanoi</a></li>
+  </ol>
 
+<h4 id="basic">Basic examples</h4>
 
+<h4 id="b-digitSum">1. digitSum</h3>
 
+<div class="code">
+<pre class="brush: python;">
+def digitSum(n):
+    if (n < 0): return digitSum(abs(n))
+    elif (n < 10): return n
+    else: return (n%10) + digitSum(n//10)
 
-<h3>Recursion - Part 2</h3>
+assert(digitSum(-12345) == 1+2+3+4+5)
+print("ok!")
+</pre>
+</div>
 
-<a href="https://www.cs.cmu.edu/~112/notes/notes-recursion-part2.html" target="_blank">See here.</a>
+<h4 id="b-factorial">2. factorial</h3>
 
-<h4>Examples</h4>
+<div class="code">
+<pre class="brush: python;">
+def factorial(n):
+    if (n == 0): return 1
+    else: return n * factorial(n-1)
 
-<li><a href="../code/callWithLargeStack.py" target="_blank">Call with large stack</a></li>
-<li><a href="../code/fib-timing.py" target="_blank">Memoization</a></li>
-<li><a href="../code/floodFillGrid.py" target="_blank">Flood fill</a></li>
-<li><a href="../code/maze.py" target="_blank">Maze</a></li>
-<li><a href="../code/nQueens.py" target="_blank">nQueens</a></li>
-<li><a href="../code/koch-snowflake.py" target="_blank">Koch snowflake</a></li>
-<li><a href="../code/sierpinski.py" target="_blank">Sierpinski triangle</a></li>
+assert(factorial(5) == 5*4*3*2*1)
+print("ok!")
+</pre>
+</div>
 
+<h4 id="b-sum">3. sum</h3>
+
+<div class="code">
+<pre class="brush: python;">
+def sum(n):
+    if (n == 0): return 0
+    else: return n + sum(n-1)
+
+assert(sum(5) == 5+4+3+2+1)
+print("ok!")
+</pre>
+</div>
+
+<h4 id="b-range-sum">4. rangeSum</h3>
+
+<div class="code">
+<pre class="brush: python;">
+def rangeSum(lo, hi):
+    if (lo > hi):
+        return 0
+    else:
+        return lo + rangeSum(lo+1, hi)
+
+print(rangeSum(10,15)) # 75
+</pre>
+</div>
+
+<h4 id="b-list-sum">5. listSum</h3>
+
+<div class="code">
+<pre class="brush: python;">
+def listSum(L):
+    if (len(L) == 0):
+        return 0
+    else:
+        return L[0] + listSum(L[1:])
+
+print(listSum([2,3,5,7,11])) # 28
+</pre>
+</div>
+
+<h4 id="b-power">6. power</h3>
+<div class="code">
+<pre class="brush: python;">
+def power(base, expt):
+    # assume expt is non-negative integer
+    if (expt == 0):
+        return 1
+    else:
+        return base * power(base, expt-1)
+
+print(power(2,5)) # 32
+</pre>
+</div>
+
+<h4 id="divide">Divide and Conquer Examples</h4>
+
+<h4 id="d-range-sum">1. rangeSum</h3>
+<div class="code">
+<pre class="brush: python;">
+def rangeSum(lo, hi):
+    if (lo == hi):
+        return lo
+    else:
+        mid = (lo + hi)//2
+        return rangeSum(lo, mid) + rangeSum(mid+1, hi)
+
+print(rangeSum(10,15)) # 75
+</pre>
+</div>
+
+<h4 id="d-list-sum">2. listSum</h3>
+<div class="code">
+<pre class="brush: python;">
+def power(base, expt):
+def listSum(L):
+    if (len(L) == 0):
+        return 0
+    elif (len(L) == 1):
+        return L[0]
+    else:
+        mid = len(L)//2
+        return listSum(L[:mid]) + listSum(L[mid:])
+
+print(listSum([2,3,5,7,11])) # 28
+</pre>
+</div>
+
+<h4 id="multiple-base">Examples with Multiple Base or Recursive Cases</h4>
+
+<h4 id="power-neg">1. power with negative exponents</h3>
+<div class="code">
+<pre class="brush: python;">
+def power(base, expt):
+    # This version allows for negative exponents
+    # It still assumes that expt is an integer, however.
+    if (expt == 0):
+        return 1
+    elif (expt < 0):
+        return 1.0/power(base,abs(expt))
+    else:
+        return base * power(base, expt-1)
+
+print(power(2,5)) # 32
+print(power(2,-5)) # 1/32 = 0.03125
+</pre>
+</div>
+
+<h4 id="multiple-calls">Examples with Multiple Recursive Calls</h4>
+
+<h4 id="fibonacci">1. fibonacci</h3>
+
+<h5> A first attempt </h5>
+<div class="code">
+<pre class="brush: python;">
+def fib(n):
+    if (n < 2):
+        # Base case:  fib(0) and fib(1) are both 1
+        return 1
+    else:
+        # Recursive case: fib(n) = fib(n-1) + fib(n-2)
+        return fib(n-1) + fib(n-2)
+
+print([fib(n) for n in range(15)])
+</pre>
+</div>
+
+<h5> Once again, printing call stack using recursion depth: </h5>
+<div class="code">
+<pre class="brush: python;">
+def fib(n, depth=0):
+    print("   "*depth, "fib(", n, " )")
+    if (n < 2):
+        # Base case:  fib(0) and fib(1) are both 1
+        return 1
+    else:
+        return fib(n-1, depth+1) + fib(n-2, depth+1)
+fib(4)
+</pre>
+</div>
+
+<h5> Even better (printing result, too): </h5>
+<div class="code">
+<pre class="brush: python;">
+def fib(n, depth=0):
+    print("   "*depth, "fib(", n, " )")
+    if (n < 2):
+        result = 1
+        # Base case:  fib(0) and fib(1) are both 1
+        print("   "*depth, "-->", result)
+        return result
+    else:
+        result = fib(n-1, depth+1) + fib(n-2, depth+1)
+        print("   "*depth, "-->", result)
+        return result
+fib(4)
+</pre>
+</div>
+
+<h5> Finally, not duplicating code: </h5>
+<div class="code">
+<pre class="brush: python;">
+def fib(n, depth=0):
+    print("   "*depth, "fib(", n, " )")
+    if (n < 2):
+        result = 1
+    else:
+        result = fib(n-1, depth+1) + fib(n-2, depth+1)
+    print("   "*depth, "-->", result)
+    return result
+fib(4)
+</pre>
+</div>
+
+<h4 id="hanoi">Towers of Hanoi</h4>
+
+<h5>First attempt (without Python):</h5>
+<div class="code">
+<pre class="brush: python;">
+# This is the plan to solve Towers of Hanoi (based on magic!)
+magically move(n-1, source, temp, target)
+          move(  1, source, target, temp)
+magically move(n-1, temp, target, source)
+</pre>
+</div>
+
+<h5>Turn into Python (The "magic" is recursion!):</h5>
+<div class="code">
+<pre class="brush: python;">
+def move(n, source, target, temp):
+    move(n-1, source, temp, target)
+    move(  1, source, target, temp)
+    move(n-1, temp, target, source)
+
+move(2, 0, 1, 2) # Does not work -- infinite recursion
+</pre>
+</div>
+
+<h5>Once again, with a base case:</h5>
+<div class="code">
+<pre class="brush: python;">
+def move(n, source, target, temp):
+    if (n == 1):
+        print((source, target), end="")
+    else:
+        move(n-1, source, temp, target)
+        move(  1, source, target, temp)
+        move(n-1, temp, target, source)
+
+move(2, 0, 1, 2)
+</pre>
+</div>
+
+<h5>Once more, with a nice wrapper:</h5>
+<div class="code">
+<pre class="brush: python;">
+def move(n, source, target, temp):
+    if (n == 1):
+        print((source, target), end="")
+    else:
+        move(n-1, source, temp, target)
+        move(  1, source, target, temp)
+        move(n-1, temp, target, source)
+
+def hanoi(n):
+    print("Solving Towers of Hanoi with n =", n)
+    move(n, 0, 1, 2)
+    print()
+
+hanoi(4)
+</pre>
+</div>
+
+<h5>Iterative Towers of Hanoi (just to see it's possible):</h5>
+<div class="code">
+<pre class="brush: python;">
+def iterativeHanoi(n):
+    def f(k): return (k%3) if (n%2==0) else (-k%3)
+    return [(f(move & (move-1)),
+             f((move|(move-1))+1)) for move in range(1,1 << n)]
+
+def recursiveHanoi(n, source=0, target=1, temp=2):
+    if (n == 1):
+        return [(source, target)]
+    else:
+        return (recursiveHanoi(n-1, source, temp, target) +
+                recursiveHanoi(  1, source, target, temp) +
+                recursiveHanoi(n-1, temp, target, source))
+
+def compareIterativeAndRecursiveHanoi():
+    for n in range(1,10):
+        assert(iterativeHanoi(n) == recursiveHanoi(n))
+    print("iterative and recursive solutions match exactly in all tests!")
+
+compareIterativeAndRecursiveHanoi()
+</pre>
+</div>
 
 </div>
 
