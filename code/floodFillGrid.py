@@ -2,131 +2,193 @@
 # grid-based (not pixel-based), with animation
 # and numeric display of depth of recursion
 # also, this version is based on our barebones animation code
+# Actually, adapted from grid-demo.py
 
 from tkinter import *
-import time # for time.sleep()
 
-def mousePressed(event, doFlood):
-    clearDepths()
-    (row,col) = getCell(event.x, event.y)
-    if ((row >= 0) and (row < canvas.data.rows) and
-        (col >= 0) and (col < canvas.data.cols)):
-        color = canvas.data.board[row][col]
-        if (color == "cyan"):
-            canvas.data.fillColor = "green"
-        else:
-            canvas.data.fillColor = "cyan"
-        if (doFlood):
-            floodFillWithLargeStack(row, col)
-        else:
-            canvas.data.board[row][col] = canvas.data.fillColor
+class Cell(object):
+    def __init__(self):
+        self.depth = self.ordinal = -1 # set by floodFill
+        self.displayLabel = False
+        self.isWall = False
 
-def leftMousePressed(event):
-    shiftDown = ((event.state & 0x0001) == 1)
-    mousePressed(event, shiftDown)
-    redrawAll()
+def make2dList(rows, cols):
+    a=[]
+    for row in range(rows): a += [[0]*cols]
+    return a
 
-def leftMouseMoved(event):
-    (row,col) = getCell(event.x, event.y)
-    if ((row >= 0) and (row < canvas.data.rows) and
-        (col >= 0) and (col < canvas.data.cols)):
-        canvas.data.board[row][col] = canvas.data.fillColor
-    redrawAll()
+def init(data):
+    data.rows = 4
+    data.cols = 6
+    data.margin = 5 # margin around grid
+    data.cells = make2dList(data.rows, data.cols)
+    data.gridSize = min(data.width, data.height)
+    for row in range(data.rows):
+        for col in range(data.cols):
+            data.cells[row][col] = Cell()
+    data.floodFillIndex = 0
+    data.displayOrdinals = False
 
-def rightMousePressed(event):
-    mousePressed(event, True)
-    redrawAll()
+def pointInGrid(x, y, data):
+    # return True if (x, y) is inside the grid defined by data.
+    return ((data.margin <= x <= data.width-data.margin) and
+            (data.margin <= y <= data.height-data.margin))
 
-def getCell(x, y):
-    # return row,col containing the point x,y
-    row = (y - 100)//canvas.data.cellSize
-    col = x // canvas.data.cellSize
+def getCell(x, y, data):
+    # aka "viewToModel"
+    # return (row, col) in which (x, y) occurred or (-1, -1) if outside grid.
+    if (not pointInGrid(x, y, data)):
+        return (-1, -1)
+    gridWidth  = data.gridSize - 2*data.margin
+    gridHeight = data.gridSize - 2*data.margin
+    cellWidth  = gridWidth / data.cols
+    cellHeight = gridHeight / data.rows
+    row = int((y - data.margin) / cellHeight)
+    col = int((x - data.margin) / cellWidth)
+    # triple-check that we are in bounds
+    row = min(data.rows-1, max(0, row))
+    col = min(data.cols-1, max(0, col))
     return (row, col)
 
-def getCellBounds(row, col):
-    # return (left, top, right, bottom) of this cell
-    left = col * canvas.data.cellSize
-    right = (col+1) * canvas.data.cellSize
-    top = 100 + row * canvas.data.cellSize
-    bottom = 100 + (row+1)*canvas.data.cellSize
-    return (left, top, right, bottom) 
+def getCellBounds(row, col, data):
+    # aka "modelToView"
+    # returns (x0, y0, x1, y1) corners/bounding box of given cell in grid
+    gridWidth  = data.gridSize - 2*data.margin
+    gridHeight = data.gridSize - 2*data.margin
+    x0 = data.margin + gridWidth * col / data.cols
+    x1 = data.margin + gridWidth * (col+1) / data.cols
+    y0 = data.margin + gridHeight * row / data.rows
+    y1 = data.margin + gridHeight * (row+1) / data.rows
+    return (x0, y0, x1, y1)
 
-def floodFill(row, col, color, depth=0):
-    if ((row >= 0) and (row < canvas.data.rows) and
-        (col >= 0) and (col < canvas.data.cols) and
-        (canvas.data.board[row][col] != color)):
-        canvas.data.board[row][col] = color
-        canvas.data.depth[row][col] = depth
-        redrawAll()
-        canvas.update()
-        time.sleep(0.05 if (depth < 25) else 0.005)
-        floodFill(row-1, col, color, depth+1)
-        floodFill(row+1, col, color, depth+1)
-        floodFill(row, col-1, color, depth+1)
-        floodFill(row, col+1, color, depth+1)
+def clearLabels(data):
+    for row in range(data.rows):
+        for col in range(data.cols):
+            cell = data.cells[row][col]
+            cell.depth = cell.ordinal = -1
+    data.floodFillOrder = [ ]
+    data.floodFillIndex = 0
+    data.displayOrdinals = False
 
-def callWithLargeStack(f,*args):
-    return f(*args)
-    import sys
-    import threading
-    threading.stack_size(2**27)  # 64MB stack
-    sys.setrecursionlimit(2**27) # will hit 64MB stack limit first
-    # need new thread to get the redefined stack size
-    def wrappedFn(resultWrapper): resultWrapper[0] = f(*args)
-    resultWrapper = [None]
-    #thread = threading.Thread(target=f, args=args)
-    thread = threading.Thread(target=wrappedFn, args=[resultWrapper])
-    thread.start()
-    thread.join()
-    return resultWrapper[0]
+def floodFill(data, row, col, depth=0):
+    if ((row < 0) or (row >= data.rows) or
+        (col < 0) or (col >= data.cols)):
+        return # off-board!
+    cell = data.cells[row][col]
+    if (cell.isWall == True):
+        return # hit a wall
+    if (cell.depth >= 0):
+        return # already been here
 
-def floodFillWithLargeStack(row, col):
-    callWithLargeStack(floodFill, row, col, canvas.data.fillColor)
+    # "fill" this cell
+    cell.depth = depth
+    cell.ordinal = len(data.floodFillOrder)
+    data.floodFillOrder.append(cell)
 
-def redrawAll():
-    canvas.delete(ALL)
-    xmid = canvas.data.width/2
-    font16b = "Helvetica 18 bold"
-    font12i = "Helvetica 12 italic"
-    canvas.create_text(xmid,20,text="FloodFill Demo",font=font16b)
-    canvas.create_text(xmid,40,text="left click = draw",font=font12i)
-    canvas.create_text(xmid,60,text="shift-left or right click = fill",font=font12i)
-    canvas.create_text(xmid,80,text="Do not click during floodFill animation!",font=font12i)
-    for row in range(canvas.data.rows):
-        for col in range(canvas.data.cols):
-            (x0,y0,x1,y1) = bounds = getCellBounds(row, col)
-            canvas.create_rectangle(bounds, fill=canvas.data.board[row][col])
-            if (canvas.data.depth[row][col] != -1):
-                canvas.create_text((x0+x1)/2,(y0+y1)/2,text=str(canvas.data.depth[row][col]), font=font16b)
+    # then recursively fill its neighbors
+    floodFill(data, row-1, col,   depth+1)
+    floodFill(data, row+1, col,   depth+1)
+    floodFill(data, row,   col-1, depth+1)
+    floodFill(data, row,   col+1, depth+1)
 
-def clearDepths():
-    canvas.data.depth =[([-1]*canvas.data.cols) for row in range(canvas.data.rows)]
+def mousePressed(event, data):
+    clearLabels(data)
+    (row, col) = getCell(event.x, event.y, data)
+    shift = ((event.state & 0x0001) != 0)
+    if (shift == False):
+        data.cells[row][col].isWall = not data.cells[row][col].isWall
+    else:
+        data.cells[row][col].isWall = False
+        floodFill(data, row, col)
 
-def init():
-    canvas.data.board = [(["cyan"]*canvas.data.cols) for row in range(canvas.data.rows)]
-    clearDepths()
+def keyPressed(event, data):
+    if (event.keysym == "d"):
+        data.displayOrdinals = False
+    elif (event.keysym == "o"):
+        data.displayOrdinals = True
+    elif (event.keysym == "r"):
+        init(data)
 
-def run():
-    # create the root and the canvas
-    global canvas
-    root = Tk()
-    class Struct: pass
+def timerFired(data):
+    data.floodFillIndex += 1
+
+def redrawAll(canvas, data):
+    # draw grid of cells
+    for row in range(data.rows):
+        for col in range(data.cols):
+            (x0, y0, x1, y1) = getCellBounds(row, col, data)
+            cell = data.cells[row][col]
+            fill = "pink" if (cell.isWall) else "cyan"
+            canvas.create_rectangle(x0, y0, x1, y1, fill=fill)
+            if ((cell.depth >= 0) and
+                (cell.ordinal < data.floodFillIndex)):
+                (cx, cy) = ((x0+x1)/2, (y0+y1)/2)
+                if (data.displayOrdinals == True):
+                    label = "# " + str(cell.ordinal)
+                else:
+                    label = str(cell.depth)
+                canvas.create_text(cx, cy, text=label,
+                                   font="Arial 12 bold", fill="darkGreen")
+    drawHelpText(canvas, data)
+
+def drawHelpText(canvas, data):
+    messages = [
+                "Click to toggle walls",
+                "Shift-click to floodFill from cell",
+                "Press 'd' to display depths",
+                "Press 'o' to display #ordinals",
+                "Press 'r' to reset"
+               ]
+    dTextY = 20
+    for i in range(len(messages)):
+        canvas.create_text(data.width/2, data.gridSize + (i+1)*dTextY,
+                           text=messages[i],
+                           font="Arial 18 bold", fill="darkBlue")
+
+####################################
+# use the run function as-is
+####################################
+
+def run(width=300, height=300):
+    def redrawAllWrapper(canvas, data):
+        canvas.delete(ALL)
+        canvas.create_rectangle(0, 0, data.width, data.height,
+                                fill='white', width=0)
+        redrawAll(canvas, data)
+        canvas.update()    
+
+    def mousePressedWrapper(event, canvas, data):
+        mousePressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def keyPressedWrapper(event, canvas, data):
+        keyPressed(event, data)
+        redrawAllWrapper(canvas, data)
+
+    def timerFiredWrapper(canvas, data):
+        timerFired(data)
+        redrawAllWrapper(canvas, data)
+        # pause, then call timerFired again
+        canvas.after(data.timerDelay, timerFiredWrapper, canvas, data)
+    # Set up data and call init
+    class Struct(object): pass
     data = Struct()
-    data.rows = 6
-    data.cols = 6
-    data.cellSize = 100 # pixels
-    data.width = data.cols * data.cellSize
-    data.height = data.rows * data.cellSize + 100 # room for text at top
+    data.width = width
+    data.height = height
+    data.timerDelay = 100 # milliseconds
+    init(data)
+    # create the root and the canvas
+    root = Tk()
     canvas = Canvas(root, width=data.width, height=data.height)
-    canvas.data = data
     canvas.pack()
-    init()
     # set up events
-    root.bind("<Button-1>", leftMousePressed)
-    root.bind("<B1-Motion>",leftMouseMoved)
-    root.bind("<Button-3>", rightMousePressed)
+    root.bind("<Button-1>", lambda event:
+                            mousePressedWrapper(event, canvas, data))
+    root.bind("<Key>", lambda event:
+                            keyPressedWrapper(event, canvas, data))
+    timerFiredWrapper(canvas, data)
     # and launch the app
-    redrawAll()
-    root.mainloop()  # This call BLOCKS (so your program waits until you close the window!)
+    root.mainloop()  # blocks until window is closed
+    print("bye!")
 
-run()
+run(300, 420)
