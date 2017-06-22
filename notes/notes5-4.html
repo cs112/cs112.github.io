@@ -7,7 +7,7 @@
   <meta name="generator" content=
   "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>15-112 - Summer 1 - 2016</title>  
+  <title>15-112 - Summer 1 - 2017</title>  
 
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="icon" type="image/png" href="../img/favicon.png" />
@@ -44,9 +44,9 @@
 
       <li><a href="../staff.html">Staff</a></li>
 
-      <li><a href="https://piazza.com/class/inyjqbvxwbh67">Piazza</a></li>
+      <li><a href="https://piazza.com/class/j2rysbgf7662ql">Piazza</a></li>
 
-      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m16/">Autolab</a></li>
+      <li><a href="https://autolab.andrew.cmu.edu/courses/15112-m17">Autolab</a></li>
 
     </ul>
   </div>
@@ -59,17 +59,247 @@
   <br />
 
   <div class="center2">
+    <h3> Content </h3>
+  <ol>
+    <li> <a href="#stack">Expanding the Stack Size and Recursion Limit (callWithLargeStack)</a></li>
+    <li> <a href="#memoize">Improving Efficiency with Memoization</a></li>
+    <li> <a href="#advanced">Advanced Worked Examples Using Recursion</a></li>
+    <ol> 
+      <li> <a href="#powerset">powerset (all subsets)</a></li>
+      <li> <a href="#permutations">permutations</a></li>
+      <li> <a href="#printFiles">printFiles (with os module)</a></li>
+      <li> <a href="#listFiles">listFiles (with os module)</a></li>
+    </ol>
+    <li> <a href="#fractals">Fractals</a></li>
+    <ol> 
+      <li> <a href="#sierpinski">sierpinskiTriangle (with Tkinter)</a></li>
+    </ol>
+  </ol>
 
+<h4 id="stack">1. Expanding the Stack Size and Recursion Limit (callWithLargeStack)</h4>
 
+<h5>The problem</h3>
+<div class="code">
+<pre class="brush: python;">
+def rangeSum(lo, hi):
+    if (lo > hi):
+        return 0
+    else:
+        return lo + rangeSum(lo+1, hi)
 
+print(rangeSum(1,1234))  # RuntimeError: maximum recursion depth exceeded
+</pre>
+</div>
 
-<h3>Wrap up</h3>
+<h5>The solution (on most platforms):</h5>
+<div class="code">
+<pre class="brush: python;">
+def rangeSum(lo, hi):
+    if (lo > hi):
+        return 0
+    else:
+        return lo + rangeSum(lo+1, hi)
 
-Please use the slides as the notes.
+def callWithLargeStack(f,*args):
+    import sys
+    import threading
+    threading.stack_size(2**27)  # 64MB stack
+    sys.setrecursionlimit(2**27) # will hit 64MB stack limit first
+    # need new thread to get the redefined stack size
+    def wrappedFn(resultWrapper): resultWrapper[0] = f(*args)
+    resultWrapper = [None]
+    #thread = threading.Thread(target=f, args=args)
+    thread = threading.Thread(target=wrappedFn, args=[resultWrapper])
+    thread.start()
+    thread.join()
+    return resultWrapper[0]
 
+print(callWithLargeStack(rangeSum,1,123456)) # prints 7620753696
+</pre>
+</div>
 
+<h5>The "solution" (on some Macs):</h5>
+<div class="code">
+<pre class="brush: python;">
+def rangeSum(lo, hi):
+    if (lo > hi):
+        return 0
+    else:
+        return lo + rangeSum(lo+1, hi)
 
+def callWithLargeStack(f,*args):
+    import sys
+    import threading
+    sys.setrecursionlimit(2**14) # max recursion depth of 16384
+    isWindows = (sys.platform.lower() in ["win32", "cygwin"])
+    if (not isWindows): return f(*args) # sadness...
+    threading.stack_size(2**27)  # 64MB stack
+    # need new thread to get the redefined stack size
+    def wrappedFn(resultWrapper): resultWrapper[0] = f(*args)
+    resultWrapper = [None]
+    #thread = threading.Thread(target=f, args=args)
+    thread = threading.Thread(target=wrappedFn, args=[resultWrapper])
+    thread.start()
+    thread.join()
+    return resultWrapper[0]
 
+print(callWithLargeStack(rangeSum,1,123456)) # prints 7620753696
+</pre>
+</div>
+
+<h4 id="memoize">2. Improving Efficiency with Memoization</h4>
+
+<h5>The problem</h5>
+<div class="code">
+<pre class="brush: python;">
+def fib(n):
+    if (n < 2):
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+
+import time
+def testFib(maxN=40):
+    for n in range(maxN+1):
+        start = time.time()
+        fibOfN = fib(n)
+        ms = 1000*(time.time() - start)
+        print("fib(%2d) = %8d, time =%5dms" % (n, fibOfN, ms))
+
+testFib() # gets really slow!
+</pre>
+</div>
+
+<h5>The solution</h5>
+<div class="code">
+<pre class="brush: python;">
+ibResults = dict()
+
+def fib(n):
+    if (n in fibResults):
+        return fibResults[n]
+    if (n < 2):
+        result = 1
+    else:
+        result = fib(n-1) + fib(n-2)
+    fibResults[n] = result
+    return result
+
+import time
+def testFib(maxN=40):
+    for n in range(maxN+1):
+        start = time.time()
+        fibOfN = fib(n)
+        ms = 1000*(time.time() - start)
+        print("fib(%2d) = %8d, time =%5dms" % (n, fibOfN, ms))
+
+testFib() # ahhh, much better!
+</pre>
+</div>
+
+<h4 id="advanced">3. Advanced Worked Examples Using Recursion</h4>
+
+<h4 id="powerset">1. powerset (all subsets)</h4>
+<div class="code">
+<pre class="brush: python;">
+def powerset(a):
+    # returns a list of all subsets of the list a
+    if (len(a) == 0):
+        return [[]]
+    else:
+        allSubsets = [ ]
+        for subset in powerset(a[1:]):
+            allSubsets += [subset]
+            allSubsets += [[a[0]] + subset]
+        return allSubsets
+ 
+print(powerset([1,2,3]))
+</pre>
+</div>
+
+<h4 id='permutations'> 2. permutations</h4>
+<div class="code">
+<pre class="brush: python;">
+def permutations(a):
+    # returns a list of all permutations of the list a
+    if (len(a) == 0):
+        return [[]]
+    else:
+        allPerms = [ ]
+        for subPermutation in permutations(a[1:]):
+            for i in range(len(subPermutation)+1):
+                allPerms += [subPermutation[:i] + [a[0]] + subPermutation[i:]]
+        return allPerms
+ 
+print(permutations([1,2,3]))
+</pre>
+</div>
+
+<h4 id="printFiles"> 3. printFiles (with os module)</h4>
+To test this, download and expand this zip file in the same directory
+as the Python file you are running:  
+<a href="https://www.cs.cmu.edu/~112/notes/sampleFiles.zip" download>sampleFiles.zip</a>
+<br /><br />
+<div class="code">
+<pre class="brush: python;">
+import os
+def printFiles(path):
+    if (os.path.isdir(path) == False):
+        # base case:  not a folder, but a file, so print its path
+        print(path)
+    else:
+        # recursive case: it's a folder
+        for filename in os.listdir(path):
+            printFiles(path + "/" + filename)
+
+printFiles("sampleFiles")
+</pre>
+</div>
+
+<h4 id="listFiles"> 4. listFiles (with os module)</h4>
+To test this, download and expand this zip file in the same directory
+as the Python file you are running:  
+<a href="https://www.cs.cmu.edu/~112/notes/sampleFiles.zip" download>sampleFiles.zip</a>
+<br /><br />
+<div class="code">
+<pre class="brush: python;">
+import os
+def listFiles(path):
+    if (os.path.isdir(path) == False):
+        # base case:  not a folder, but a file, so return singleton list with its path
+        return [path]
+    else:
+        # recursive case: it's a folder, return list of all paths
+        files = [ ]
+        for filename in os.listdir(path):
+            files += listFiles(path + "/" + filename)
+        return files
+
+print(listFiles("sampleFiles"))
+</pre>
+</div>
+
+<h4 id="fractals">4. Fractals</h4>
+
+<h4 id="sierpinski"> 1. sierpinskiTriangle (with Tkinter)</h4>
+<h5>Python code: <a href="../code/sierpinski.py" target="_blank">sierpinski.py</a></h5>
+<h5> Key excerpt:</h5>
+<div class="code">
+<pre class="brush: python;">
+def drawSierpinskyTriangle(canvas, x, y, size, level):
+    # (x,y) is the lower-left corner of the triangle
+    # size is the length of a side
+    if (level == 0):
+        canvas.create_polygon(x, y,
+                              x+size, y,
+                              x+size/2, y-size*(3**0.5)/2,
+                              fill="black")
+    else:
+        drawSierpinskyTriangle(canvas, x, y, size/2, level-1)
+        drawSierpinskyTriangle(canvas, x+size/2, y, size/2, level-1)
+        drawSierpinskyTriangle(canvas, x+size/4, y-size*(3**0.5)/4, size/2, level-1)
+</pre>
+</div>
 </div>
 
   <br  /><br />
